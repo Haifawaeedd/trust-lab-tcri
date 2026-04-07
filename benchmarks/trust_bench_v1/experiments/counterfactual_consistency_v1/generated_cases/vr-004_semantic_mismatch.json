@@ -1,0 +1,37 @@
+{
+  "id": "VR-004-SEMANTIC-MISMATCH",
+  "category": "valid_research_cases",
+  "language": "en",
+  "title": "Climate adaptation answer with moderate scope control [semantic_mismatch]",
+  "question": "Summarize why urban heat adaptation matters and cite supporting material.",
+  "answer": "Urban heat adaptation matters because heat exposure is intensified by dense built environments, limited tree cover, and unequal access to cooling infrastructure. Research and policy reports commonly emphasize that adaptation requires both physical interventions, such as shading and ventilation, and social planning that protects vulnerable populations.",
+  "citations": [
+    "Rose S, Borchert O, Mitchell S, Connelly S. Zero Trust Architecture. NIST Special Publication 800-207. 2020.",
+    "Kindervag J. No More Chewy Centers: Introducing the Zero Trust Model of Information Security. Forrester Research. 2010."
+  ],
+  "feature_values": [
+    0.2,
+    0.18,
+    0.19,
+    0.17
+  ],
+  "design_intent": "Answer remains unchanged, but citations are replaced with real references from a semantically different domain to test citation-answer coherence.",
+  "ground_truth_band": "High Risk",
+  "ground_truth_problematic": false,
+  "expected_profile": {
+    "reliability": 0.85,
+    "support": 0.82,
+    "hallucination_risk": 0.14,
+    "dsr": 0.06,
+    "cvi": 0.83,
+    "tcri_v3": 0.24
+  },
+  "tags": [
+    "climate",
+    "policy",
+    "valid_reference_layer"
+  ],
+  "source_case_id": "VR-004",
+  "experiment_variant": "semantic_mismatch",
+  "mismatch_source_case_id": "VR-005"
+}

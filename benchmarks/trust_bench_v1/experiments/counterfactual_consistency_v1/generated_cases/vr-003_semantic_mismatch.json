@@ -1,0 +1,37 @@
+{
+  "id": "VR-003-SEMANTIC-MISMATCH",
+  "category": "valid_research_cases",
+  "language": "ar",
+  "title": "إجابة عربية منضبطة حول مقاومة المضادات الحيوية [semantic_mismatch]",
+  "question": "اشرح بإيجاز لماذا تُعد مقاومة المضادات الحيوية مشكلة صحية عالمية مع ذكر مراجع.",
+  "answer": "تُعد مقاومة المضادات الحيوية مشكلة صحية عالمية لأنها تقلل فعالية العلاجات المعتادة، وتزيد خطر العدوى الشديدة، وترفع العبء على الأنظمة الصحية. كما أن التعامل معها يتطلب مراقبة الاستخدام، وتحسين الوقاية من العدوى، ودعم تطوير مضادات جديدة بدل الاكتفاء بعلاج النتائج فقط.",
+  "citations": [
+    "Intergovernmental Panel on Climate Change. Climate Change 2022: Impacts, Adaptation and Vulnerability. 2022.",
+    "World Health Organization. Heat and health. Fact sheet. 2021."
+  ],
+  "feature_values": [
+    0.16,
+    0.18,
+    0.17,
+    0.19
+  ],
+  "design_intent": "Answer remains unchanged, but citations are replaced with real references from a semantically different domain to test citation-answer coherence.",
+  "ground_truth_band": "High Risk",
+  "ground_truth_problematic": false,
+  "expected_profile": {
+    "reliability": 0.87,
+    "support": 0.83,
+    "hallucination_risk": 0.13,
+    "dsr": 0.05,
+    "cvi": 0.82,
+    "tcri_v3": 0.22
+  },
+  "tags": [
+    "arabic",
+    "public_health",
+    "valid_reference_layer"
+  ],
+  "source_case_id": "VR-003",
+  "experiment_variant": "semantic_mismatch",
+  "mismatch_source_case_id": "VR-004"
+}

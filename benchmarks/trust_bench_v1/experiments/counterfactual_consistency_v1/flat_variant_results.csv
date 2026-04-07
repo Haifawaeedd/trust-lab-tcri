@@ -1,0 +1,51 @@
+case_id,title,language,variant,base_domain,mismatch_source_case_id,mismatch_source_domain,prototype_decision,benchmark_band,tcri_v3,cvi,support,hallucination_risk,verified_citations,total_citations
+VR-001,Balanced explanation of normalization in machine learning,en,clean,ml,VR-004,climate,High Risk,High Risk,0.715,0.794,0.328,0.435,2,2
+VR-001,Balanced explanation of normalization in machine learning,en,weakened,ml,VR-004,climate,High Risk,High Risk,0.733,0.526,0.328,0.435,0,2
+VR-001,Balanced explanation of normalization in machine learning,en,fabricated,ml,VR-004,climate,High Risk,High Risk,0.724,0.667,0.328,0.435,0,2
+VR-001,Balanced explanation of normalization in machine learning,en,exaggerated,ml,VR-004,climate,High Risk,High Risk,0.81,0.794,0.328,1.0,2,2
+VR-001,Balanced explanation of normalization in machine learning,en,semantic_mismatch,ml,VR-004,climate,High Risk,High Risk,0.743,0.373,0.328,0.435,0,2
+VR-002,Public-health answer with specific WHO framing,en,clean,health,VR-004,climate,Verify,Verify,0.401,0.764,0.666,0.08,2,2
+VR-002,Public-health answer with specific WHO framing,en,weakened,health,VR-004,climate,Verify,Verify,0.415,0.526,0.666,0.08,0,2
+VR-002,Public-health answer with specific WHO framing,en,fabricated,health,VR-004,climate,Verify,Verify,0.406,0.684,0.666,0.08,1,2
+VR-002,Public-health answer with specific WHO framing,en,exaggerated,health,VR-004,climate,Verify,Review Required,0.514,0.764,0.666,0.6,2,2
+VR-002,Public-health answer with specific WHO framing,en,semantic_mismatch,health,VR-004,climate,Verify,Verify,0.414,0.544,0.666,0.08,1,2
+VR-003,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,ar,clean,health,VR-004,climate,Verify,Verify,0.442,0.599,0.699,0.08,0,2
+VR-003,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,ar,weakened,health,VR-004,climate,Verify,Verify,0.461,0.274,0.699,0.08,0,2
+VR-003,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,ar,fabricated,health,VR-004,climate,Verify,Verify,0.451,0.447,0.699,0.08,0,2
+VR-003,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,ar,exaggerated,health,VR-004,climate,Verify,Review Required,0.538,0.599,0.699,0.35,0,2
+VR-003,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,ar,semantic_mismatch,health,VR-004,climate,Verify,Verify,0.448,0.5,0.699,0.08,0,2
+VR-004,Climate adaptation answer with moderate scope control,en,clean,climate,VR-005,cybersecurity,Verify,Verify,0.46,0.714,0.577,0.08,2,2
+VR-004,Climate adaptation answer with moderate scope control,en,weakened,climate,VR-005,cybersecurity,Verify,Verify,0.479,0.405,0.577,0.08,0,2
+VR-004,Climate adaptation answer with moderate scope control,en,fabricated,climate,VR-005,cybersecurity,Verify,Verify,0.467,0.59,0.577,0.08,0,2
+VR-004,Climate adaptation answer with moderate scope control,en,exaggerated,climate,VR-005,cybersecurity,Verify,Review Required,0.577,0.714,0.577,0.6,2,2
+VR-004,Climate adaptation answer with moderate scope control,en,semantic_mismatch,climate,VR-005,cybersecurity,Verify,Verify,0.46,0.702,0.577,0.08,1,2
+VR-005,Cybersecurity answer describing zero-trust architecture carefully,en,clean,cybersecurity,VR-004,climate,Verify,Verify,0.421,0.812,0.707,0.08,2,2
+VR-005,Cybersecurity answer describing zero-trust architecture carefully,en,weakened,cybersecurity,VR-004,climate,Verify,Verify,0.446,0.405,0.707,0.08,0,2
+VR-005,Cybersecurity answer describing zero-trust architecture carefully,en,fabricated,cybersecurity,VR-004,climate,Verify,Verify,0.437,0.546,0.707,0.08,0,2
+VR-005,Cybersecurity answer describing zero-trust architecture carefully,en,exaggerated,cybersecurity,VR-004,climate,Verify,Review Required,0.528,0.812,0.707,0.6,2,2
+VR-005,Cybersecurity answer describing zero-trust architecture carefully,en,semantic_mismatch,cybersecurity,VR-004,climate,Verify,Verify,0.447,0.373,0.707,0.08,0,2
+VR-006,Systematic-review answer describing why evidence synthesis matters,en,clean,health,VR-004,climate,Verify,Verify,0.388,0.636,0.699,0.0,1,2
+VR-006,Systematic-review answer describing why evidence synthesis matters,en,weakened,health,VR-004,climate,Verify,Verify,0.401,0.41,0.699,0.0,0,2
+VR-006,Systematic-review answer describing why evidence synthesis matters,en,fabricated,health,VR-004,climate,Verify,Verify,0.392,0.568,0.699,0.0,0,2
+VR-006,Systematic-review answer describing why evidence synthesis matters,en,exaggerated,health,VR-004,climate,Verify,Review Required,0.514,0.636,0.699,0.5,1,2
+VR-006,Systematic-review answer describing why evidence synthesis matters,en,semantic_mismatch,health,VR-004,climate,Verify,Verify,0.394,0.544,0.699,0.0,1,2
+VR-007,Careful explanation of differential privacy as a statistical safeguard,en,clean,ml,VR-004,climate,Verify,Verify,0.446,0.81,0.57,0.03,2,2
+VR-007,Careful explanation of differential privacy as a statistical safeguard,en,weakened,ml,VR-004,climate,Verify,Verify,0.466,0.493,0.57,0.03,0,2
+VR-007,Careful explanation of differential privacy as a statistical safeguard,en,fabricated,ml,VR-004,climate,Verify,Verify,0.457,0.634,0.57,0.03,0,2
+VR-007,Careful explanation of differential privacy as a statistical safeguard,en,exaggerated,ml,VR-004,climate,Verify,Review Required,0.571,0.81,0.57,0.55,2,2
+VR-007,Careful explanation of differential privacy as a statistical safeguard,en,semantic_mismatch,ml,VR-004,climate,Verify,Verify,0.471,0.417,0.57,0.03,0,2
+VR-008,Education answer on the role of formative assessment,en,clean,education,VR-004,climate,Verify,Verify,0.424,0.784,0.707,0.08,2,2
+VR-008,Education answer on the role of formative assessment,en,weakened,education,VR-004,climate,Verify,Verify,0.446,0.405,0.707,0.08,0,2
+VR-008,Education answer on the role of formative assessment,en,fabricated,education,VR-004,climate,Verify,Verify,0.438,0.546,0.707,0.08,0,2
+VR-008,Education answer on the role of formative assessment,en,exaggerated,education,VR-004,climate,Verify,Review Required,0.525,0.784,0.707,0.6,2,2
+VR-008,Education answer on the role of formative assessment,en,semantic_mismatch,education,VR-004,climate,Verify,Verify,0.448,0.373,0.707,0.08,0,2
+VR-009,Pollination answer with restrained food-systems framing,en,clean,climate,VR-005,cybersecurity,Verify,Verify,0.417,0.779,0.707,0.08,2,2
+VR-009,Pollination answer with restrained food-systems framing,en,weakened,climate,VR-005,cybersecurity,Verify,Verify,0.445,0.306,0.707,0.08,0,2
+VR-009,Pollination answer with restrained food-systems framing,en,fabricated,climate,VR-005,cybersecurity,Verify,Verify,0.437,0.447,0.707,0.08,0,2
+VR-009,Pollination answer with restrained food-systems framing,en,exaggerated,climate,VR-005,cybersecurity,Verify,Review Required,0.526,0.779,0.707,0.6,2,2
+VR-009,Pollination answer with restrained food-systems framing,en,semantic_mismatch,climate,VR-005,cybersecurity,Verify,Verify,0.439,0.405,0.707,0.08,0,2
+VR-010,إجابة عربية منضبطة حول التقييم التكويني في التعليم,ar,clean,education,VR-004,climate,High Risk,Review Required,0.688,0.63,0.368,0.327,0,2
+VR-010,إجابة عربية منضبطة حول التقييم التكويني في التعليم,ar,weakened,education,VR-004,climate,High Risk,High Risk,0.711,0.274,0.368,0.327,0,2
+VR-010,إجابة عربية منضبطة حول التقييم التكويني في التعليم,ar,fabricated,education,VR-004,climate,High Risk,Review Required,0.693,0.546,0.368,0.327,0,2
+VR-010,إجابة عربية منضبطة حول التقييم التكويني في التعليم,ar,exaggerated,education,VR-004,climate,High Risk,High Risk,0.777,0.63,0.368,0.597,0,2
+VR-010,إجابة عربية منضبطة حول التقييم التكويني في التعليم,ar,semantic_mismatch,education,VR-004,climate,High Risk,High Risk,0.705,0.373,0.368,0.327,0,2

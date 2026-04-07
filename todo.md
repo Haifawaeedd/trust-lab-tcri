@@ -219,3 +219,11 @@
 - [ ] Re-run the evidence corruption experiment after the CVI upgrade to measure whether fabricated citations are penalized more clearly
 - [ ] Create Experiment 2 with semantic mismatch cases where the citation domain conflicts with the answer domain
 - [ ] Compare Experiment 1 and Experiment 2 results and sync the updated research artifacts to GitHub
+
+## Experiment 3 — Counterfactual Trust Consistency
+
+- [ ] Define the counterfactual trust-consistency constraints for clean, weakened, fabricated, exaggerated, and semantic mismatch variants
+- [ ] Reuse the current TRUST-LAB evaluator and existing perturbation generation patterns to build a reproducible Experiment 3 pipeline
+- [ ] Create `benchmarks/experiment_3_counterfactual_consistency.py` to generate variants, score them, and test ordering constraints
+- [ ] Compute per-case consistency outcomes, aggregate consistency rates, and produce a violation profile for failed orderings
+- [ ] Write JSON, CSV, and Markdown research artifacts for Experiment 3 and sync them to GitHub

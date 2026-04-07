@@ -1,0 +1,36 @@
+{
+  "id": "VR-008-WEAKENED",
+  "category": "valid_research_cases",
+  "language": "en",
+  "title": "Education answer on the role of formative assessment [weakened]",
+  "question": "What is formative assessment and why is it used in teaching? Cite sources.",
+  "answer": "Formative assessment refers to classroom practices that generate feedback during learning rather than only at the end of instruction. It is used to help teachers adjust teaching, identify misconceptions earlier, and support students in understanding what quality work looks like before final evaluation.",
+  "citations": [
+    "General study on education",
+    "Background note on education"
+  ],
+  "feature_values": [
+    0.17,
+    0.18,
+    0.16,
+    0.19
+  ],
+  "design_intent": "Evidence corruption variant with stripped citation metadata.",
+  "ground_truth_band": "Review Required",
+  "ground_truth_problematic": false,
+  "expected_profile": {
+    "reliability": 0.84,
+    "support": 0.81,
+    "hallucination_risk": 0.12,
+    "dsr": 0.05,
+    "cvi": 0.82,
+    "tcri_v3": 0.2
+  },
+  "tags": [
+    "education",
+    "formative_assessment",
+    "pedagogy"
+  ],
+  "source_case_id": "VR-008",
+  "experiment_variant": "weakened"
+}
