@@ -87,6 +87,66 @@
 
 - [ ] Show the exact location of the GitHub export controls in the management UI and guide the user through the final export click
 
+## Public Visibility Clarification
+
+- [ ] Clarify whether the user wants the deployed site published publicly or the connected GitHub repository visibility changed to public
+- [ ] Explain that website publishing and GitHub repository visibility are separate actions
+- [ ] Give the user the correct next step for making the GitHub repository public if that is their goal
+
+## Publishing Fees Support Redirect
+
+- [ ] Redirect the user to the official help channel for any publishing-fee, billing, or subscription questions
+
+## LinkedIn Launch Copy
+
+- [ ] Draft a professional LinkedIn post introducing TRUST-LAB, its citation-aware TCRI v3 framing, and the public launch link
+- [ ] Review the current LinkedIn draft screenshot for clarity, link readiness, and publication risks before posting
+- [ ] Refine a LinkedIn post that explains the internal validation cases, calibration insight, and decision-band interpretation in a clear public-facing format
+- [ ] Recommend whether to publish the current validation-focused post as-is or replace it with a more polished version for broader professional impact
+- [ ] Create a LinkedIn-ready visual asset set for TRUST-LAB, including a cover graphic, a results chart, and a clean research-style explainer image
+- [ ] Reframe the visual direction to be more engaging and post-like for social media, inspired by the user's example, while keeping TRUST-LAB professional and credible
+- [ ] Produce a more exciting Arabic-friendly LinkedIn post visual set with stronger hooks, clearer focal points, and scroll-stopping composition
+- [ ] Regenerate the TRUST-LAB social-post visuals in English only, removing all Arabic headlines and labels from the LinkedIn image set
+
+## Public Link Retrieval
+
+- [ ] Tell the user exactly where to find the website public link after publishing, and clarify where the GitHub repository link appears if needed
+- [ ] Retrieve or locate the connected GitHub repository URL so the user can copy it directly
+
+## GitHub Sync Workflow
+
+- [ ] After every future project update, make sure the latest workspace changes are also synchronized to the connected GitHub repository
+- [ ] Explicitly confirm GitHub sync status to the user whenever a meaningful project change is completed
+- [ ] Push the current TRUST-LAB workspace updates to the connected GitHub repository now, including the latest calibration work and LinkedIn visual assets
+
+## Internal Validation Before Public Testing
+
+- [ ] Run the user's specified `research_case_001` in the live demo and record CVI, TCRI, decision, and explanation behavior
+- [ ] Test edge-case instability with a highly overconfident answer and weak citation to verify High Risk or Critical behavior
+- [ ] Stress-check the interface with missing citations, a single citation, and empty feature values to confirm the demo remains stable
+- [ ] Summarize the observed outputs in Arabic for the user, including whether the scoring feels balanced and interpretable
+
+## Calibration Refinement v2
+
+- [ ] Reduce the citation-penalty weight so weak citations do not over-escalate moderate cases into High Risk too easily
+- [ ] Increase the hallucination weighting so aggressive overclaiming moves closer to Critical when evidence is weak
+- [ ] Change the no-citation default CVI behavior so missing citations no longer receive an overly generous midpoint score
+- [ ] Create `benchmarks/calibration_notes_v2.md` documenting the revised gamma, hallucination weighting, and no-citation handling
+- [ ] Re-run the internal validation cases after recalibration and compare the new outputs with the intended target bands
+
+## Calibration Refinement v3
+
+- [ ] Soften the support penalty by attenuating the direct `(1 - support)` effect in TCRI v3
+- [ ] Add an explicit overclaiming escalation boost when absolute claims coincide with very weak citation integrity
+- [ ] Create `benchmarks/calibration_notes_v3.md` documenting the support factor, overclaiming boost rule, and benchmark expectations
+- [ ] Re-run the three reference cases and compare v2 versus v3 outcomes in a final Arabic summary table
+
+## Decision Band Refinement Proposal
+
+- [ ] Evaluate adding a new intermediate decision label such as `Borderline Verify` or `Review Required` for scores between approximately 50 and 70
+- [ ] Compare the benefits of decision-band refinement versus additional weight recalibration for research interpretability
+- [ ] Recommend whether TRUST-LAB should adopt the new label without changing the current scoring methodology
+
 ## Full Build Continuation
 
 - [ ] Fix any remaining route or import issues so Project, Methodology, and Demo pages load reliably

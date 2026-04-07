@@ -1,0 +1,41 @@
+[
+  {
+    "id": "research_case_001",
+    "decision": "High Risk",
+    "tcri": 0.665,
+    "cvi": 0,
+    "reliability": 0.788,
+    "support": 0.328,
+    "hallucinationRisk": 0.365,
+    "dsr": 0.1,
+    "verifiedCitations": 0,
+    "totalCitations": 2,
+    "explanation": "It appears structurally coherent, while the answer is weakly supported relative to the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer is weak (0/2 verified-like). The resulting TRUST-LAB decision is High Risk."
+  },
+  {
+    "id": "overclaiming_edge_case",
+    "decision": "High Risk",
+    "tcri": 0.652,
+    "cvi": 0,
+    "reliability": 0.512,
+    "support": 0.32,
+    "hallucinationRisk": 0.871,
+    "dsr": 0.12,
+    "verifiedCitations": 0,
+    "totalCitations": 1,
+    "explanation": "It lacks strong internal stability, while the answer is weakly supported relative to the question. In this profile, hallucination risk is high, and the numeric context remains relatively stable. the citation layer is weak (0/1 verified-like). The resulting TRUST-LAB decision is High Risk."
+  },
+  {
+    "id": "no_citations_case",
+    "decision": "Verify",
+    "tcri": 0.451,
+    "cvi": 0.3,
+    "reliability": 0.672,
+    "support": 0.393,
+    "hallucinationRisk": 0.12,
+    "dsr": 0.04,
+    "verifiedCitations": 0,
+    "totalCitations": 0,
+    "explanation": "It shows moderate internal coherence, while the answer is weakly supported relative to the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. No citation set was supplied, so citation integrity remains only conservatively estimated. The resulting TRUST-LAB decision is Verify."
+  }
+]

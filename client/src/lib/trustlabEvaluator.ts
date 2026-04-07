@@ -111,9 +111,12 @@ const OVERCLAIM_MARKERS = [
   "never",
   "definitely",
   "guaranteed",
+  "guarantees",
   "officially",
   "proven",
   "exactly",
+  "perfect",
+  "perfect accuracy",
   "worldwide",
   "within six months",
   "without doubt",
@@ -147,6 +150,17 @@ const CAUTIOUS_MARKERS = [
   "من المحتمل",
 ];
 
+const CALIBRATION = {
+  tcriLambda: 0.8,
+  citationPenaltyGamma: 0.2,
+  hallucinationWeight: 1.3,
+  noCitationDefaultCvi: 0.3,
+  supportFactor: 0.8,
+  overclaimingBoost: 0.15,
+  overclaimingCviThreshold: 0.1,
+  overclaimingSupportThreshold: 0.4,
+};
+
 function clamp(value: number, min = 0, max = 1) {
   return Math.min(max, Math.max(min, value));
 }
@@ -170,6 +184,12 @@ function informativeTokens(text: string, language: "en" | "ar") {
 function countMatches(text: string, markers: string[]) {
   const lowered = text.toLowerCase();
   return markers.reduce((count, marker) => count + (lowered.includes(marker) ? 1 : 0), 0);
+}
+
+function hasAbsoluteOverclaiming(text: string) {
+  return /(perfect accuracy|guarantee(?:s|d)?|always|never|all machine learning models|all models|100%)/i.test(
+    text,
+  );
 }
 
 function parseFeatureValues(input: string) {
@@ -332,13 +352,14 @@ function computeHallucinationRisk(args: {
   const arabicQuotedClaims = (answer.match(/«.*?»|".*?"/g) ?? []).length;
 
   let risk = 0.08;
-  risk += clamp(overclaimCount * 0.12, 0, 0.36);
-  risk += support < 0.45 ? (0.45 - support) * 0.65 : 0;
+  risk += clamp(overclaimCount * 0.16, 0, 0.52);
+  risk += support < 0.45 ? (0.45 - support) * 0.7 : 0;
   risk += reliability > 0.68 && support < 0.52 ? 0.12 : 0;
   risk += numberMentions >= 2 && support < 0.65 ? 0.1 : 0;
   risk += titleLikeMentions >= 2 && support < 0.5 ? 0.08 : 0;
   risk += arabicQuotedClaims > 0 && support < 0.55 ? 0.05 : 0;
   risk += informative.length > 22 && support < 0.5 ? 0.07 : 0;
+  risk += hasAbsoluteOverclaiming(answer) && support < 0.55 ? 0.18 : 0;
   risk -= clamp(cautiousCount * 0.05, 0, 0.15);
   risk -= support > 0.8 ? 0.06 : 0;
   risk -= rawTokens.length < 8 ? 0.02 : 0;
@@ -415,7 +436,7 @@ function evaluateCitation(rawCitation: string, language: "en" | "ar"): CitationD
 function computeCvi(citations: CitationDiagnostic[]) {
   if (!citations.length) {
     return {
-      cvi: 0.5,
+      cvi: CALIBRATION.noCitationDefaultCvi,
       verifiedCitations: 0,
       totalCitations: 0,
     };
@@ -438,16 +459,25 @@ function computeTcri(
   hallucinationRisk: number,
   dsr: number,
   cvi: number,
+  overclaimingFlag: boolean,
 ) {
-  const lambda = 0.8;
-  const gamma = 0.7;
   const raw =
     reliability *
-    (1 - support) *
-    (1 + hallucinationRisk) *
-    (1 + lambda * dsr) *
-    (1 + gamma * (1 - cvi));
-  const normalized = 1 - Math.exp(-raw * 1.08);
+    (1 - CALIBRATION.supportFactor * support) *
+    (1 + CALIBRATION.hallucinationWeight * hallucinationRisk) *
+    (1 + CALIBRATION.tcriLambda * dsr) *
+    (1 + CALIBRATION.citationPenaltyGamma * (1 - cvi));
+
+  let normalized = 1 - Math.exp(-raw * 1.08);
+
+  if (
+    overclaimingFlag &&
+    cvi <= CALIBRATION.overclaimingCviThreshold &&
+    support < CALIBRATION.overclaimingSupportThreshold
+  ) {
+    normalized += CALIBRATION.overclaimingBoost;
+  }
+
   return round3(clamp(normalized));
 }
 
@@ -580,7 +610,15 @@ export function evaluateTrustLab(input: EvaluationInput): EvaluationResult {
     language: input.language,
   });
   const { cvi, verifiedCitations, totalCitations } = computeCvi(citationDiagnostics);
-  const tcri = computeTcri(reliability, support, hallucinationRisk, dsr, cvi);
+  const overclaimingFlag = hasAbsoluteOverclaiming(answer);
+  const tcri = computeTcri(
+    reliability,
+    support,
+    hallucinationRisk,
+    dsr,
+    cvi,
+    overclaimingFlag,
+  );
   const decision = decisionFromTcri(tcri);
   const explanation = explanationFromProfile({
     language: input.language,
