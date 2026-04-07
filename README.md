@@ -1,5 +1,9 @@
 # TRUST-LAB
 
+
+![Status](https://img.shields.io/badge/Status-Research%20Prototype-blue)
+![Version](https://img.shields.io/badge/Version-v1.0-green)
+
 **TRUST-LAB** is a **GitHub-first, research-grade platform for trust analysis, data integrity assessment, and citation-aware evaluation of AI outputs**. The repository is being developed under the name **`trust-lab-tcri`** and is designed to read as a serious research artifact before it functions as a public demo.
 
 The project began with a layered framework centered on **Data Scale Risk (DSR)** and the **Trust Collapse Risk Index (TCRI)**. It is now being extended into a stronger formulation that also addresses **citation validity** through a new **Citation Validity Index (CVI)** layer. This change matters because, in research-facing AI use, the problem is not only whether an answer sounds coherent. The problem is also whether the answer is sufficiently supported, whether it overclaims, whether its numeric context is unstable, and whether the references it presents appear structurally credible and suitable for later verification.
@@ -15,11 +19,21 @@ This framing is consistent with the wider language of trustworthy and risk-aware
 | **Primary audience** | Researchers, reviewers, evaluators, safety practitioners, and expert users |
 | **Interface requirement** | Arabic / English bilingual presentation |
 
+## Interface Preview
+
+![TRUST-LAB interface preview](https://d2xsxph8kpxj0f.cloudfront.net/310419663029290257/RJFnB8eJ8EWmUeAQSDBnXk/trustlab-interface-preview_9fa8bc2a.png)
+
+The current interface preview shows the bilingual editorial presentation layer that sits on top of the repository’s methodological core. It is included here to help GitHub visitors understand the project quickly before they move into the formal documentation.
+
 ## Research Positioning
 
 TRUST-LAB should be understood as an **interpretability-oriented evaluation instrument** rather than a black-box scoring tool. Its purpose is to separate the main contributors to trust failure before combining them into a composite signal. This means that users should be able to inspect **reliability**, **support**, **hallucination risk**, **data-scale instability**, and **citation validity degradation** as distinct but interacting dimensions.
 
 The project therefore moves beyond a generic hallucination checker. Its emerging research identity is closer to a **research integrity platform for AI-assisted knowledge work**. In that role, TRUST-LAB is meant to help users inspect not only what an answer says, but also whether the surrounding evidence structure looks credible enough to deserve further trust.
+
+## Original Contribution
+
+TRUST-LAB introduces a benchmark-driven trust-collapse methodology combining **DSR**, **CVI**, and **TCRI v3** under an interpretable layered architecture. Its original contribution lies not only in the composite formula, but also in the way the method is positioned as a research instrument with a curated benchmark, explicit baseline comparison, ablation logic, and documentation that makes trust failure legible to researchers and expert users.
 
 ## Core Metric Identity
 

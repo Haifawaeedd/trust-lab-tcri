@@ -35,3 +35,25 @@
 - [x] Add `docs/original_contribution.md` to formalize benchmark design, baseline logic, ablation value, and the case-generation protocol
 - [x] Document that benchmark cases are manually curated to represent realistic failure modes in academic AI usage
 - [x] Cross-link the benchmark layer from the root README and documentation index without changing the current frontend code
+
+## Interface Refinement Pass
+
+- [ ] Reduce the oversized left hero block so the first viewport feels balanced
+- [ ] Replace the washed-out visual panel treatment with a clearer, more intentional focal composition
+- [ ] Tighten the homepage grid so cards align more cleanly and read with stronger hierarchy
+- [ ] Improve spacing, card proportions, and typography rhythm across the first screen
+- [ ] Re-review the refreshed homepage against the editorial research design direction
+
+## First Viewport Correction Pass
+
+- [ ] Reduce the height and visual dominance of the faded left-side image block in the opening content area
+- [ ] Raise text contrast and readability inside the left visual block so it no longer disappears into the background
+- [ ] Rebalance the first content row so the right formula card aligns more intentionally with the left visual area
+- [ ] Remove the large empty-feeling center gap in the first viewport by tightening the opening grid and card widths
+- [ ] Re-check the homepage after the viewport rebalance so the opening screen reads as one coherent research cover
+
+## Pre-publish Polish
+
+- [ ] Add publication badges to the root README for status and version visibility
+- [ ] Add a representative TRUST-LAB interface screenshot to strengthen the GitHub presentation
+- [ ] Add a concise Original Contribution section to the README using the approved publication wording
