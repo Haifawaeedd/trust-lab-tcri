@@ -235,10 +235,10 @@ export const methodologyPageContent = {
     badge: "Formal methodology",
     title: "How TRUST-LAB reasons about trust collapse",
     intro:
-      "TRUST-LAB does not reduce evaluation to a single opaque score. It separates reliability, support, hallucination risk, and data-scale instability before combining them into a composite trust-collapse signal.",
+      "TRUST-LAB does not reduce evaluation to a single opaque score. It separates reliability, support, hallucination risk, data-scale instability, and citation validity before combining them into a composite trust-collapse signal.",
     equationTitle: "Trust Collapse Risk Index",
     equationBody:
-      "The TCRI formulation is designed to increase when a seemingly dependable answer is weakly supported, more hallucinatory, or surrounded by unstable structured context.",
+      "The TCRI v3 formulation is designed to increase when a seemingly dependable answer is weakly supported, more hallucinatory, surrounded by unstable structured context, or backed by weak citations.",
     dsrTitle: "Data Scale Risk",
     dsrBody:
       "DSR captures instability in optional numeric inputs. In the first version, it acts as a contextual warning signal that reflects scale mismatch, dispersion, or suspicious variation.",
@@ -261,12 +261,12 @@ export const methodologyPageContent = {
         text: "Raises caution when the answer shows unsupported certainty, fabricated specificity, or risky overclaiming.",
       },
       {
-        title: "TCRI Engine",
-        text: "Combines the component signals into a composite index that highlights trust-collapse conditions.",
+        title: "Citation Validation Layer",
+        text: "Produces citation-level diagnostics and the Citation Validity Index (CVI) from the supplied reference set.",
       },
       {
-        title: "Decision Layer",
-        text: "Maps the final signal to Safe, Verify, High Risk, or Critical for quicker interpretation.",
+        title: "TCRI v3 Engine",
+        text: "Combines the component signals into a composite index that highlights trust-collapse conditions, including citation degradation.",
       },
     ],
     decisionTitle: "Decision interpretation",
@@ -300,10 +300,10 @@ export const methodologyPageContent = {
     badge: "منهجية رسمية",
     title: "كيف يفكر TRUST-LAB في انهيار الثقة",
     intro:
-      "لا يختزل TRUST-LAB التقييم في درجة واحدة غامضة، بل يفصل بين الموثوقية والدعم وخطر الهلوسة وعدم استقرار السياق العددي قبل دمجها في إشارة مركبة لانهيار الثقة.",
+      "لا يختزل TRUST-LAB التقييم في درجة واحدة غامضة، بل يفصل بين الموثوقية والدعم وخطر الهلوسة وعدم استقرار السياق العددي وصلاحية الاستشهادات قبل دمجها في إشارة مركبة لانهيار الثقة.",
     equationTitle: "مؤشر انهيار الثقة TCRI",
     equationBody:
-      "صُمِّمت معادلة TCRI بحيث ترتفع عندما تبدو الإجابة موثوقة ظاهريًا لكنها ضعيفة الدعم أو أكثر عرضة للهلوسة أو محاطة بسياق رقمي غير مستقر.",
+      "صُمِّمت معادلة TCRI v3 بحيث ترتفع عندما تبدو الإجابة موثوقة ظاهريًا لكنها ضعيفة الدعم أو أكثر عرضة للهلوسة أو محاطة بسياق رقمي غير مستقر أو مستندة إلى استشهادات ضعيفة.",
     dsrTitle: "خطر مقياس البيانات DSR",
     dsrBody:
       "يلتقط DSR عدم الاستقرار في القيم الرقمية الاختيارية. وفي النسخة الأولى يعمل كإشارة تحذيرية للسياق، تعكس عدم التناسب أو التشتت أو الاختلاف المشبوه في القيم.",
@@ -326,12 +326,12 @@ export const methodologyPageContent = {
         text: "ترفع مستوى الحذر عندما تظهر الإجابة يقينًا غير مدعوم أو تفاصيل مختلقة أو مبالغة خطرة.",
       },
       {
-        title: "محرك TCRI",
-        text: "يجمع الإشارات السابقة في مؤشر مركب يبرز حالات انهيار الثقة.",
+        title: "طبقة التحقق من الاستشهادات",
+        text: "تنتج تشخيصات على مستوى كل مرجع وتحسب مؤشر صلاحية الاستشهادات CVI من القائمة المدخلة.",
       },
       {
-        title: "طبقة القرار",
-        text: "تحول النتيجة النهائية إلى Safe أو Verify أو High Risk أو Critical لتسهيل القراءة.",
+        title: "محرك TCRI v3",
+        text: "يجمع الإشارات السابقة في مؤشر مركب يبرز حالات انهيار الثقة، بما في ذلك تدهور الاستشهادات.",
       },
     ],
     decisionTitle: "تفسير نطاقات القرار",
@@ -368,12 +368,14 @@ export const demoPageContent = {
     badge: "Interactive evaluation",
     title: "Run a TRUST-LAB evaluation",
     intro:
-      "Enter a question, a model answer, and optional numeric feature values to inspect the full trust profile. The first version runs on transparent client-side heuristics for interpretability.",
+      "Enter a question, a model answer, optional citations, and optional numeric feature values to inspect the full trust profile. The first version runs on transparent client-side heuristics for interpretability.",
     fields: {
       question: "Question",
       answer: "Model answer",
       features: "Optional feature values",
       featuresHint: "Comma-separated numeric values, for example: 0.42, 0.44, 0.40, 0.43",
+      citations: "Citations or references",
+      citationsHint: "Enter one citation per line or separate entries with semicolons.",
     },
     actions: {
       evaluate: "Evaluate output",
@@ -387,22 +389,25 @@ export const demoPageContent = {
       support: "Support",
       hallucination: "Hallucination Risk",
       dsr: "DSR",
-      tcri: "TCRI",
+      cvi: "CVI",
+      tcri: "TCRI v3",
     },
     prototypeNote:
-      "Prototype note: v1 uses interpretable heuristics to express the framework clearly. Later versions can replace selected layers with stronger verifiers without changing the conceptual architecture.",
+      "Prototype note: v1 uses interpretable heuristics to express the framework clearly, including a first-pass citation validation layer. Later versions can replace selected layers with stronger verifiers without changing the conceptual architecture.",
     examplesTitle: "Curated example cases",
   },
   ar: {
     badge: "تقييم تفاعلي",
     title: "شغّل تقييم TRUST-LAB",
     intro:
-      "أدخل السؤال وإجابة النموذج والقيم الرقمية الاختيارية لكي ترى ملف الثقة كاملًا. تعتمد النسخة الأولى على heuristics واضحة داخل المتصفح بهدف تعزيز قابلية الفهم.",
+      "أدخل السؤال وإجابة النموذج والاستشهادات الاختيارية والقيم الرقمية الاختيارية لكي ترى ملف الثقة كاملًا. تعتمد النسخة الأولى على heuristics واضحة داخل المتصفح بهدف تعزيز قابلية الفهم.",
     fields: {
       question: "السؤال",
       answer: "إجابة النموذج",
       features: "قيم الخصائص الاختيارية",
       featuresHint: "أدخل أرقامًا مفصولة بفواصل، مثل: 0.42, 0.44, 0.40, 0.43",
+      citations: "الاستشهادات أو المراجع",
+      citationsHint: "أدخل كل مرجع في سطر مستقل أو افصل بينها بفاصلة منقوطة.",
     },
     actions: {
       evaluate: "قيّم المخرج",
@@ -416,10 +421,11 @@ export const demoPageContent = {
       support: "الدعم",
       hallucination: "خطر الهلوسة",
       dsr: "DSR",
-      tcri: "TCRI",
+      cvi: "CVI",
+      tcri: "TCRI v3",
     },
     prototypeNote:
-      "ملاحظة: تعتمد v1 على heuristics قابلة للفهم لتوضيح الإطار بوضوح. ويمكن لاحقًا استبدال بعض الطبقات بوسائل تحقق أقوى دون تغيير البنية المفاهيمية.",
+      "ملاحظة: تعتمد v1 على heuristics قابلة للفهم لتوضيح الإطار بوضوح، بما في ذلك طبقة أولية لفحص سلامة الاستشهادات. ويمكن لاحقًا استبدال بعض الطبقات بوسائل تحقق أقوى دون تغيير البنية المفاهيمية.",
     examplesTitle: "أمثلة منتقاة",
   },
 } as const;

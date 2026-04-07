@@ -200,7 +200,7 @@ export function TrustLabLayout({
           </div>
         </header>
 
-        <main className="grid flex-1 gap-8 lg:grid-cols-[minmax(0,1fr)_21rem] lg:items-start">
+        <main className="grid flex-1 gap-8 lg:grid-cols-[minmax(0,1fr)_23rem] lg:items-start">
           <div className="space-y-8">{children}</div>
           <aside className="space-y-6 lg:sticky lg:top-6">{aside}</aside>
         </main>

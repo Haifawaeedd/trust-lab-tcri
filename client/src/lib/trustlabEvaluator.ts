@@ -6,12 +6,25 @@
 */
 
 export type DecisionBand = "Safe" | "Verify" | "High Risk" | "Critical";
+export type CitationStatus =
+  | "verified-like"
+  | "partially supported"
+  | "unverified"
+  | "missing metadata";
 
 export type EvaluationInput = {
   question: string;
   answer: string;
   featureValues: string;
+  citations: string;
   language: "en" | "ar";
+};
+
+export type CitationDiagnostic = {
+  raw: string;
+  score: number;
+  status: CitationStatus;
+  flags: string[];
 };
 
 export type EvaluationResult = {
@@ -19,10 +32,14 @@ export type EvaluationResult = {
   support: number;
   hallucinationRisk: number;
   dsr: number;
+  cvi: number;
   tcri: number;
   decision: DecisionBand;
   explanation: string;
   parsedFeatures: number[];
+  citationDiagnostics: CitationDiagnostic[];
+  verifiedCitations: number;
+  totalCitations: number;
 };
 
 const EN_STOPWORDS = new Set([
@@ -162,6 +179,22 @@ function parseFeatureValues(input: string) {
     .filter((value) => Number.isFinite(value));
 }
 
+function parseCitationEntries(input: string) {
+  const normalized = input.replace(/\r/g, "\n").trim();
+
+  if (!normalized) {
+    return [] as string[];
+  }
+
+  const rawEntries = normalized.includes("\n")
+    ? normalized.split(/\n+/)
+    : normalized.split(/\s*;\s*/);
+
+  return rawEntries
+    .map((entry) => entry.replace(/^[-•*\d.)\s]+/, "").trim())
+    .filter(Boolean);
+}
+
 function average(values: number[]) {
   if (!values.length) return 0;
   return values.reduce((sum, value) => sum + value, 0) / values.length;
@@ -203,7 +236,16 @@ function computeReliability(answer: string, language: "en" | "ar") {
   const substanceBonus = clamp(tokens.length / 30, 0, 0.1);
 
   return round3(
-    clamp(lengthScore * 0.45 + sentenceScore * 0.4 + 0.15 + cautionBonus + substanceBonus - repetitionPenalty - punctuationPenalty - overclaimPenalty),
+    clamp(
+      lengthScore * 0.45 +
+        sentenceScore * 0.4 +
+        0.15 +
+        cautionBonus +
+        substanceBonus -
+        repetitionPenalty -
+        punctuationPenalty -
+        overclaimPenalty,
+    ),
   );
 }
 
@@ -220,13 +262,24 @@ function computeSupport(question: string, answer: string, language: "en" | "ar")
   const overlap = Array.from(questionSet).filter((token) => answerSet.has(token));
   const overlapRatio = overlap.length / Math.max(questionSet.size, 1);
 
-  const answerCoverage = overlap.length / Math.max(Math.min(answerSet.size, questionSet.size + 4), 1);
+  const answerCoverage =
+    overlap.length / Math.max(Math.min(answerSet.size, questionSet.size + 4), 1);
   const questionLengthPenalty = questionTokens.length <= 2 ? 0.06 : 0;
-  const interrogativeAlignment = /(what|why|how|who|when|where|ما|ماذا|كيف|من|متى|أين)/i.test(question)
+  const interrogativeAlignment = /(what|why|how|who|when|where|ما|ماذا|كيف|من|متى|أين)/i.test(
+    question,
+  )
     ? 0.04
     : 0;
 
-  return round3(clamp(overlapRatio * 0.7 + answerCoverage * 0.2 + 0.12 + interrogativeAlignment - questionLengthPenalty));
+  return round3(
+    clamp(
+      overlapRatio * 0.7 +
+        answerCoverage * 0.2 +
+        0.12 +
+        interrogativeAlignment -
+        questionLengthPenalty,
+    ),
+  );
 }
 
 function computeDSR(values: number[]) {
@@ -247,7 +300,11 @@ function computeDSR(values: number[]) {
 
   const cv = std / (Math.abs(mean) + 0.08);
   const spread = (max - min) / (Math.abs(mean) + 0.15);
-  const outlierPressure = values.reduce((count, value) => count + (Math.abs(value - mean) > std * 1.65 ? 1 : 0), 0) / values.length;
+  const outlierPressure =
+    values.reduce(
+      (count, value) => count + (Math.abs(value - mean) > std * 1.65 ? 1 : 0),
+      0,
+    ) / values.length;
 
   const dsr =
     clamp(cv / 2.1) * 0.35 +
@@ -289,10 +346,108 @@ function computeHallucinationRisk(args: {
   return round3(clamp(risk));
 }
 
-function computeTcri(reliability: number, support: number, hallucinationRisk: number, dsr: number) {
+function evaluateCitation(rawCitation: string, language: "en" | "ar"): CitationDiagnostic {
+  const citation = rawCitation.trim();
+  const flags: string[] = [];
+
+  const yearPresent = /\b(19|20)\d{2}\b/.test(citation);
+  const doiLike = /\b10\.\d{4,9}\/[\-._;()/:A-Z0-9]+\b/i.test(citation) || /\bdoi\s*:/i.test(citation);
+  const authorLike =
+    /[A-Z][a-z]+,\s?[A-Z]/.test(citation) ||
+    /[A-Z][a-z]+\s[A-Z][a-z]+/.test(citation) ||
+    /et al\./i.test(citation) ||
+    /[\u0600-\u06FF]{2,}\s+[\u0600-\u06FF]{2,}/.test(citation);
+  const venueLike =
+    /(journal|conference|proceedings|review|press|university|vol\.?|no\.?|pp\.?|arxiv|springer|elsevier|nature|science|cell|lancet|transactions|journal of|مجلة|مؤتمر|جامعة|دار|المجلد|العدد|دورية|أبحاث)/i.test(
+      citation,
+    );
+  const lengthAdequate = citation.length >= 56;
+  const structuredSeparators = (citation.match(/[,.:()]/g) ?? []).length >= 3;
+
+  if (yearPresent) {
+    flags.push(language === "ar" ? "سنة ظاهرة" : "Year present");
+  }
+  if (doiLike) {
+    flags.push(language === "ar" ? "مؤشر DOI محتمل" : "DOI-like pattern");
+  }
+  if (authorLike) {
+    flags.push(language === "ar" ? "بنية مؤلف ظاهرة" : "Author-like structure");
+  }
+  if (venueLike) {
+    flags.push(language === "ar" ? "بيانات جهة النشر أو الوعاء" : "Venue-like metadata");
+  }
+  if (lengthAdequate) {
+    flags.push(language === "ar" ? "وصف مرجعي كافٍ" : "Adequate descriptive length");
+  }
+  if (structuredSeparators) {
+    flags.push(language === "ar" ? "تنسيق مرجعي منظم" : "Structured citation formatting");
+  }
+
+  const score = round3(
+    clamp(
+      (yearPresent ? 0.2 : 0) +
+        (doiLike ? 0.24 : 0) +
+        (authorLike ? 0.18 : 0) +
+        (venueLike ? 0.14 : 0) +
+        (lengthAdequate ? 0.12 : 0) +
+        (structuredSeparators ? 0.12 : 0),
+    ),
+  );
+
+  let status: CitationStatus = "missing metadata";
+
+  if (score >= 0.75) {
+    status = "verified-like";
+  } else if (score >= 0.46) {
+    status = "partially supported";
+  } else if (score >= 0.2) {
+    status = "unverified";
+  }
+
+  return {
+    raw: citation,
+    score,
+    status,
+    flags,
+  };
+}
+
+function computeCvi(citations: CitationDiagnostic[]) {
+  if (!citations.length) {
+    return {
+      cvi: 0.5,
+      verifiedCitations: 0,
+      totalCitations: 0,
+    };
+  }
+
+  const verifiedCitations = citations.filter(
+    (citation) => citation.status === "verified-like",
+  ).length;
+
+  return {
+    cvi: round3(verifiedCitations / citations.length),
+    verifiedCitations,
+    totalCitations: citations.length,
+  };
+}
+
+function computeTcri(
+  reliability: number,
+  support: number,
+  hallucinationRisk: number,
+  dsr: number,
+  cvi: number,
+) {
   const lambda = 0.8;
-  const raw = reliability * (1 - support) * (1 + hallucinationRisk) * (1 + lambda * dsr);
-  const normalized = 1 - Math.exp(-raw * 1.1);
+  const gamma = 0.7;
+  const raw =
+    reliability *
+    (1 - support) *
+    (1 + hallucinationRisk) *
+    (1 + lambda * dsr) *
+    (1 + gamma * (1 - cvi));
+  const normalized = 1 - Math.exp(-raw * 1.08);
   return round3(clamp(normalized));
 }
 
@@ -309,9 +464,22 @@ function explanationFromProfile(args: {
   support: number;
   hallucinationRisk: number;
   dsr: number;
+  cvi: number;
   decision: DecisionBand;
+  verifiedCitations: number;
+  totalCitations: number;
 }) {
-  const { language, reliability, support, hallucinationRisk, dsr, decision } = args;
+  const {
+    language,
+    reliability,
+    support,
+    hallucinationRisk,
+    dsr,
+    cvi,
+    decision,
+    verifiedCitations,
+    totalCitations,
+  } = args;
 
   const supportPhraseEn =
     support >= 0.75
@@ -336,13 +504,22 @@ function explanationFromProfile(args: {
 
   const dsrPhraseEn =
     dsr >= 0.55
-      ? "The optional numeric context adds substantial instability"
+      ? "The numeric context adds substantial instability"
       : dsr >= 0.25
         ? "The numeric context introduces some instability"
         : "The numeric context remains relatively stable";
 
+  const citationPhraseEn =
+    totalCitations === 0
+      ? "No citation set was supplied, so citation integrity remains only conservatively estimated"
+      : cvi >= 0.75
+        ? `the citation layer looks comparatively strong (${verifiedCitations}/${totalCitations} verified-like)`
+        : cvi >= 0.4
+          ? `the citation layer is mixed (${verifiedCitations}/${totalCitations} verified-like)`
+          : `the citation layer is weak (${verifiedCitations}/${totalCitations} verified-like)`;
+
   if (language === "en") {
-    return `${reliabilityPhraseEn}, while ${supportPhraseEn}. In this profile, ${hallucinationPhraseEn}, and ${dsrPhraseEn.toLowerCase()}. The resulting TRUST-LAB decision is ${decision}.`;
+    return `${reliabilityPhraseEn}, while ${supportPhraseEn}. In this profile, ${hallucinationPhraseEn}, and ${dsrPhraseEn.toLowerCase()}. ${citationPhraseEn}. The resulting TRUST-LAB decision is ${decision}.`;
   }
 
   const supportPhraseAr =
@@ -373,13 +550,25 @@ function explanationFromProfile(args: {
         ? "وتضيف القيم الرقمية بعض عدم الاستقرار"
         : "وتبقى القيم الرقمية مستقرة نسبيًا";
 
-  return `${reliabilityPhraseAr}، لكن ${supportPhraseAr}. ${hallucinationPhraseAr}، ${dsrPhraseAr}. وبناءً على ذلك يكون قرار TRUST-LAB هو ${decision}.`;
+  const citationPhraseAr =
+    totalCitations === 0
+      ? "ولم تُزوَّد الحالة بمجموعة استشهادات، لذلك يبقى تقدير سلامة المراجع محافظًا ومحدودًا"
+      : cvi >= 0.75
+        ? `كما تبدو طبقة الاستشهادات قوية نسبيًا (${verifiedCitations}/${totalCitations} استشهادات قوية)`
+        : cvi >= 0.4
+          ? `كما أن طبقة الاستشهادات مختلطة (${verifiedCitations}/${totalCitations} استشهادات قوية)`
+          : `كما أن طبقة الاستشهادات ضعيفة (${verifiedCitations}/${totalCitations} استشهادات قوية)`;
+
+  return `${reliabilityPhraseAr}، لكن ${supportPhraseAr}. ${hallucinationPhraseAr}، ${dsrPhraseAr}. ${citationPhraseAr}. وبناءً على ذلك يكون قرار TRUST-LAB هو ${decision}.`;
 }
 
 export function evaluateTrustLab(input: EvaluationInput): EvaluationResult {
   const question = input.question.trim();
   const answer = input.answer.trim();
   const parsedFeatures = parseFeatureValues(input.featureValues);
+  const citationDiagnostics = parseCitationEntries(input.citations).map((citation) =>
+    evaluateCitation(citation, input.language),
+  );
 
   const reliability = computeReliability(answer, input.language);
   const support = computeSupport(question, answer, input.language);
@@ -390,7 +579,8 @@ export function evaluateTrustLab(input: EvaluationInput): EvaluationResult {
     reliability,
     language: input.language,
   });
-  const tcri = computeTcri(reliability, support, hallucinationRisk, dsr);
+  const { cvi, verifiedCitations, totalCitations } = computeCvi(citationDiagnostics);
+  const tcri = computeTcri(reliability, support, hallucinationRisk, dsr, cvi);
   const decision = decisionFromTcri(tcri);
   const explanation = explanationFromProfile({
     language: input.language,
@@ -398,7 +588,10 @@ export function evaluateTrustLab(input: EvaluationInput): EvaluationResult {
     support,
     hallucinationRisk,
     dsr,
+    cvi,
     decision,
+    verifiedCitations,
+    totalCitations,
   });
 
   return {
@@ -406,9 +599,13 @@ export function evaluateTrustLab(input: EvaluationInput): EvaluationResult {
     support,
     hallucinationRisk,
     dsr,
+    cvi,
     tcri,
     decision,
     explanation,
     parsedFeatures,
+    citationDiagnostics,
+    verifiedCitations,
+    totalCitations,
   };
 }

@@ -76,3 +76,22 @@
 - [ ] Add clear version labeling such as Research Prototype v1.0 in the interface and repository presentation
 - [ ] Add CITATION.cff so scholarly reuse and attribution are clearly defined
 - [ ] After the interface and repository protections are added, export the final repository to GitHub
+
+## Direct GitHub Creation Request
+
+- [ ] Determine whether the repository can be created directly on GitHub from the current environment
+- [ ] If direct creation is possible, create the `trust-lab-tcri` repository immediately
+- [ ] If account interaction is still required, use the shortest possible GitHub completion path for the user
+
+## GitHub Export Navigation Help
+
+- [ ] Show the exact location of the GitHub export controls in the management UI and guide the user through the final export click
+
+## Full Build Continuation
+
+- [ ] Fix any remaining route or import issues so Project, Methodology, and Demo pages load reliably
+- [ ] Complete the Demo page as a working citation-aware evaluation experience with stable input handling
+- [ ] Ensure the AR / EN language toggle works consistently across all main pages
+- [ ] Present TCRI, DSR, CVI, decision status, and explanation outputs clearly in the interface
+- [ ] Polish the Methodology and Project pages so they read as a complete research-facing public prototype
+- [ ] Validate the full interface, save a new checkpoint, and prepare the next GitHub-ready release state
