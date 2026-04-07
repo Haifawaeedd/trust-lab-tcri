@@ -1,0 +1,202 @@
+[
+  {
+    "id": "case-001",
+    "title": "Grounded scientific explanation with strong citation structure",
+    "question": "Explain the greenhouse effect in clear terms for an undergraduate student.",
+    "model_answer": "The greenhouse effect is the process by which certain gases in Earth’s atmosphere trap part of the outgoing heat from the planet’s surface. This natural process helps keep Earth warm enough for life, but human-driven increases in greenhouse gases strengthen the effect and contribute to global warming.",
+    "feature_values": [0.41, 0.43, 0.4, 0.44],
+    "citations": [
+      "IPCC. 2023. Climate Change 2023: Synthesis Report. Intergovernmental Panel on Climate Change.",
+      "Lindsey, Rebecca. 2024. Climate Change: Atmospheric Carbon Dioxide. NOAA Climate.gov."
+    ],
+    "expected_profile": {
+      "reliability": 0.86,
+      "support": 0.91,
+      "hallucination_risk": 0.08,
+      "dsr": 0.06,
+      "cvi": 0.92,
+      "tcri_v3": 0.08,
+      "decision": "Safe",
+      "explanation": "The answer is coherent, directly aligned with the question, and accompanied by citations that appear structurally credible. Numeric context remains stable, so the combined TCRI v3 profile stays in the safe range.",
+      "citation_assessment": [
+        {
+          "citation": "IPCC. 2023. Climate Change 2023: Synthesis Report. Intergovernmental Panel on Climate Change.",
+          "status": "verified-like",
+          "score": 0.94,
+          "flags": ["year-present", "institution-present", "descriptive-title"]
+        },
+        {
+          "citation": "Lindsey, Rebecca. 2024. Climate Change: Atmospheric Carbon Dioxide. NOAA Climate.gov.",
+          "status": "verified-like",
+          "score": 0.9,
+          "flags": ["author-like-structure", "year-present", "venue-like-metadata"]
+        }
+      ]
+    },
+    "notes": "This case serves as a low-risk baseline where answer quality and citation quality are both strong."
+  },
+  {
+    "id": "case-002",
+    "title": "Fluent policy summary with mixed citation completeness",
+    "question": "Summarize two major causes of the 2008 financial crisis in two sentences.",
+    "model_answer": "The crisis was driven in large part by excessive mortgage risk, especially through subprime lending and securitized products tied to housing debt. Weak oversight and fragile financial institutions amplified these risks when housing prices fell and defaults increased.",
+    "feature_values": [0.56, 0.61, 0.22, 0.58],
+    "citations": [
+      "Financial Crisis Inquiry Commission. 2011. The Financial Crisis Inquiry Report.",
+      "Johnson, Simon. financial crisis article on leverage and banking."
+    ],
+    "expected_profile": {
+      "reliability": 0.74,
+      "support": 0.78,
+      "hallucination_risk": 0.18,
+      "dsr": 0.27,
+      "cvi": 0.58,
+      "tcri_v3": 0.34,
+      "decision": "Verify",
+      "explanation": "The answer is reasonably well aligned with the question, but the citation profile is uneven. One reference appears structurally credible while another is incomplete, so the citation penalty lifts the overall result into the verify range.",
+      "citation_assessment": [
+        {
+          "citation": "Financial Crisis Inquiry Commission. 2011. The Financial Crisis Inquiry Report.",
+          "status": "verified-like",
+          "score": 0.88,
+          "flags": ["institution-present", "year-present", "descriptive-title"]
+        },
+        {
+          "citation": "Johnson, Simon. financial crisis article on leverage and banking.",
+          "status": "partially supported",
+          "score": 0.28,
+          "flags": ["author-like-structure", "missing-year", "missing-venue"]
+        }
+      ]
+    },
+    "notes": "This case shows how citation weakness can push an otherwise acceptable answer into a stronger verification posture."
+  },
+  {
+    "id": "case-003",
+    "title": "Highly specific biomedical claim with fabricated-looking citations",
+    "question": "Who discovered a complete cure for Alzheimer’s disease in 2024?",
+    "model_answer": "In 2024, Dr. Elena Marwick at the Zurich Neurocognitive Institute discovered the first complete cure for Alzheimer’s disease, and the treatment was approved globally within six months after publication in the Journal of Advanced Neuromedicine.",
+    "feature_values": [0.92, 0.14, 0.87, 0.08],
+    "citations": [
+      "Marwick, E. 2024. Complete Alzheimer Cure in Six Months. Journal of Advanced Neuromedicine.",
+      "Zurich Neurocognitive Institute Annual Miracle Report 2024"
+    ],
+    "expected_profile": {
+      "reliability": 0.72,
+      "support": 0.29,
+      "hallucination_risk": 0.9,
+      "dsr": 0.66,
+      "cvi": 0.18,
+      "tcri_v3": 1.0,
+      "decision": "Critical",
+      "explanation": "The answer is highly specific and confidently phrased, but it is weakly supported and strongly hallucinatory. The citations also look structurally weak or suspicious, which sharply increases the TCRI v3 score and produces a critical outcome.",
+      "citation_assessment": [
+        {
+          "citation": "Marwick, E. 2024. Complete Alzheimer Cure in Six Months. Journal of Advanced Neuromedicine.",
+          "status": "unverified",
+          "score": 0.24,
+          "flags": ["year-present", "author-like-structure", "suspicious-title-pattern", "missing-verifiable-metadata"]
+        },
+        {
+          "citation": "Zurich Neurocognitive Institute Annual Miracle Report 2024",
+          "status": "missing metadata",
+          "score": 0.12,
+          "flags": ["year-present", "missing-author", "missing-venue", "missing-standard-format"]
+        }
+      ]
+    },
+    "notes": "This is a signature high-danger case for TRUST-LAB because textual overconfidence and citation weakness reinforce one another."
+  },
+  {
+    "id": "case-004",
+    "title": "Short factual answer with a wrong claim and no usable citation support",
+    "question": "What is the capital of Australia?",
+    "model_answer": "Australia’s capital is Sydney, which has always served as the country’s official political center and hosts all federal ministries.",
+    "feature_values": [0.34, 0.37, 0.81, 0.35],
+    "citations": [
+      "Australia central government information page",
+      "World geography source"
+    ],
+    "expected_profile": {
+      "reliability": 0.59,
+      "support": 0.4,
+      "hallucination_risk": 0.76,
+      "dsr": 0.23,
+      "cvi": 0.1,
+      "tcri_v3": 0.89,
+      "decision": "Critical",
+      "explanation": "The answer states an incorrect core fact with assertive detail, and the supporting references are too vague to inspire confidence. Very low citation validity compounds the already high hallucination risk.",
+      "citation_assessment": [
+        {
+          "citation": "Australia central government information page",
+          "status": "missing metadata",
+          "score": 0.14,
+          "flags": ["missing-year", "missing-author", "missing-title-precision"]
+        },
+        {
+          "citation": "World geography source",
+          "status": "missing metadata",
+          "score": 0.06,
+          "flags": ["missing-year", "missing-author", "missing-venue", "too-short"]
+        }
+      ]
+    },
+    "notes": "This case is useful for demonstrating that short answers can still become critical when both factual reliability and citation quality collapse."
+  },
+  {
+    "id": "case-005",
+    "title": "Clear explanatory answer without citations but with stable textual behavior",
+    "question": "Explain what a neural network is in simple terms.",
+    "model_answer": "A neural network is a computer system inspired by the brain. It learns patterns from examples by adjusting many internal connections, which helps it recognize, classify, or predict things.",
+    "feature_values": [],
+    "citations": [],
+    "expected_profile": {
+      "reliability": 0.81,
+      "support": 0.88,
+      "hallucination_risk": 0.1,
+      "dsr": 0.05,
+      "cvi": 1.0,
+      "tcri_v3": 0.11,
+      "decision": "Safe",
+      "explanation": "The answer is simple, aligned with the question, and does not display strong hallucination indicators. No citations were supplied, so the citation layer remains neutral rather than punitive in this baseline case.",
+      "citation_assessment": []
+    },
+    "notes": "This case defines the intended v1 behavior when citations are optional and not provided."
+  },
+  {
+    "id": "case-006",
+    "title": "Research-style answer with plausible language but citation fragility",
+    "question": "Describe one major benefit of randomized controlled trials in medical research.",
+    "model_answer": "A major benefit of randomized controlled trials is that random assignment helps reduce selection bias, making it easier to attribute observed differences in outcomes to the intervention rather than to pre-existing group differences.",
+    "feature_values": [0.49, 0.47, 0.5, 0.48],
+    "citations": [
+      "Hariton, Eduardo, and Joseph J. Locascio. 2018. Randomised controlled trials—the gold standard for effectiveness research. BJOG.",
+      "Medical trial review 2019 bias reduction study"
+    ],
+    "expected_profile": {
+      "reliability": 0.84,
+      "support": 0.87,
+      "hallucination_risk": 0.09,
+      "dsr": 0.05,
+      "cvi": 0.61,
+      "tcri_v3": 0.17,
+      "decision": "Safe",
+      "explanation": "The answer is strong and well aligned with the question, while one citation appears robust and another remains incomplete. Citation weakness is present but not strong enough to overturn the otherwise low-risk textual profile.",
+      "citation_assessment": [
+        {
+          "citation": "Hariton, Eduardo, and Joseph J. Locascio. 2018. Randomised controlled trials—the gold standard for effectiveness research. BJOG.",
+          "status": "verified-like",
+          "score": 0.9,
+          "flags": ["author-like-structure", "year-present", "venue-like-metadata", "descriptive-title"]
+        },
+        {
+          "citation": "Medical trial review 2019 bias reduction study",
+          "status": "partially supported",
+          "score": 0.32,
+          "flags": ["year-present", "missing-author", "missing-venue"]
+        }
+      ]
+    },
+    "notes": "This case shows that citation weakness should influence risk without automatically forcing a high-risk result when the answer remains otherwise strong."
+  }
+]
