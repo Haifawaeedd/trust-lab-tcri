@@ -1,0 +1,36 @@
+{
+  "id": "VR-002-CLEAN",
+  "category": "valid_research_cases",
+  "language": "en",
+  "title": "Public-health answer with specific WHO framing [clean]",
+  "question": "Explain why antimicrobial resistance is considered a global health threat and cite supporting material.",
+  "answer": "Antimicrobial resistance is considered a global health threat because it reduces the effectiveness of standard treatments, increases the risk of severe infection, and complicates routine clinical care. Public-health institutions frame it as a systems issue involving surveillance, stewardship, infection prevention, and drug-development gaps rather than a single isolated medical problem.",
+  "citations": [
+    "World Health Organization. Antimicrobial resistance. Fact sheet. 2023.",
+    "Centers for Disease Control and Prevention. Antibiotic resistance threats in the United States. 2019."
+  ],
+  "feature_values": [
+    0.18,
+    0.2,
+    0.19,
+    0.21
+  ],
+  "design_intent": "Original clean answer with aligned citations.",
+  "ground_truth_band": "Verify",
+  "ground_truth_problematic": false,
+  "expected_profile": {
+    "reliability": 0.88,
+    "support": 0.86,
+    "hallucination_risk": 0.11,
+    "dsr": 0.05,
+    "cvi": 0.84,
+    "tcri_v3": 0.2
+  },
+  "tags": [
+    "public_health",
+    "valid_reference_layer"
+  ],
+  "source_case_id": "VR-002",
+  "experiment_variant": "clean",
+  "mismatch_source_case_id": "VR-004"
+}

@@ -210,3 +210,12 @@
 - [ ] Run the current TRUST-LAB evaluator on all clean and perturbed variants and collect the resulting scores and decision bands
 - [ ] Test whether the trust-risk ordering behaves rationally under evidence corruption for each case
 - [ ] Summarize the experiment in a research-style table and sync the results to GitHub
+
+## CVI Semantic Mismatch Upgrade and Experiment 2
+
+- [ ] Turn the Experiment 1 failure into an explicit research claim in the benchmark reporting language
+- [ ] Separate citation structural validity from semantic plausibility inside the CVI logic
+- [ ] Add semantic citation mismatch checks for topic alignment, venue plausibility, and citation-answer coherence
+- [ ] Re-run the evidence corruption experiment after the CVI upgrade to measure whether fabricated citations are penalized more clearly
+- [ ] Create Experiment 2 with semantic mismatch cases where the citation domain conflicts with the answer domain
+- [ ] Compare Experiment 1 and Experiment 2 results and sync the updated research artifacts to GitHub

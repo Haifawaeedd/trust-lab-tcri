@@ -23,6 +23,9 @@ export type EvaluationInput = {
 export type CitationDiagnostic = {
   raw: string;
   score: number;
+  structuralScore: number;
+  semanticScore: number;
+  domainStatus: "aligned" | "mismatch" | "undetermined";
   status: CitationStatus;
   flags: string[];
 };
@@ -161,6 +164,61 @@ const CALIBRATION = {
   overclaimingSupportThreshold: 0.4,
 };
 
+const CURRENT_YEAR = 2026;
+
+const TRUSTED_SOURCE_MARKERS = [
+  "world health organization",
+  "centers for disease control",
+  "cdc",
+  "nist",
+  "springer",
+  "mit press",
+  "cochrane",
+  "wiley",
+  "forrester",
+  "corwin",
+  "ipcc",
+  "food and agriculture organization",
+  "intergovernmental panel on climate change",
+  "world bank",
+  "nature",
+  "science",
+  "lancet",
+];
+
+const GENERIC_PLAUSIBILITY_MARKERS = [
+  "advanced evidence journal",
+  "global research proceedings",
+  "definitive advances",
+  "unified results",
+  "premier findings",
+  "frontier review",
+  "global evidence journal",
+];
+
+const DOMAIN_KEYWORDS: Record<string, Set<string>> = {
+  ml: new Set([
+    "machine", "learning", "model", "models", "normalization", "algorithm", "algorithms", "privacy",
+    "differential", "neural", "rag", "embedding", "تعلم", "الآلة", "نماذج", "النماذج", "التطبيع", "الخصوصية",
+  ]),
+  health: new Set([
+    "health", "medical", "clinical", "antimicrobial", "antibiotic", "infection", "disease", "drug",
+    "patient", "public", "صحية", "الصحية", "مقاومة", "المضادات", "العدوى", "العلاجات", "المرضى", "السريرية",
+  ]),
+  climate: new Set([
+    "climate", "heat", "urban", "adaptation", "pollinator", "pollinators", "biodiversity", "ecosystem",
+    "agriculture", "food", "المناخ", "الحرارة", "التكيف", "الملقحات", "التنوع", "الحيوي", "الزراعة", "الغذاء",
+  ]),
+  cybersecurity: new Set([
+    "cybersecurity", "security", "network", "identity", "access", "architecture", "zero", "trust",
+    "الأمن", "السيبراني", "الشبكات", "الهوية", "الوصول", "الثقة",
+  ]),
+  education: new Set([
+    "education", "assessment", "classroom", "teaching", "student", "pedagogy", "formative", "teacher",
+    "التعليم", "التقييم", "التكويني", "التدريس", "الطالب", "الصفية", "التربوية",
+  ]),
+};
+
 function clamp(value: number, min = 0, max = 1) {
   return Math.min(max, Math.max(min, value));
 }
@@ -184,6 +242,81 @@ function informativeTokens(text: string, language: "en" | "ar") {
 function countMatches(text: string, markers: string[]) {
   const lowered = text.toLowerCase();
   return markers.reduce((count, marker) => count + (lowered.includes(marker) ? 1 : 0), 0);
+}
+
+function detectDomains(text: string, language: "en" | "ar") {
+  const tokens = new Set(informativeTokens(text, language));
+  const matched = new Set<string>();
+
+  for (const [label, keywords] of Object.entries(DOMAIN_KEYWORDS)) {
+    for (const token of Array.from(tokens)) {
+      if (keywords.has(token)) {
+        matched.add(label);
+        break;
+      }
+    }
+  }
+
+  return matched;
+}
+
+function semanticCitationProfile(
+  citation: string,
+  question: string,
+  answer: string,
+  language: "en" | "ar",
+) {
+  const lowered = citation.toLowerCase();
+  const flags: string[] = [];
+  const contextText = `${question} ${answer}`;
+  const citationTokens = new Set(informativeTokens(citation, language));
+  const contextTokens = new Set(informativeTokens(contextText, language));
+  const overlapCount = Array.from(citationTokens).filter((token) => contextTokens.has(token)).length;
+  const contextDomains = detectDomains(contextText, language);
+  const citationDomains = detectDomains(citation, language);
+  const domainOverlap = Array.from(contextDomains).filter((label) => citationDomains.has(label));
+
+  let semanticScore = 0.45;
+  if (overlapCount) {
+    semanticScore += Math.min(0.18, overlapCount * 0.06);
+    flags.push(language === "ar" ? "تطابق موضوعي ظاهر" : "Topic overlap with answer");
+  } else {
+    semanticScore -= 0.1;
+  }
+
+  let domainStatus: "aligned" | "mismatch" | "undetermined" = "undetermined";
+  if (domainOverlap.length) {
+    semanticScore += 0.18;
+    domainStatus = "aligned";
+    flags.push(language === "ar" ? "اتساق مجال المرجع مع الإجابة" : "Citation domain aligns with answer");
+  } else if (contextDomains.size && citationDomains.size) {
+    semanticScore -= 0.28;
+    domainStatus = "mismatch";
+    flags.push(language === "ar" ? "عدم تطابق دلالي بين المرجع والإجابة" : "Possible semantic domain mismatch");
+  }
+
+  if (TRUSTED_SOURCE_MARKERS.some((marker) => lowered.includes(marker))) {
+    semanticScore += 0.1;
+    flags.push(language === "ar" ? "جهة مرجعية مألوفة" : "Recognizable source marker");
+  }
+
+  const suspiciousHits = GENERIC_PLAUSIBILITY_MARKERS.filter((marker) => lowered.includes(marker)).length;
+  if (suspiciousHits) {
+    semanticScore -= Math.min(0.24, suspiciousHits * 0.08);
+    flags.push(language === "ar" ? "صياغة مرجعية عامة أكثر من اللازم" : "Generic plausibility phrasing");
+  }
+
+  const years = Array.from(citation.matchAll(/\b(19|20)\d{2}\b/g)).map((match) => Number(match[0]));
+  if (years.some((year) => year > CURRENT_YEAR)) {
+    semanticScore -= 0.08;
+    flags.push(language === "ar" ? "سنة مستقبلية تحتاج تحققًا" : "Future-dated citation year");
+  }
+
+  return {
+    semanticScore: round3(clamp(semanticScore)),
+    flags,
+    domainStatus,
+  };
 }
 
 function hasAbsoluteOverclaiming(text: string) {
@@ -367,7 +500,12 @@ function computeHallucinationRisk(args: {
   return round3(clamp(risk));
 }
 
-function evaluateCitation(rawCitation: string, language: "en" | "ar"): CitationDiagnostic {
+function evaluateCitation(
+  rawCitation: string,
+  question: string,
+  answer: string,
+  language: "en" | "ar",
+): CitationDiagnostic {
   const citation = rawCitation.trim();
   const flags: string[] = [];
 
@@ -404,7 +542,7 @@ function evaluateCitation(rawCitation: string, language: "en" | "ar"): CitationD
     flags.push(language === "ar" ? "تنسيق مرجعي منظم" : "Structured citation formatting");
   }
 
-  const score = round3(
+  const structuralScore = round3(
     clamp(
       (yearPresent ? 0.2 : 0) +
         (doiLike ? 0.24 : 0) +
@@ -415,19 +553,39 @@ function evaluateCitation(rawCitation: string, language: "en" | "ar"): CitationD
     ),
   );
 
+  const { semanticScore, flags: semanticFlags, domainStatus } = semanticCitationProfile(
+    citation,
+    question,
+    answer,
+    language,
+  );
+  flags.push(...semanticFlags);
+
+  const score = round3(clamp(structuralScore * 0.45 + semanticScore * 0.55));
+  if (structuralScore >= 0.7 && semanticScore < 0.45) {
+    flags.push(
+      language === "ar"
+        ? "مرجع منظم شكليًا لكنه ضعيف دلاليًا"
+        : "Structurally plausible but semantically weak",
+    );
+  }
+
   let status: CitationStatus = "missing metadata";
 
-  if (score >= 0.75) {
+  if (score >= 0.7) {
     status = "verified-like";
-  } else if (score >= 0.46) {
+  } else if (score >= 0.48) {
     status = "partially supported";
-  } else if (score >= 0.2) {
+  } else if (score >= 0.25) {
     status = "unverified";
   }
 
   return {
     raw: citation,
     score,
+    structuralScore,
+    semanticScore,
+    domainStatus,
     status,
     flags,
   };
@@ -447,7 +605,7 @@ function computeCvi(citations: CitationDiagnostic[]) {
   ).length;
 
   return {
-    cvi: round3(verifiedCitations / citations.length),
+    cvi: round3(average(citations.map((citation) => citation.score))),
     verifiedCitations,
     totalCitations: citations.length,
   };
@@ -597,7 +755,7 @@ export function evaluateTrustLab(input: EvaluationInput): EvaluationResult {
   const answer = input.answer.trim();
   const parsedFeatures = parseFeatureValues(input.featureValues);
   const citationDiagnostics = parseCitationEntries(input.citations).map((citation) =>
-    evaluateCitation(citation, input.language),
+    evaluateCitation(citation, question, answer, input.language),
   );
 
   const reliability = computeReliability(answer, input.language);

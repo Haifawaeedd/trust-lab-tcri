@@ -360,6 +360,9 @@ def markdown_report(summary: dict[str, Any], case_rows: list[dict[str, Any]]) ->
     lines.append(
         'تهدف هذه التجربة إلى اختبار سؤال بحثي واحد: **هل ترتفع درجة المخاطر في TRUST-LAB بشكل منطقي عندما تُفسد طبقة الأدلة؟** استخدمت التجربة عشر حالات clean من `valid_research_cases`، ثم أُنشئت لكل حالة ثلاث نسخ مفسدة: `weakened citation` و`fabricated citation` و`claim exaggeration`.\n'
     )
+    lines.append(
+        '> **Research claim:** TRUST-LAB demonstrates strong sensitivity to claim exaggeration under evidence degradation, while revealing a systematic limitation in distinguishing structurally plausible fabricated citations.\n'
+    )
     lines.append('| المؤشر | القيمة |')
     lines.append('|---|---|')
     lines.append(f"| عدد الحالات النظيفة المختارة | {summary['selected_case_count']} |")
@@ -367,6 +370,10 @@ def markdown_report(summary: dict[str, Any], case_rows: list[dict[str, Any]]) ->
     lines.append(f"| نجاح الترتيب clean < weakened < fabricated | {summary['monotonic_clean_weakened_fabricated_count']} / {summary['selected_case_count']} |")
     lines.append(f"| نجاح زيادة الخطر في exaggerated مقارنة بـ clean | {summary['exaggeration_increase_count']} / {summary['selected_case_count']} |")
     lines.append(f"| النجاح الكامل للحالتين معًا | {summary['full_success_count']} / {summary['selected_case_count']} |\n")
+    lines.append('## Interpretation\n')
+    lines.append(
+        'تكشف النتيجة الحالية سلوكين مختلفين في النظام. أولًا، يوجد **تحسس قوي ومنتظم تجاه المبالغة في الادعاء**، لأن جميع الحالات العشر ارتفعت فيها المخاطر عند حقن لغة مثل `always` و`guarantees` و`perfect`. ثانيًا، يظهر **قيد منهجي واضح**: الاستشهادات الملفقة التي تبدو منظمة شكليًا ما تزال قادرة أحيانًا على الحفاظ على درجة CVI أعلى من النسخ الضعيفة، حتى بعد تقليل قوة التقييم البنيوي وحده. هذا ليس شيئًا يجب إخفاؤه، بل دليل مباشر على أن طبقة التحقق المرجعي تحتاج فصلًا أدق بين **سلامة البنية** و**المعقولية الدلالية**.\n'
+    )
     lines.append('## Detailed Results\n')
     lines.append('| Case | Clean | Weakened | Fabricated | Exaggerated | Chain | Exaggeration | Overall |')
     lines.append('|---|---|---|---|---|---|---|---|')
@@ -381,7 +388,7 @@ def markdown_report(summary: dict[str, Any], case_rows: list[dict[str, Any]]) ->
         )
     lines.append('')
     lines.append(
-        'تُقرأ النتيجة الأساسية هنا على أنها **اختبار عقلانية تحت إفساد الأدلة**. إذا فشل الترتيب في بعض الحالات، فهذا لا يُعد فشلًا للتجربة نفسها، بل إشارة مباشرة إلى حدود الصياغة الحالية لـ CVI/TCRI، خاصة إذا بدت الاستشهادات الملفقة منظمة شكليًا بما يكفي لعبور فلاتر البنية المرجعية.\n'
+        'تُقرأ هذه التجربة على أنها **اختبار عقلانية تحت إفساد الأدلة**. وبالتالي فإن فشل ترتيب `clean < weakened < fabricated` ليس إخفاقًا عرضيًا في العرض، بل نتيجة تجريبية تقول إن النظام الحالي ما يزال أكثر قوة في التقاط **claim exaggeration** من قدرته على التقاط **fabricated citations** ذات المظهر المنظم. وهذه بالضبط الفجوة التي يبرر إصلاحها بناء Experiment 2 حول `semantic citation mismatch`.\n'
     )
     return '\n'.join(lines)
 

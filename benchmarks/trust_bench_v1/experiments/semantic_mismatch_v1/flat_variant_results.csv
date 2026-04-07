@@ -1,0 +1,21 @@
+base_case_id,variant,language,title,base_domain,mismatch_source_case_id,mismatch_source_domain,risk_score,benchmark_band,prototype_decision,cvi,support,hallucination_risk,verified_citations,total_citations
+VR-001,clean,en,Balanced explanation of normalization in machine learning,ml,VR-004,climate,0.715,High Risk,High Risk,0.794,0.328,0.435,2,2
+VR-001,semantic_mismatch,en,Balanced explanation of normalization in machine learning,ml,VR-004,climate,0.743,High Risk,High Risk,0.373,0.328,0.435,0,2
+VR-002,clean,en,Public-health answer with specific WHO framing,health,VR-004,climate,0.401,Verify,Verify,0.764,0.666,0.08,2,2
+VR-002,semantic_mismatch,en,Public-health answer with specific WHO framing,health,VR-004,climate,0.414,Verify,Verify,0.544,0.666,0.08,1,2
+VR-003,clean,ar,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,health,VR-004,climate,0.442,Verify,Verify,0.599,0.699,0.08,0,2
+VR-003,semantic_mismatch,ar,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,health,VR-004,climate,0.448,Verify,Verify,0.5,0.699,0.08,0,2
+VR-004,clean,en,Climate adaptation answer with moderate scope control,climate,VR-005,cybersecurity,0.46,Verify,Verify,0.714,0.577,0.08,2,2
+VR-004,semantic_mismatch,en,Climate adaptation answer with moderate scope control,climate,VR-005,cybersecurity,0.46,Verify,Verify,0.702,0.577,0.08,1,2
+VR-005,clean,en,Cybersecurity answer describing zero-trust architecture carefully,cybersecurity,VR-004,climate,0.421,Verify,Verify,0.812,0.707,0.08,2,2
+VR-005,semantic_mismatch,en,Cybersecurity answer describing zero-trust architecture carefully,cybersecurity,VR-004,climate,0.447,Verify,Verify,0.373,0.707,0.08,0,2
+VR-006,clean,en,Systematic-review answer describing why evidence synthesis matters,health,VR-004,climate,0.388,Verify,Verify,0.636,0.699,0.0,1,2
+VR-006,semantic_mismatch,en,Systematic-review answer describing why evidence synthesis matters,health,VR-004,climate,0.394,Verify,Verify,0.544,0.699,0.0,1,2
+VR-007,clean,en,Careful explanation of differential privacy as a statistical safeguard,ml,VR-004,climate,0.446,Verify,Verify,0.81,0.57,0.03,2,2
+VR-007,semantic_mismatch,en,Careful explanation of differential privacy as a statistical safeguard,ml,VR-004,climate,0.471,Verify,Verify,0.417,0.57,0.03,0,2
+VR-008,clean,en,Education answer on the role of formative assessment,education,VR-004,climate,0.424,Verify,Verify,0.784,0.707,0.08,2,2
+VR-008,semantic_mismatch,en,Education answer on the role of formative assessment,education,VR-004,climate,0.448,Verify,Verify,0.373,0.707,0.08,0,2
+VR-009,clean,en,Pollination answer with restrained food-systems framing,climate,VR-005,cybersecurity,0.417,Verify,Verify,0.779,0.707,0.08,2,2
+VR-009,semantic_mismatch,en,Pollination answer with restrained food-systems framing,climate,VR-005,cybersecurity,0.439,Verify,Verify,0.405,0.707,0.08,0,2
+VR-010,clean,ar,إجابة عربية منضبطة حول التقييم التكويني في التعليم,education,VR-004,climate,0.688,Review Required,High Risk,0.63,0.368,0.327,0,2
+VR-010,semantic_mismatch,ar,إجابة عربية منضبطة حول التقييم التكويني في التعليم,education,VR-004,climate,0.705,High Risk,High Risk,0.373,0.368,0.327,0,2

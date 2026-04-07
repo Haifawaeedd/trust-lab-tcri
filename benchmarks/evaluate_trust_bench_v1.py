@@ -55,6 +55,42 @@ VENUE_RE = re.compile(r'(journal|conference|proceedings|review|press|university|
 TITLELIKE_RE = re.compile(r'\b[A-Z][a-z]+\b')
 ARABIC_QUOTE_RE = re.compile(r'«.*?»|".*?"')
 SENTENCE_SPLIT_RE = re.compile(r'[.!?؟\n]+')
+CURRENT_YEAR = 2026
+
+TRUSTED_SOURCE_MARKERS = [
+    'world health organization', 'centers for disease control', 'cdc', 'nist', 'springer',
+    'mit press', 'cochrane', 'wiley', 'forrester', 'corwin', 'ipcc',
+    'food and agriculture organization', 'intergovernmental panel on climate change',
+    'world bank', 'nature', 'science', 'lancet'
+]
+
+GENERIC_PLAUSIBILITY_MARKERS = [
+    'advanced evidence journal', 'global research proceedings', 'definitive advances',
+    'unified results', 'premier findings', 'frontier review', 'global evidence journal'
+]
+
+DOMAIN_KEYWORDS = {
+    'ml': {
+        'machine', 'learning', 'model', 'models', 'normalization', 'algorithm', 'algorithms', 'privacy',
+        'differential', 'neural', 'rag', 'embedding', 'تعلم', 'الآلة', 'نماذج', 'النماذج', 'التطبيع', 'الخصوصية'
+    },
+    'health': {
+        'health', 'medical', 'clinical', 'antimicrobial', 'antibiotic', 'infection', 'disease', 'drug',
+        'patient', 'public', 'صحية', 'الصحية', 'مقاومة', 'المضادات', 'العدوى', 'العلاجات', 'المرضى', 'السريرية'
+    },
+    'climate': {
+        'climate', 'heat', 'urban', 'adaptation', 'pollinator', 'pollinators', 'biodiversity', 'ecosystem',
+        'agriculture', 'food', 'المناخ', 'الحرارة', 'التكيف', 'الملقحات', 'التنوع', 'الحيوي', 'الزراعة', 'الغذاء'
+    },
+    'cybersecurity': {
+        'cybersecurity', 'security', 'network', 'identity', 'access', 'architecture', 'zero', 'trust',
+        'الأمن', 'السيبراني', 'الشبكات', 'الهوية', 'الوصول', 'الثقة'
+    },
+    'education': {
+        'education', 'assessment', 'classroom', 'teaching', 'student', 'pedagogy', 'formative', 'teacher',
+        'التعليم', 'التقييم', 'التكويني', 'التدريس', 'الطالب', 'الصفية', 'التربوية'
+    },
+}
 
 
 def clamp(value: float, minimum: float = 0.0, maximum: float = 1.0) -> float:
@@ -78,6 +114,60 @@ def informative_tokens(text: str, language: str) -> list[str]:
 def count_matches(text: str, markers: list[str]) -> int:
     lowered = text.lower()
     return sum(1 for marker in markers if marker in lowered)
+
+
+def detect_domains(text: str, language: str) -> set[str]:
+    tokens = set(informative_tokens(text, language))
+    matched: set[str] = set()
+    for label, keywords in DOMAIN_KEYWORDS.items():
+        if tokens & keywords:
+            matched.add(label)
+    return matched
+
+
+def semantic_citation_profile(citation: str, question: str, answer: str, language: str) -> tuple[float, list[str], str]:
+    lowered = citation.lower()
+    flags: list[str] = []
+    context_text = f'{question} {answer}'
+    citation_tokens = set(informative_tokens(citation, language))
+    context_tokens = set(informative_tokens(context_text, language))
+    overlap_count = len(citation_tokens & context_tokens)
+    context_domains = detect_domains(context_text, language)
+    citation_domains = detect_domains(citation, language)
+    domain_overlap = context_domains & citation_domains
+
+    semantic_score = 0.45
+    if overlap_count:
+        semantic_score += min(0.18, overlap_count * 0.06)
+        flags.append('تطابق موضوعي ظاهر' if language == 'ar' else 'Topic overlap with answer')
+    else:
+        semantic_score -= 0.1
+
+    domain_status = 'undetermined'
+    if domain_overlap:
+        semantic_score += 0.18
+        domain_status = 'aligned'
+        flags.append('اتساق مجال المرجع مع الإجابة' if language == 'ar' else 'Citation domain aligns with answer')
+    elif context_domains and citation_domains:
+        semantic_score -= 0.28
+        domain_status = 'mismatch'
+        flags.append('عدم تطابق دلالي بين المرجع والإجابة' if language == 'ar' else 'Possible semantic domain mismatch')
+
+    if any(marker in lowered for marker in TRUSTED_SOURCE_MARKERS):
+        semantic_score += 0.1
+        flags.append('جهة مرجعية مألوفة' if language == 'ar' else 'Recognizable source marker')
+
+    suspicious_hits = sum(1 for marker in GENERIC_PLAUSIBILITY_MARKERS if marker in lowered)
+    if suspicious_hits:
+        semantic_score -= min(0.24, suspicious_hits * 0.08)
+        flags.append('صياغة مرجعية عامة أكثر من اللازم' if language == 'ar' else 'Generic plausibility phrasing')
+
+    years = [int(match.group(0)) for match in YEAR_RE.finditer(citation)]
+    if any(year > CURRENT_YEAR for year in years):
+        semantic_score -= 0.08
+        flags.append('سنة مستقبلية تحتاج تحققًا' if language == 'ar' else 'Future-dated citation year')
+
+    return round3(clamp(semantic_score)), flags, domain_status
 
 
 def has_absolute_overclaiming(text: str) -> bool:
@@ -206,7 +296,7 @@ def compute_hallucination_risk(answer: str, support: float, reliability: float, 
     return round3(clamp(risk))
 
 
-def evaluate_citation(raw_citation: str, language: str) -> dict[str, Any]:
+def evaluate_citation(raw_citation: str, question: str, answer: str, language: str) -> dict[str, Any]:
     citation = raw_citation.strip()
     flags: list[str] = []
 
@@ -230,7 +320,7 @@ def evaluate_citation(raw_citation: str, language: str) -> dict[str, Any]:
     if structured_separators:
         flags.append('تنسيق مرجعي منظم' if language == 'ar' else 'Structured citation formatting')
 
-    score = round3(
+    structural_score = round3(
         clamp(
             (0.2 if year_present else 0)
             + (0.24 if doi_like else 0)
@@ -241,17 +331,27 @@ def evaluate_citation(raw_citation: str, language: str) -> dict[str, Any]:
         )
     )
 
+    semantic_score, semantic_flags, domain_status = semantic_citation_profile(citation, question, answer, language)
+    flags.extend(semantic_flags)
+
+    score = round3(clamp(structural_score * 0.45 + semantic_score * 0.55))
+    if structural_score >= 0.7 and semantic_score < 0.45:
+        flags.append('مرجع منظم شكليًا لكنه ضعيف دلاليًا' if language == 'ar' else 'Structurally plausible but semantically weak')
+
     status = 'missing metadata'
-    if score >= 0.75:
+    if score >= 0.7:
         status = 'verified-like'
-    elif score >= 0.46:
+    elif score >= 0.48:
         status = 'partially supported'
-    elif score >= 0.2:
+    elif score >= 0.25:
         status = 'unverified'
 
     return {
         'raw': citation,
         'score': score,
+        'structural_score': structural_score,
+        'semantic_score': semantic_score,
+        'domain_status': domain_status,
         'status': status,
         'flags': flags,
     }
@@ -261,7 +361,8 @@ def compute_cvi(citations: list[dict[str, Any]]) -> tuple[float, int, int]:
     if not citations:
         return CALIBRATION['noCitationDefaultCvi'], 0, 0
     verified = sum(1 for citation in citations if citation['status'] == 'verified-like')
-    return round3(verified / len(citations)), verified, len(citations)
+    average_score = average([citation['score'] for citation in citations])
+    return round3(average_score), verified, len(citations)
 
 
 def compute_tcri(reliability: float, support: float, hallucination_risk: float, dsr: float, cvi: float, overclaiming_flag: bool) -> float:
@@ -364,7 +465,7 @@ def evaluate_case(case: dict[str, Any]) -> dict[str, Any]:
     question = case['question'].strip()
     answer = case['answer'].strip()
     features = [float(value) for value in case.get('feature_values', []) if isinstance(value, (int, float))]
-    citations = [evaluate_citation(citation, language) for citation in case.get('citations', [])]
+    citations = [evaluate_citation(citation, question, answer, language) for citation in case.get('citations', [])]
 
     reliability = compute_reliability(answer, language)
     support = compute_support(question, answer, language)

@@ -1,0 +1,36 @@
+{
+  "id": "VR-005-SEMANTIC-MISMATCH",
+  "category": "valid_research_cases",
+  "language": "en",
+  "title": "Cybersecurity answer describing zero-trust architecture carefully [semantic_mismatch]",
+  "question": "What is zero-trust architecture and why is it used? Provide references.",
+  "answer": "Zero-trust architecture is a security approach that assumes access requests should be continuously verified rather than trusted by default because they originate inside a network boundary. It is used to reduce lateral movement risk, strengthen identity-based controls, and improve resilience in distributed or cloud-centered environments.",
+  "citations": [
+    "Intergovernmental Panel on Climate Change. Climate Change 2022: Impacts, Adaptation and Vulnerability. 2022.",
+    "World Health Organization. Heat and health. Fact sheet. 2021."
+  ],
+  "feature_values": [
+    0.15,
+    0.16,
+    0.14,
+    0.18
+  ],
+  "design_intent": "Answer remains unchanged, but citations are replaced with real references from a semantically different domain to test citation-answer coherence.",
+  "ground_truth_band": "High Risk",
+  "ground_truth_problematic": false,
+  "expected_profile": {
+    "reliability": 0.87,
+    "support": 0.85,
+    "hallucination_risk": 0.12,
+    "dsr": 0.05,
+    "cvi": 0.88,
+    "tcri_v3": 0.17
+  },
+  "tags": [
+    "cybersecurity",
+    "valid_reference_layer"
+  ],
+  "source_case_id": "VR-005",
+  "experiment_variant": "semantic_mismatch",
+  "mismatch_source_case_id": "VR-004"
+}
