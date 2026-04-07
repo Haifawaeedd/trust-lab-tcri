@@ -31,6 +31,10 @@ type DemoFormState = {
   featureValues: string;
 };
 
+const QUESTION_MAX_LENGTH = 600;
+const ANSWER_MAX_LENGTH = 5000;
+const FEATURE_MAX_LENGTH = 240;
+
 const decisionToneMap = {
   Safe: "safe",
   Verify: "verify",
@@ -51,10 +55,82 @@ function formatMetric(value: number) {
   return `${Math.round(value * 100)}%`;
 }
 
+function sanitizeFeatureValues(input: string) {
+  return input.replace(/[^0-9,\.\-\s]/g, "").slice(0, FEATURE_MAX_LENGTH);
+}
+
+function validateFormState(formState: DemoFormState, language: Language) {
+  const question = formState.question.trim();
+  const answer = formState.answer.trim();
+  const featureValues = sanitizeFeatureValues(formState.featureValues);
+
+  if (!question || !answer) {
+    return {
+      ok: false as const,
+      message:
+        language === "ar"
+          ? "يرجى إدخال السؤال والإجابة قبل تشغيل التقييم."
+          : "Please enter both the question and the answer before running the evaluation.",
+      sanitized: { ...formState, featureValues },
+    };
+  }
+
+  if (question.length > QUESTION_MAX_LENGTH) {
+    return {
+      ok: false as const,
+      message:
+        language === "ar"
+          ? "السؤال طويل جدًا لهذه النسخة الأولية. يرجى اختصاره قليلًا."
+          : "The question is too long for this prototype. Please shorten it slightly.",
+      sanitized: { ...formState, featureValues },
+    };
+  }
+
+  if (answer.length > ANSWER_MAX_LENGTH) {
+    return {
+      ok: false as const,
+      message:
+        language === "ar"
+          ? "الإجابة طويلة جدًا لهذه النسخة الأولية. يرجى تقليل طولها قبل التقييم."
+          : "The answer is too long for this prototype. Please reduce its length before evaluation.",
+      sanitized: { ...formState, featureValues },
+    };
+  }
+
+  if (formState.featureValues.trim() && !featureValues.trim()) {
+    return {
+      ok: false as const,
+      message:
+        language === "ar"
+          ? "قيم الخصائص يجب أن تكون أرقامًا مفصولة بفواصل فقط."
+          : "Feature values must be numeric entries separated by commas only.",
+      sanitized: { ...formState, featureValues },
+    };
+  }
+
+  if (featureValues.length !== formState.featureValues.length) {
+    return {
+      ok: true as const,
+      message:
+        language === "ar"
+          ? "تم تنظيف بعض الرموز غير الصالحة من قيم الخصائص قبل التقييم."
+          : "Some invalid symbols were removed from the feature values before evaluation.",
+      sanitized: { ...formState, featureValues },
+    };
+  }
+
+  return {
+    ok: true as const,
+    message: null,
+    sanitized: { ...formState, featureValues },
+  };
+}
+
 export default function Demo() {
   const { language, setLanguage } = useTrustLabLanguage();
   const copy = demoPageContent[language];
   const [formState, setFormState] = useState<DemoFormState>(() => createFormState(language));
+  const [notice, setNotice] = useState<string | null>(null);
   const [result, setResult] = useState<EvaluationResult | null>(() =>
     evaluateTrustLab({
       question: demoCases[0].question[language],
@@ -101,19 +177,47 @@ export default function Demo() {
   );
 
   const handleEvaluate = () => {
-    setResult(
-      evaluateTrustLab({
-        question: formState.question,
-        answer: formState.answer,
-        featureValues: formState.featureValues,
-        language,
-      }),
-    );
+    const validation = validateFormState(formState, language);
+    setFormState(validation.sanitized);
+
+    if (!validation.ok) {
+      setNotice(validation.message);
+      return;
+    }
+
+    try {
+      setResult(
+        evaluateTrustLab({
+          question: validation.sanitized.question,
+          answer: validation.sanitized.answer,
+          featureValues: validation.sanitized.featureValues,
+          language,
+        }),
+      );
+      setNotice(
+        validation.message ??
+          (language === "ar"
+            ? "هذه النتائج إشارات تفسيرية استدلالية وليست حكمًا نهائيًا على الحقيقة."
+            : "These results are heuristic interpretive signals, not absolute truth estimates."),
+      );
+    } catch (_error) {
+      setResult(null);
+      setNotice(
+        language === "ar"
+          ? "تعذر تشغيل التقييم لهذه المدخلات. يرجى تبسيط النص أو مراجعة القيم الرقمية."
+          : "The evaluation could not be completed for this input. Please simplify the text or review the numeric values.",
+      );
+    }
   };
 
   const handleLoadExample = (index: number) => {
     const nextForm = createFormState(language, index);
     setFormState(nextForm);
+    setNotice(
+      language === "ar"
+        ? "هذا مثال منسق للنسخة البحثية الأولية ويمكن تعديله قبل التقييم."
+        : "This is a curated prototype example and can be edited before evaluation.",
+    );
     setResult(
       evaluateTrustLab({
         question: nextForm.question,
@@ -127,6 +231,11 @@ export default function Demo() {
   const handleClear = () => {
     setFormState({ question: "", answer: "", featureValues: "" });
     setResult(null);
+    setNotice(
+      language === "ar"
+        ? "تم مسح المدخلات. يمكن الآن إدخال حالة جديدة للتقييم."
+        : "Inputs cleared. You can now enter a new case for evaluation.",
+    );
   };
 
   return (
@@ -211,6 +320,22 @@ export default function Demo() {
             text={copy.prototypeNote}
           />
 
+          <TrustLabPanel className="space-y-3 border border-dashed border-[color:var(--line-strong)] bg-[rgba(255,252,246,0.78)] p-5 shadow-none">
+            <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[color:var(--ink-muted)]">
+              {language === "ar" ? "Research Prototype v1.0" : "Research Prototype v1.0"}
+            </p>
+            <p className="text-sm leading-7 text-[color:var(--ink-body)]">
+              {language === "ar"
+                ? "تعرض هذه الصفحة إشارات تفسيرية استدلالية للمراجعة الأولية، ولا تقدّم حكمًا مطلقًا على الحقيقة أو الصحة العلمية."
+                : "This page presents heuristic interpretive signals for first-pass review. It does not provide absolute truth judgments or final scientific verification."}
+            </p>
+            <p className="text-sm leading-7 text-[color:var(--ink-muted)]">
+              {language === "ar"
+                ? "استخدم النتائج كبداية للمراجعة، ثم ارجع إلى التحقق البشري والمصادر الأصلية عند اتخاذ أي قرار بحثي."
+                : "Use the outputs as a starting point for inspection, then return to human review and primary sources before making any research decision."}
+            </p>
+          </TrustLabPanel>
+
           <div className="grid gap-5">
             <label className="grid gap-2">
               <span className="text-[0.78rem] uppercase tracking-[0.2em] text-[color:var(--ink-muted)]">
@@ -247,7 +372,10 @@ export default function Demo() {
               <input
                 value={formState.featureValues}
                 onChange={(event) =>
-                  setFormState((previous) => ({ ...previous, featureValues: event.target.value }))
+                  setFormState((previous) => ({
+                    ...previous,
+                    featureValues: sanitizeFeatureValues(event.target.value),
+                  }))
                 }
                 className="rounded-[1.2rem] border border-[color:var(--line-soft)] bg-[rgba(255,255,255,0.75)] px-4 py-3 text-base text-[color:var(--ink-strong)] outline-none transition focus:border-[color:var(--line-strong)] focus:ring-2 focus:ring-[rgba(91,122,132,0.15)]"
               />
@@ -255,6 +383,12 @@ export default function Demo() {
                 {copy.fields.featuresHint}
               </span>
             </label>
+
+            {notice ? (
+              <div className="rounded-[1.3rem] border border-[color:var(--line-soft)] bg-[rgba(248,245,238,0.72)] px-4 py-3 text-sm leading-7 text-[color:var(--ink-body)]">
+                {notice}
+              </div>
+            ) : null}
 
             <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
               <button
@@ -301,6 +435,11 @@ export default function Demo() {
             </div>
             <p className="text-base leading-8 text-[color:var(--ink-body)]">
               {result ? result.explanation : copy.prototypeNote}
+            </p>
+            <p className="text-sm leading-7 text-[color:var(--ink-muted)]">
+              {language === "ar"
+                ? "مهم: المخرجات الحالية تمثل إشارات استدلالية مفسّرة وليست بديلًا عن التحقق البحثي أو مراجعة المصادر."
+                : "Important: the current outputs are interpreted heuristic signals and are not a substitute for source verification or scholarly review."}
             </p>
             {result ? (
               <p className="text-sm leading-7 text-[color:var(--ink-muted)]">

@@ -200,3 +200,21 @@ The repository is currently being developed in the following order: repository s
 
 [1]: https://www.nist.gov/publications/artificial-intelligence-risk-management-framework-generative-artificial-intelligence "NIST — Artificial Intelligence Risk Management Framework: Generative Artificial Intelligence Profile"
 [2]: https://owasp.org/www-project-top-10-for-large-language-model-applications/ "OWASP — Top 10 for Large Language Model Applications"
+
+## Research Safeguards and Publication Notes
+
+TRUST-LAB should be interpreted as a **Research Prototype v1.0**. Its current outputs are **heuristic, interpretable signals** designed to support inspection and review. They are **not absolute truth estimates**, and they should not be treated as a substitute for human judgment, source verification, or scholarly validation.
+
+This distinction is especially important in citation-aware use. A low or moderate **CVI** score should be understood as an indicator that references may require closer inspection, not as a final bibliographic verdict. Likewise, a low-risk **TCRI v3** score does not prove correctness. It only indicates that the current heuristic layers did not detect severe signs of trust collapse under the present scoring assumptions.
+
+| Safeguard | Repository interpretation |
+|---|---|
+| **Prototype status** | The project is an early research-grade prototype and should be cited and reviewed as such |
+| **Heuristic outputs** | Scores are explanatory signals for review, not conclusive truth claims |
+| **Benchmark integrity** | Benchmark assets are included as curated **read-only research examples**, not as user-editable public interface content |
+| **Citation integrity** | Citation scoring is a first-pass structural assessment and should be followed by manual or verifier-backed checks |
+| **Scholarly attribution** | Reuse and citation should follow the repository `LICENSE` and `CITATION.cff` metadata |
+
+The benchmark layer is intentionally presented as a **repository-level validation asset**. Files such as `benchmarks/trust_bench_v1.json`, `benchmarks/baseline_eval.py`, and `benchmarks/ablation.py` are part of the research framing and should remain **read-only benchmark materials** in the public-facing experience.
+
+For scholarly reuse, the repository now includes **citation metadata** through `CITATION.cff`, alongside the project license. Together, these files help preserve attribution, clarify reuse expectations, and support a more professional public release.

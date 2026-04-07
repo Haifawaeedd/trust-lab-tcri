@@ -57,3 +57,22 @@
 - [ ] Add publication badges to the root README for status and version visibility
 - [ ] Add a representative TRUST-LAB interface screenshot to strengthen the GitHub presentation
 - [ ] Add a concise Original Contribution section to the README using the approved publication wording
+
+## Overlap Fix and GitHub Export
+
+- [ ] Remove the visible overlap and collision between the large left text block and adjacent content in the homepage first viewport
+- [ ] Rebalance the first content row so each panel has clear boundaries and readable spacing on desktop
+- [ ] Recheck the homepage after the layout correction to confirm no paragraph or panel overlap remains
+- [ ] Save a fresh checkpoint after the interface fix for safe GitHub export
+- [ ] Export the final TRUST-LAB repository to GitHub after the interface is corrected
+
+## Methodological Protection and Publication Readiness
+
+- [ ] Add a visible Citation Validity Index (CVI) card to the interface so the citation-validation layer is explicit and interpretable
+- [ ] Add a clear research-prototype disclaimer to the interface and README stating that TRUST-LAB should not be used as the sole basis for academic, legal, or medical decisions and that citations require manual verification
+- [ ] Add methodology language clarifying that scores are interpretability-oriented heuristic signals rather than absolute truth estimates
+- [ ] Strengthen demo input handling so empty citations, non-numeric values, overly long answers, and unusual symbols do not break the interface
+- [ ] Frame benchmark files as read-only research examples rather than editable public inputs
+- [ ] Add clear version labeling such as Research Prototype v1.0 in the interface and repository presentation
+- [ ] Add CITATION.cff so scholarly reuse and attribution are clearly defined
+- [ ] After the interface and repository protections are added, export the final repository to GitHub

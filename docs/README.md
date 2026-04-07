@@ -37,3 +37,19 @@ The documentation in this directory is intentionally treated as part of the proj
 That principle is especially important now that the project includes a citation-aware evaluation layer. A researcher, reviewer, or collaborator should be able to inspect not only the interface but also the conceptual rationale behind **DSR**, **CVI**, and **TCRI v3** from the repository alone.
 
 The documentation now also points readers to a benchmark-oriented validation layer. That means the repository should be readable as a linked chain of **methodology**, **architecture**, **metrics**, **benchmark design**, **baseline comparison**, and **ablation-backed originality framing**, rather than as a demo-only artifact.
+
+## Publication Safeguards
+
+The current repository should be read as a **Research Prototype v1.0**. Its scores and interface outputs are intended as **heuristic, interpretable review signals** rather than final truth claims, bibliographic certification, or automated scholarly judgment.
+
+This distinction matters for both methodological integrity and public presentation. TRUST-LAB is designed to make trust failure more legible, but it is not presented as a replacement for human verification, domain expertise, or primary-source review.
+
+| Safeguard | Meaning for readers |
+|---|---|
+| **Prototype label** | The system is an early public research prototype and should be interpreted with version-aware caution |
+| **Heuristic scoring** | DSR, CVI, and TCRI v3 are explanatory signals for inspection, not definitive truth estimates |
+| **Benchmark integrity** | Benchmark files are curated **read-only research assets** used for validation framing, not editable interface content |
+| **Citation integrity** | Citation validity remains a first-pass structural assessment and should be followed by manual or verifier-backed checks |
+| **Scholarly attribution** | Reuse and citation should follow the repository `LICENSE` and `../CITATION.cff` metadata |
+
+Readers who want to understand the originality claim should move from the root `README.md` to `original_contribution.md`, then inspect the benchmark materials in `../benchmarks/` as repository-level validation assets.

@@ -13,6 +13,7 @@ import {
 } from "@/content/trustlabContent";
 import { useTrustLabLanguage } from "@/contexts/TrustLabLanguageContext";
 import {
+  TrustLabFigure,
   TrustLabLayout,
   TrustLabMetricBadge,
   TrustLabPanel,
@@ -25,250 +26,270 @@ export default function Home() {
   const nav = navigation[language];
   const isArabic = language === "ar";
 
-  const heroTitle = isArabic
-    ? "من مستودع بحثي منضبط إلى واجهة تشرح منطق الثقة بوضوح"
-    : "From a disciplined research repository to a public interface that explains trust clearly.";
+  const orientationTitle = isArabic
+    ? "إطار يشرح انهيار الثقة قبل أن يختزله في نتيجة واحدة"
+    : "A framework that explains trust collapse before compressing it into one result.";
 
-  const abstractText =
-    copy.abstractText ??
-    (isArabic
-      ? "تجمع النسخة الأولى بين نواة GitHub منهجية، ووثائق رسمية، وواجهة ثنائية اللغة تساعد الباحثين والخبراء على قراءة منطق القرار بدل الاكتفاء بحكم مبهم."
-      : "The first version combines a GitHub-first methodological core, formal documentation, and a bilingual interface that helps researchers and expert users read the logic of the decision rather than accept an opaque verdict.");
+  const orientationText = isArabic
+    ? "يعامل TRUST-LAB التقييم بوصفه قراءة تفسيرية متعددة الطبقات. بدل سؤال واحد من نوع \"هل الإجابة جيدة؟\"، يعرض الموثوقية والدعم وخطر الهلوسة وصلاحية الاستشهادات وسياق البيانات بوصفها إشارات قابلة للفحص والمراجعة."
+    : "TRUST-LAB treats evaluation as a layered interpretability exercise. Instead of asking a single question such as whether an answer is good, it exposes reliability, support, hallucination pressure, citation validity, and data context as inspectable signals that can be reviewed and challenged.";
+
+  const disclaimerText = isArabic
+    ? "TRUST-LAB هو نموذج بحثي أولي ولا ينبغي استخدامه بوصفه الأساس الوحيد لاتخاذ قرارات أكاديمية أو قانونية أو طبية. يجب التحقق اليدوي من جميع المراجع."
+    : "TRUST-LAB is a research prototype and should not be used as the sole basis for academic, legal, or medical decisions. All citations must be manually verified.";
 
   const repositoryPillars = isArabic
     ? [
         {
-          title: "نواة GitHub",
-          text: "README ووثائق ومعمارية تُظهر الجدية والمنهجية منذ الصفحة الأولى للمستودع.",
+          title: "TCRI v3",
+          text: "يقيس احتمال انهيار الثقة عبر تجميع قابل للتفسير بدل تحويل الإخفاقات المختلفة إلى حكم مبهم.",
         },
         {
-          title: "مقاييس قابلة للفحص",
-          text: "يعرض TCRI وDSR كإشارات تفسيرية واضحة بدل إخفائها داخل نتيجة واحدة غامضة.",
+          title: "DSR",
+          text: "يعامل اضطراب القيم وعدم اتساق المقاييس بوصفهما سياقًا يؤثر في القرار النهائي ولا يجوز إخفاؤه.",
         },
         {
-          title: "واجهة ثنائية اللغة",
-          text: "عرض عربي/إنجليزي يسهّل الشرح العام والقراءة الأكاديمية في الوقت نفسه.",
+          title: "CVI",
+          text: "يُظهر ما إذا كانت المراجع تبدو قابلة للتحقق، منظمة، ومتسقة مع منطق الاستشهاد البحثي.",
         },
       ]
     : [
         {
-          title: "GitHub-first core",
-          text: "README, architecture, and formal documents establish seriousness before the interface takes over.",
+          title: "TCRI v3",
+          text: "It measures the probability of trust collapse through an interpretable aggregation instead of a vague one-number verdict.",
         },
         {
-          title: "Inspectable metrics",
-          text: "TCRI and DSR are presented as interpretable analytical signals rather than hidden internals.",
+          title: "DSR",
+          text: "It treats instability and scale mismatch as contextual factors that should remain visible in the decision pathway.",
         },
         {
-          title: "Bilingual interface",
-          text: "Arabic and English presentation support both public explanation and research-oriented reading.",
+          title: "CVI",
+          text: "It surfaces whether references appear verifiable, structured, and aligned with academic citation logic.",
         },
       ];
 
-  const summaryCards = isArabic
+  const cviStatus = isArabic
+    ? {
+        title: "Citation Validity Index",
+        scoreLabel: "درجة CVI",
+        statusLabel: "الحالة",
+        verifiedLabel: "الاستشهادات المتحققة",
+        status: "تحقق جزئي",
+        note: "بعض المراجع تحتاج إلى تحقق يدوي قبل الاعتماد البحثي النهائي.",
+      }
+    : {
+        title: "Citation Validity Index",
+        scoreLabel: "CVI score",
+        statusLabel: "Status",
+        verifiedLabel: "Verified citations",
+        status: "Partially verified",
+        note: "Some references require manual verification before research-facing use.",
+      };
+
+  const methodCards = isArabic
     ? [
         {
-          title: "الهوية البحثية",
-          text: "المشروع لا يُقدَّم كأداة شكلية، بل كإطار تقييم يمكن توثيقه ومقارنته وتوسيعه لاحقًا.",
+          title: "الهوية المنهجية",
+          text: "المشروع ليس أداة عرض، بل إطار بحثي يربط القياس والقرار والشرح داخل خط واضح يمكن مراجعته وتوسيعه.",
+        },
+        {
+          title: "إشارات تفسيرية",
+          text: "الدرجات هنا ليست حقيقة مطلقة، بل إشارات تفسيرية heuristics تساعد الباحث على فهم موضع الخطر ومصدره.",
         },
         {
           title: "ترتيب البناء",
-          text: "بدأ العمل بالمستودع والمنهجية والوثائق، ثم توسع إلى طبقة العرض والتجربة التفسيرية.",
-        },
-        {
-          title: "الإشارات الأساسية",
-          text: "المنهجية تُظهر الموثوقية والدعم وخطر الهلوسة وسياق البيانات قبل الوصول إلى القرار النهائي.",
+          text: "بدأ التطوير بالمستودع والمنهجية والوثائق، ثم أضيفت طبقة الواجهة والشرح العام فوق هذا الأساس المنهجي.",
         },
       ]
     : [
         {
-          title: "Research identity",
-          text: "The project is not framed as a cosmetic tool, but as an evaluation framework that can be documented, compared, and extended.",
+          title: "Methodological identity",
+          text: "The project is not a display layer only, but a research framework that connects measurement, decision, and explanation in a reviewable path.",
+        },
+        {
+          title: "Interpretability-oriented signals",
+          text: "The scores are not absolute truth estimates. They are heuristic signals designed to make risk legible and discussable.",
         },
         {
           title: "Build order",
-          text: "The repository, methodology, and documentation came first, then expanded into the explanatory public layer.",
-        },
-        {
-          title: "Core signals",
-          text: "The method keeps reliability, support, hallucination pressure, and data context visible before the final decision is produced.",
+          text: "The repository, formal methodology, and documentation came first, then the public-facing interface was built on top of that foundation.",
         },
       ];
 
   const buildOrder = isArabic
-    ? ["هيكل المستودع", "README والمنهجية", "المعمارية والأمثلة", "الواجهة وطبقة العرض"]
+    ? ["هيكل المستودع", "README والمنهجية", "المعمارية والأمثلة", "طبقة العرض والتجربة"]
     : ["Repository structure", "README and methodology", "Architecture and examples", "Website and demo layer"];
-
-  const lowerCards = isArabic
-    ? [
-        {
-          title: "TCRI",
-          text: "يصوغ انهيار الثقة كحالة مركبة تتأثر بالموثوقية والدعم وخطر الهلوسة والسياق العددي.",
-        },
-        {
-          title: "DSR",
-          text: "يلتقط اضطراب القيم وتفاوت المقاييس بوصفه عاملًا سياقيًا لا يجوز تجاهله عند التقييم.",
-        },
-        {
-          title: "طبقة الشرح",
-          text: "تعيد بناء منطق القرار بلغة قابلة للفهم والمراجعة بدل الاكتفاء بإشارة نهائية مختصرة.",
-        },
-      ]
-    : [
-        {
-          title: "TCRI",
-          text: "It frames trust collapse as a composite condition shaped by reliability, support, hallucination pressure, and context.",
-        },
-        {
-          title: "DSR",
-          text: "It treats numeric instability and scale mismatch as contextual signals that should influence the evaluation outcome.",
-        },
-        {
-          title: "Explanation layer",
-          text: "It reconstructs the logic of the decision in readable form instead of stopping at a compressed label.",
-        },
-      ];
 
   return (
     <TrustLabLayout
       language={language}
       onLanguageChange={setLanguage}
       currentPath="/"
-      eyebrow={copy.badge}
+      eyebrow={`${copy.badge} · ${isArabic ? "Research Prototype v1.0" : "Research Prototype v1.0"}`}
       title={copy.title}
       intro={copy.summary}
       aside={
-        <TrustLabPanel className="space-y-5">
-          <div className="space-y-3">
-            <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[color:var(--ink-muted)]">
-              {copy.equationLabel}
-            </p>
-            <div className="space-y-2 text-[color:var(--ink-strong)]">
-              <p className="font-display text-[1.48rem] leading-none tracking-[-0.05em] sm:text-[1.75rem]">
-                TCRI = C × (1 − S)
+        <div className="space-y-5">
+          <TrustLabPanel className="space-y-5">
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center gap-2">
+                <span className="inline-flex w-fit items-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--panel-soft)] px-3 py-1 text-[0.7rem] uppercase tracking-[0.22em] text-[color:var(--ink-strong)]">
+                  {isArabic ? "Research Prototype v1.0" : "Research Prototype v1.0"}
+                </span>
+                <span className="inline-flex w-fit items-center rounded-full border border-dashed border-[color:var(--line-strong)] px-3 py-1 text-[0.7rem] uppercase tracking-[0.22em] text-[color:var(--ink-muted)]">
+                  TCRI / DSR / CVI
+                </span>
+              </div>
+              <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[color:var(--ink-muted)]">
+                {copy.equationLabel}
               </p>
-              <p className="font-display text-[0.98rem] leading-tight tracking-[-0.04em] sm:text-[1.08rem]">
-                × (1 + H) × (1 + λ·DSR)
+              <div className="space-y-2 text-[color:var(--ink-strong)]">
+                <p className="font-display text-[1.48rem] leading-none tracking-[-0.05em] sm:text-[1.72rem]">
+                  TCRI = C × (1 − S)
+                </p>
+                <p className="font-display text-[0.98rem] leading-tight tracking-[-0.04em] sm:text-[1.08rem]">
+                  × (1 + H) × (1 + λ·DSR)
+                </p>
+              </div>
+              <p className="text-sm leading-7 text-[color:var(--ink-body)]">
+                {isArabic
+                  ? "تحافظ المنهجية على ظهور كل بُعد من أبعاد الفشل قبل تجميعه في إشارة نهائية قابلة للتفسير."
+                  : "The methodology keeps each failure dimension visible before it is aggregated into one interpretable signal."}
               </p>
             </div>
-            <p className="text-sm leading-7 text-[color:var(--ink-body)]">
-              {isArabic
-                ? "تظل أبعاد الفشل مرئية قبل تجميعها في إشارة واحدة قابلة للتفسير والمراجعة."
-                : "Each failure dimension stays visible before aggregation into one interpretable signal."}
+            <div className="flex flex-wrap gap-2">
+              <TrustLabMetricBadge label="TCRI" value="Composite" />
+              <TrustLabMetricBadge label="DSR" value="Context" />
+              <TrustLabMetricBadge label="CVI" value={isArabic ? "Citation" : "Citation"} />
+            </div>
+          </TrustLabPanel>
+
+          <TrustLabPanel className="space-y-3 border-[rgba(143,102,48,0.18)] bg-[rgba(250,245,235,0.96)]">
+            <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[color:var(--ink-muted)]">
+              {isArabic ? "تنبيه بحثي" : "Research disclaimer"}
             </p>
-          </div>
-          <div className="flex flex-wrap gap-2">
-            <TrustLabMetricBadge label="TCRI" value="Composite" />
-            <TrustLabMetricBadge label="DSR" value="Context" />
-            <TrustLabMetricBadge label="AR / EN" value={isArabic ? "Arabic" : "English"} />
-          </div>
-        </TrustLabPanel>
+            <p className="text-sm leading-7 text-[color:var(--ink-body)]">{disclaimerText}</p>
+          </TrustLabPanel>
+        </div>
       }
     >
-      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(22rem,0.92fr)] xl:items-stretch">
-        <TrustLabPanel className="p-0 overflow-hidden">
-          <div className="grid xl:grid-cols-[minmax(0,1.08fr)_minmax(21rem,0.92fr)]">
-            <div className="flex flex-col justify-between gap-8 px-6 py-7 sm:px-8 sm:py-9 lg:px-10 xl:pr-8">
-              <div className="space-y-6">
-                <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[color:var(--line-strong)] bg-[color:var(--panel-soft)] px-4 py-2 text-[0.72rem] uppercase tracking-[0.22em] text-[color:var(--ink-strong)] shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
-                  <span className="h-2 w-2 rounded-full bg-[color:var(--accent-strong)]" />
-                  {copy.badge}
-                </span>
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(19rem,0.92fr)] xl:items-start">
+        <TrustLabPanel className="space-y-6">
+          <div className="space-y-4">
+            <span className="inline-flex w-fit items-center gap-2 rounded-full border border-[color:var(--line-strong)] bg-[color:var(--panel-soft)] px-4 py-2 text-[0.72rem] uppercase tracking-[0.22em] text-[color:var(--ink-strong)] shadow-[inset_0_1px_0_rgba(255,255,255,0.72)]">
+              <span className="h-2 w-2 rounded-full bg-[color:var(--accent-strong)]" />
+              {isArabic ? "واجهة تفسيرية فوق مستودع بحثي" : "Explanatory layer on top of a research repository"}
+            </span>
+            <h2 className="max-w-[18ch] text-[clamp(1.9rem,3vw,3.2rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-[color:var(--ink-strong)]">
+              {orientationTitle}
+            </h2>
+            <p className="max-w-[62ch] text-base leading-8 text-[color:var(--ink-body)] sm:text-[1.02rem]">
+              {orientationText}
+            </p>
+          </div>
 
-                <div className="space-y-4">
-                  <h2 className="max-w-[17ch] text-[clamp(2rem,3.2vw,3.45rem)] font-semibold leading-[0.96] tracking-[-0.06em] text-[color:var(--ink-strong)]">
-                    {heroTitle}
-                  </h2>
-                  <p className="max-w-[60ch] text-base leading-8 text-[color:var(--ink-body)] sm:text-[1.02rem]">
-                    {abstractText}
-                  </p>
-                </div>
+          <div className="rounded-[1.35rem] border border-[rgba(143,102,48,0.18)] bg-[rgba(250,245,235,0.92)] px-4 py-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.72)] sm:px-5">
+            <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[color:var(--ink-muted)]">
+              {isArabic ? "نسخة أولية قابلة للمراجعة" : "Reviewable prototype"}
+            </p>
+            <p className="mt-2 text-sm leading-7 text-[color:var(--ink-body)]">{disclaimerText}</p>
+          </div>
 
-                <div className="grid gap-3 md:grid-cols-3">
-                  {repositoryPillars.map((pillar) => (
-                    <article
-                      key={pillar.title}
-                      className="rounded-[1.3rem] border border-[color:var(--line-soft)] bg-[rgba(255,255,255,0.7)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]"
-                    >
-                      <h3 className="mb-2 text-sm font-semibold tracking-[-0.02em] text-[color:var(--ink-strong)]">
-                        {pillar.title}
-                      </h3>
-                      <p className="text-sm leading-7 text-[color:var(--ink-body)]">{pillar.text}</p>
-                    </article>
-                  ))}
-                </div>
-              </div>
+          <div className="grid gap-3 md:grid-cols-3">
+            {repositoryPillars.map((pillar) => (
+              <article
+                key={pillar.title}
+                className="rounded-[1.3rem] border border-[color:var(--line-soft)] bg-[rgba(255,255,255,0.72)] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]"
+              >
+                <h3 className="mb-2 text-sm font-semibold tracking-[-0.02em] text-[color:var(--ink-strong)]">
+                  {pillar.title}
+                </h3>
+                <p className="text-sm leading-7 text-[color:var(--ink-body)]">{pillar.text}</p>
+              </article>
+            ))}
+          </div>
 
-              <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
-                <Link
-                  href="/methodology"
-                  className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--ink-strong)] px-5 py-3 text-sm font-semibold tracking-[0.02em] text-white transition hover:translate-y-[-1px] hover:bg-[color:var(--accent-deep)]"
-                >
-                  {nav.exploreMethodology}
-                </Link>
-                <Link
-                  href="/demo"
-                  className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--panel-soft)] px-5 py-3 text-sm font-semibold tracking-[0.02em] text-[color:var(--ink-strong)] transition hover:translate-y-[-1px] hover:bg-white"
-                >
-                  {nav.openDemo}
-                </Link>
-              </div>
-            </div>
-
-            <div className="relative min-h-[20rem] border-t border-[color:var(--line-soft)] xl:min-h-full xl:border-l xl:border-t-0">
-              <img
-                src={editorialAssets.hero}
-                alt="TRUST-LAB editorial hero"
-                className="absolute inset-0 h-full w-full object-cover opacity-[0.88]"
-              />
-              <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(248,244,236,0.22),rgba(248,244,236,0.44))]" />
-              <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_16%,rgba(255,255,255,0.58),transparent_26%),radial-gradient(circle_at_82%_86%,rgba(212,182,117,0.16),transparent_26%)]" />
-
-              <div className="relative flex h-full flex-col justify-between gap-4 p-5 sm:p-6">
-                <div className="max-w-[17rem] rounded-[1.35rem] border border-[rgba(255,255,255,0.66)] bg-[rgba(255,252,246,0.9)] px-4 py-4 shadow-[0_18px_36px_rgba(34,44,54,0.14)] backdrop-blur-sm sm:px-5">
-                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[color:var(--ink-muted)]">
-                    {copy.architectureTitle ?? (isArabic ? "البنية الطبقية" : "Layered architecture")}
-                  </p>
-                  <p className="mt-2 text-sm leading-7 text-[color:var(--ink-body)]">
-                    {copy.architectureIntro ??
-                      (isArabic
-                        ? "يمر الإطار من الإدخال إلى القرار والشرح مع الحفاظ على قابلية الفحص في كل مرحلة."
-                        : "The framework moves from input to decision and explanation while preserving inspectability at each stage.")}
-                  </p>
-                </div>
-
-                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
-                  {summaryCards.map((item) => (
-                    <div
-                      key={item.title}
-                      className="rounded-[1.25rem] border border-[rgba(93,103,115,0.12)] bg-[rgba(252,249,242,0.82)] px-4 py-4 shadow-[0_10px_24px_rgba(34,44,54,0.08)] backdrop-blur-[2px]"
-                    >
-                      <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[color:var(--ink-muted)]">
-                        {item.title}
-                      </p>
-                      <p className="mt-2 text-sm leading-7 text-[color:var(--ink-body)]">{item.text}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+            <Link
+              href="/methodology"
+              className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--ink-strong)] px-5 py-3 text-sm font-semibold tracking-[0.02em] text-white transition hover:translate-y-[-1px] hover:bg-[color:var(--accent-deep)]"
+            >
+              {nav.exploreMethodology}
+            </Link>
+            <Link
+              href="/demo"
+              className="inline-flex items-center justify-center rounded-full border border-[color:var(--line-strong)] bg-[color:var(--panel-soft)] px-5 py-3 text-sm font-semibold tracking-[0.02em] text-[color:var(--ink-strong)] transition hover:translate-y-[-1px] hover:bg-white"
+            >
+              {nav.openDemo}
+            </Link>
           </div>
         </TrustLabPanel>
+
+        <div className="space-y-6">
+          <TrustLabPanel className="space-y-4 p-4 sm:p-5">
+            <TrustLabFigure
+              src={editorialAssets.hero}
+              alt="TRUST-LAB editorial interface"
+              caption={
+                isArabic
+                  ? "المسار الطبقي ينتقل من الإدخال إلى التقدير ثم إلى القرار والشرح دون إخفاء الإشارات الأساسية."
+                  : "The layered pathway moves from input to scoring, decision, and explanation without hiding the underlying signals."
+              }
+            />
+          </TrustLabPanel>
+
+          <TrustLabPanel className="space-y-4">
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="text-[0.72rem] uppercase tracking-[0.24em] text-[color:var(--ink-muted)]">
+                  {cviStatus.title}
+                </p>
+                <h3 className="mt-2 text-[1.35rem] font-semibold tracking-[-0.04em] text-[color:var(--ink-strong)]">
+                  {isArabic ? "بطاقة تحقق المراجع" : "Citation visibility card"}
+                </h3>
+              </div>
+              <span className="inline-flex rounded-full border border-[color:var(--line-strong)] bg-[color:var(--panel-soft)] px-3 py-1 text-[0.72rem] uppercase tracking-[0.2em] text-[color:var(--ink-strong)]">
+                CVI
+              </span>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-3">
+              <div className="rounded-[1.15rem] border border-[color:var(--line-soft)] bg-white/70 p-4">
+                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[color:var(--ink-muted)]">{cviStatus.scoreLabel}</p>
+                <p className="mt-2 text-2xl font-semibold tracking-[-0.04em] text-[color:var(--ink-strong)]">0.72</p>
+              </div>
+              <div className="rounded-[1.15rem] border border-[color:var(--line-soft)] bg-white/70 p-4">
+                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[color:var(--ink-muted)]">{cviStatus.statusLabel}</p>
+                <p className="mt-2 text-base font-semibold tracking-[-0.02em] text-[color:var(--ink-strong)]">{cviStatus.status}</p>
+              </div>
+              <div className="rounded-[1.15rem] border border-[color:var(--line-soft)] bg-white/70 p-4">
+                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[color:var(--ink-muted)]">{cviStatus.verifiedLabel}</p>
+                <p className="mt-2 text-base font-semibold tracking-[-0.02em] text-[color:var(--ink-strong)]">3 / 4</p>
+              </div>
+            </div>
+
+            <p className="text-sm leading-7 text-[color:var(--ink-body)]">{cviStatus.note}</p>
+          </TrustLabPanel>
+        </div>
       </section>
 
-      <section className="grid gap-4 lg:grid-cols-[minmax(0,1.2fr)_minmax(17rem,0.8fr)]">
+      <section className="grid gap-6 xl:grid-cols-[minmax(0,1fr)_minmax(18rem,0.82fr)] xl:items-start">
         <TrustLabPanel className="space-y-6">
           <TrustLabSectionHeading
-            kicker={copy.noveltyTitle}
-            title={copy.ctaTitle}
-            text={copy.ctaText}
+            kicker={isArabic ? "البنية المنهجية" : "Methodological structure"}
+            title={isArabic ? "طبقات مرئية بدل حكم غامض" : "Visible layers instead of an opaque verdict"}
+            text={
+              isArabic
+                ? "تتقدم المنهجية من الإشارات الجزئية إلى القرار النهائي مع المحافظة على إمكانية قراءة كل طبقة ومساءلتها."
+                : "The methodology moves from partial signals to the final decision while keeping each layer readable and open to challenge."
+            }
           />
 
           <div className="grid gap-4 md:grid-cols-3">
-            {lowerCards.map((card) => (
+            {methodCards.map((card) => (
               <article
                 key={card.title}
-                className="rounded-[1.3rem] border border-[color:var(--line-soft)] bg-[rgba(255,255,255,0.68)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]"
+                className="rounded-[1.3rem] border border-[color:var(--line-soft)] bg-[rgba(255,255,255,0.7)] p-5 shadow-[inset_0_1px_0_rgba(255,255,255,0.76)]"
               >
                 <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[color:var(--ink-muted)]">
                   {card.title}
@@ -293,9 +314,10 @@ export default function Home() {
               </div>
             ))}
           </div>
+
           <div className="rounded-[1.25rem] border border-[color:var(--line-soft)] bg-[color:var(--panel-soft)] p-4">
             <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[color:var(--ink-muted)]">
-              {isArabic ? "الهوية البحثية" : "Research identity"}
+              {isArabic ? "هوية البحث" : "Research identity"}
             </p>
             <p className="mt-2 text-sm leading-7 text-[color:var(--ink-body)]">{copy.noveltyText}</p>
           </div>

@@ -1,0 +1,21 @@
+cff-version: 1.2.0
+title: TRUST-LAB-TCRI
+message: "If you use TRUST-LAB in research, teaching, or derivative benchmark work, please cite this repository."
+type: software
+version: 1.0.0
+authors:
+  - family-names: Owayed
+    given-names: Haifaa
+repository-code: "https://github.com/Haifaaweaed/trust-lab-tcri"
+abstract: >-
+  TRUST-LAB-TCRI is a research-oriented prototype for interpretable trust-collapse
+  analysis in AI-generated outputs. The repository combines TCRI v3, DSR, and
+  CVI under a layered methodology, supported by benchmark cases, baseline
+  comparison, and ablation-oriented evaluation assets.
+keywords:
+  - trust evaluation
+  - citation validity
+  - hallucination analysis
+  - research integrity
+  - benchmark-driven methodology
+license: MIT
