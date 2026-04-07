@@ -1,0 +1,32 @@
+{
+  "id": "OC-005",
+  "category": "overclaiming_cases",
+  "language": "en",
+  "title": "Historical explanation reduced to a single unquestioned cause",
+  "question": "What caused the collapse of the Western Roman Empire?",
+  "answer": "The Western Roman Empire collapsed solely because of barbarian invasions, and historians no longer debate this issue. That one factor completely explains the fall.",
+  "citations": [
+    "Roman history digest."
+  ],
+  "feature_values": [
+    0.32,
+    0.3,
+    0.2,
+    0.31
+  ],
+  "design_intent": "The case targets monocausal certainty and the removal of legitimate scholarly debate.",
+  "ground_truth_band": "High Risk",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.68,
+    "support": 0.38,
+    "hallucination_risk": 0.79,
+    "dsr": 0.08,
+    "cvi": 0.14,
+    "tcri_v3": 0.78
+  },
+  "tags": [
+    "history",
+    "overclaiming"
+  ]
+}

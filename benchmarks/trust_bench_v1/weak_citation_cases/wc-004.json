@@ -1,0 +1,33 @@
+{
+  "id": "WC-004",
+  "category": "weak_citation_cases",
+  "language": "en",
+  "title": "Health-policy answer with incomplete bibliographic structure",
+  "question": "Describe why vaccine confidence can vary across communities and cite supporting material.",
+  "answer": "Vaccine confidence varies across communities because trust in institutions, perceived risk, historical experience, and misinformation exposure all shape uptake behavior. The answer is plausible but does not clearly separate observational evidence from communication theory or local implementation factors.",
+  "citations": [
+    "Larson H. Vaccine confidence and public trust. 2022.",
+    "Global immunization behavior report."
+  ],
+  "feature_values": [
+    0.33,
+    0.35,
+    0.34,
+    0.36
+  ],
+  "design_intent": "The text is sensible, yet the citation layer remains too vague for stronger trust.",
+  "ground_truth_band": "Review Required",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.76,
+    "support": 0.61,
+    "hallucination_risk": 0.26,
+    "dsr": 0.08,
+    "cvi": 0.38,
+    "tcri_v3": 0.57
+  },
+  "tags": [
+    "public_health",
+    "weak_citations"
+  ]
+}

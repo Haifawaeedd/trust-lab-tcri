@@ -147,6 +147,21 @@
 - [ ] Compare the benefits of decision-band refinement versus additional weight recalibration for research interpretability
 - [ ] Recommend whether TRUST-LAB should adopt the new label without changing the current scoring methodology
 
+## Research Roadmap Prioritization
+
+- [ ] Give an honest recommendation on whether benchmark expansion is truly necessary now or optional
+- [ ] Prioritize the roadmap items by what is essential for turning TRUST-LAB from a prototype into a credible research system
+- [ ] Clarify which next step is mandatory, which is valuable, and which can wait
+
+## trust_bench_v1 Buildout
+
+- [ ] Inspect the existing benchmarks directory and current case/result format before creating the new dataset structure
+- [ ] Create `benchmarks/trust_bench_v1/` with five category folders: `valid_research_cases`, `weak_citation_cases`, `overclaiming_cases`, `no_citation_cases`, and `hallucination_cases`
+- [ ] Write the first 25 benchmark case files with balanced coverage across the five case categories
+- [ ] Add a benchmark README or schema note explaining required fields, expected usage, and evaluation intent
+- [ ] Prepare the benchmark set so it can be reused by a report generator in the next step
+- [ ] Sync the completed benchmark build to GitHub after the files are created
+
 ## Full Build Continuation
 
 - [ ] Fix any remaining route or import issues so Project, Methodology, and Demo pages load reliably

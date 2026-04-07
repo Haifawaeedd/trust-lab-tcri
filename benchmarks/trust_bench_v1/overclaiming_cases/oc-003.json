@@ -1,0 +1,33 @@
+{
+  "id": "OC-003",
+  "category": "overclaiming_cases",
+  "language": "ar",
+  "title": "يقين مطلق في قضية علمية خلافية",
+  "question": "هل ثبت نهائيًا أن جميع المحليات الصناعية تسبب السرطان؟",
+  "answer": "نعم، ثبت نهائيًا أن جميع المحليات الصناعية تسبب السرطان بلا أي استثناء، وهذا أمر محسوم علميًا ورسميًا على مستوى العالم. لا توجد أي حاجة لمراجعة إضافية أو تقييد لهذا الحكم.",
+  "citations": [
+    "Global nutrition bulletin."
+  ],
+  "feature_values": [
+    0.36,
+    0.25,
+    0.17,
+    0.35
+  ],
+  "design_intent": "المثال مصمم لالتقاط لغة الجزم المطلق مع ضعف الأدلة المرجعية.",
+  "ground_truth_band": "Critical",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.64,
+    "support": 0.27,
+    "hallucination_risk": 0.91,
+    "dsr": 0.1,
+    "cvi": 0.12,
+    "tcri_v3": 0.9
+  },
+  "tags": [
+    "arabic",
+    "overclaiming",
+    "health_claim"
+  ]
+}

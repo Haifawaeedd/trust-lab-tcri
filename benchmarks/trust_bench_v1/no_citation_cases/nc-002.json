@@ -1,0 +1,30 @@
+{
+  "id": "NC-002",
+  "category": "no_citation_cases",
+  "language": "en",
+  "title": "Machine-learning answer with no references but cautious phrasing",
+  "question": "What is regularization in machine learning?",
+  "answer": "Regularization refers to techniques that discourage a model from fitting noise too closely, often by constraining parameter growth or adding penalty terms during optimization. This description is directionally correct, but it is uncited and omits distinctions among common approaches.",
+  "citations": [],
+  "feature_values": [
+    0.21,
+    0.23,
+    0.2,
+    0.22
+  ],
+  "design_intent": "The goal is to separate missing references from overt hallucination or extreme overclaiming.",
+  "ground_truth_band": "Verify",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.74,
+    "support": 0.64,
+    "hallucination_risk": 0.18,
+    "dsr": 0.06,
+    "cvi": 0.3,
+    "tcri_v3": 0.41
+  },
+  "tags": [
+    "machine_learning",
+    "no_citations"
+  ]
+}

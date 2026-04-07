@@ -1,0 +1,59 @@
+{
+  "type": "object",
+  "required": [
+    "id",
+    "category",
+    "language",
+    "title",
+    "question",
+    "answer",
+    "citations",
+    "feature_values",
+    "design_intent",
+    "ground_truth_band",
+    "ground_truth_problematic",
+    "expected_profile",
+    "tags"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "category": {
+      "type": "string"
+    },
+    "language": {
+      "type": "string"
+    },
+    "title": {
+      "type": "string"
+    },
+    "question": {
+      "type": "string"
+    },
+    "answer": {
+      "type": "string"
+    },
+    "citations": {
+      "type": "array"
+    },
+    "feature_values": {
+      "type": "array"
+    },
+    "design_intent": {
+      "type": "string"
+    },
+    "ground_truth_band": {
+      "type": "string"
+    },
+    "ground_truth_problematic": {
+      "type": "boolean"
+    },
+    "expected_profile": {
+      "type": "object"
+    },
+    "tags": {
+      "type": "array"
+    }
+  }
+}

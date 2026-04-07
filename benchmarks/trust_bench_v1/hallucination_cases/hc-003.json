@@ -1,0 +1,34 @@
+{
+  "id": "HC-003",
+  "category": "hallucination_cases",
+  "language": "ar",
+  "title": "إجابة عربية أكاديمية مع مراجع موهومة",
+  "question": "لخّص أحدث الأدلة حول أثر الصيام المتقطع على مرضى السكري مع ذكر مرجعين.",
+  "answer": "تشير الأدلة الحديثة إلى أن الصيام المتقطع قد يحسن بعض مؤشرات التحكم السكري لدى فئات محددة من المرضى إذا تم تحت إشراف طبي. وقد دعمت ذلك دراسة طولية منشورة في International Diabetes Review عام 2024 وتجربة سريرية في Middle East Endocrine Reports عام 2023.",
+  "citations": [
+    "Al-Harbi N, Osman L. Intermittent Fasting Outcomes in Type 2 Diabetes. International Diabetes Review. 2024;18(2):55-71.",
+    "Yousef A, Karim S. Regional Trial of Structured Fasting in Glycemic Control. Middle East Endocrine Reports. 2023;6(4):201-214."
+  ],
+  "feature_values": [
+    0.39,
+    0.41,
+    0.38,
+    0.4
+  ],
+  "design_intent": "اللغة مقنعة نسبيًا لكن البنية المرجعية مصممة لتكون غير قابلة للتحقق.",
+  "ground_truth_band": "High Risk",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.82,
+    "support": 0.76,
+    "hallucination_risk": 0.57,
+    "dsr": 0.08,
+    "cvi": 0.11,
+    "tcri_v3": 0.8
+  },
+  "tags": [
+    "arabic",
+    "hallucination",
+    "fabricated_citations"
+  ]
+}

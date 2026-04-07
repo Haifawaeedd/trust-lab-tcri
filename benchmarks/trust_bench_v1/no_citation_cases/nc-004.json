@@ -1,0 +1,30 @@
+{
+  "id": "NC-004",
+  "category": "no_citation_cases",
+  "language": "en",
+  "title": "Systems-evaluation answer with no evidence layer",
+  "question": "Why might benchmark latency measurements vary across runs?",
+  "answer": "Benchmark latency measurements may vary across runs because hardware contention, caching state, background processes, and data-path differences can all alter timing behavior. The explanation is sensible but unsupported by any cited source or experimental note.",
+  "citations": [],
+  "feature_values": [
+    0.27,
+    0.29,
+    0.24,
+    0.28
+  ],
+  "design_intent": "A no-citation engineering case that should remain interpretable and moderate rather than catastrophic.",
+  "ground_truth_band": "Verify",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.71,
+    "support": 0.63,
+    "hallucination_risk": 0.19,
+    "dsr": 0.09,
+    "cvi": 0.3,
+    "tcri_v3": 0.46
+  },
+  "tags": [
+    "systems",
+    "no_citations"
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "id": "OC-004",
+  "category": "overclaiming_cases",
+  "language": "en",
+  "title": "Cybersecurity prediction presented as guaranteed future fact",
+  "question": "Will quantum computers replace all current encryption by 2027?",
+  "answer": "Yes. Quantum computers will definitely replace all current encryption by 2027, and governments have already completed the global transition in secret. The timeline is certain and no serious uncertainty remains.",
+  "citations": [
+    "Cyber future watch."
+  ],
+  "feature_values": [
+    0.41,
+    0.24,
+    0.16,
+    0.4
+  ],
+  "design_intent": "This case mixes absolute certainty with implausible hidden-authority rhetoric.",
+  "ground_truth_band": "Critical",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.66,
+    "support": 0.28,
+    "hallucination_risk": 0.93,
+    "dsr": 0.1,
+    "cvi": 0.11,
+    "tcri_v3": 0.91
+  },
+  "tags": [
+    "cybersecurity",
+    "overclaiming",
+    "future_claim"
+  ]
+}

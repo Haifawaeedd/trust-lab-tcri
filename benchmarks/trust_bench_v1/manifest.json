@@ -1,0 +1,246 @@
+{
+  "benchmark_name": "TRUST-BENCH v1 Foldered Dataset",
+  "repository": "trust-lab-tcri",
+  "version": "1.0",
+  "description": "A folder-structured benchmark set for evaluating citation-aware trust judgments in research-style AI outputs.",
+  "case_count": 25,
+  "categories": [
+    {
+      "slug": "valid_research_cases",
+      "label": "Valid Research Cases",
+      "definition": "Well-grounded answers with reasonably structured citations that should remain in the low-risk band."
+    },
+    {
+      "slug": "weak_citation_cases",
+      "label": "Weak Citation Cases",
+      "definition": "Answers that are partly useful but structurally under-cited, generic, or incomplete at the evidence layer."
+    },
+    {
+      "slug": "overclaiming_cases",
+      "label": "Overclaiming Cases",
+      "definition": "Answers that use certainty language, universal claims, or unjustified precision beyond the available support."
+    },
+    {
+      "slug": "no_citation_cases",
+      "label": "No-Citation Cases",
+      "definition": "Answers that may be partly reasonable but provide no references, allowing missing-source behavior to be measured directly."
+    },
+    {
+      "slug": "hallucination_cases",
+      "label": "Hallucination Cases",
+      "definition": "Answers that cite fabricated, mismatched, or non-verifiable sources while sounding fluent and domain-aware."
+    }
+  ],
+  "evaluation_fields": [
+    "case_id",
+    "category",
+    "cvi",
+    "tcri_v3",
+    "decision",
+    "explanation",
+    "citation_diagnostics",
+    "notes"
+  ],
+  "cases": [
+    {
+      "id": "VR-001",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Balanced explanation of normalization in machine learning",
+      "ground_truth_band": "Verify",
+      "path": "valid_research_cases/vr-001.json"
+    },
+    {
+      "id": "VR-002",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Public-health answer with specific WHO framing",
+      "ground_truth_band": "Verify",
+      "path": "valid_research_cases/vr-002.json"
+    },
+    {
+      "id": "VR-003",
+      "category": "valid_research_cases",
+      "language": "ar",
+      "title": "إجابة عربية منضبطة حول مقاومة المضادات الحيوية",
+      "ground_truth_band": "Verify",
+      "path": "valid_research_cases/vr-003.json"
+    },
+    {
+      "id": "VR-004",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Climate adaptation answer with moderate scope control",
+      "ground_truth_band": "Verify",
+      "path": "valid_research_cases/vr-004.json"
+    },
+    {
+      "id": "VR-005",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Cybersecurity answer describing zero-trust architecture carefully",
+      "ground_truth_band": "Verify",
+      "path": "valid_research_cases/vr-005.json"
+    },
+    {
+      "id": "WC-001",
+      "category": "weak_citation_cases",
+      "language": "en",
+      "title": "Research answer with generic journal-like citation strings",
+      "ground_truth_band": "Review Required",
+      "path": "weak_citation_cases/wc-001.json"
+    },
+    {
+      "id": "WC-002",
+      "category": "weak_citation_cases",
+      "language": "en",
+      "title": "Historical answer with one classic source and one vague mention",
+      "ground_truth_band": "Review Required",
+      "path": "weak_citation_cases/wc-002.json"
+    },
+    {
+      "id": "WC-003",
+      "category": "weak_citation_cases",
+      "language": "ar",
+      "title": "إجابة عربية صحيحة جزئيًا مع توثيق ناقص",
+      "ground_truth_band": "Review Required",
+      "path": "weak_citation_cases/wc-003.json"
+    },
+    {
+      "id": "WC-004",
+      "category": "weak_citation_cases",
+      "language": "en",
+      "title": "Health-policy answer with incomplete bibliographic structure",
+      "ground_truth_band": "Review Required",
+      "path": "weak_citation_cases/wc-004.json"
+    },
+    {
+      "id": "WC-005",
+      "category": "weak_citation_cases",
+      "language": "en",
+      "title": "Machine-learning explanation with under-cited mitigation advice",
+      "ground_truth_band": "Review Required",
+      "path": "weak_citation_cases/wc-005.json"
+    },
+    {
+      "id": "OC-001",
+      "category": "overclaiming_cases",
+      "language": "en",
+      "title": "Absolute accuracy claim for machine learning models",
+      "ground_truth_band": "Critical",
+      "path": "overclaiming_cases/oc-001.json"
+    },
+    {
+      "id": "OC-002",
+      "category": "overclaiming_cases",
+      "language": "en",
+      "title": "Geopolitical ranking framed as final and undisputed",
+      "ground_truth_band": "High Risk",
+      "path": "overclaiming_cases/oc-002.json"
+    },
+    {
+      "id": "OC-003",
+      "category": "overclaiming_cases",
+      "language": "ar",
+      "title": "يقين مطلق في قضية علمية خلافية",
+      "ground_truth_band": "Critical",
+      "path": "overclaiming_cases/oc-003.json"
+    },
+    {
+      "id": "OC-004",
+      "category": "overclaiming_cases",
+      "language": "en",
+      "title": "Cybersecurity prediction presented as guaranteed future fact",
+      "ground_truth_band": "Critical",
+      "path": "overclaiming_cases/oc-004.json"
+    },
+    {
+      "id": "OC-005",
+      "category": "overclaiming_cases",
+      "language": "en",
+      "title": "Historical explanation reduced to a single unquestioned cause",
+      "ground_truth_band": "High Risk",
+      "path": "overclaiming_cases/oc-005.json"
+    },
+    {
+      "id": "NC-001",
+      "category": "no_citation_cases",
+      "language": "en",
+      "title": "Reasonable health explanation without any references",
+      "ground_truth_band": "Verify",
+      "path": "no_citation_cases/nc-001.json"
+    },
+    {
+      "id": "NC-002",
+      "category": "no_citation_cases",
+      "language": "en",
+      "title": "Machine-learning answer with no references but cautious phrasing",
+      "ground_truth_band": "Verify",
+      "path": "no_citation_cases/nc-002.json"
+    },
+    {
+      "id": "NC-003",
+      "category": "no_citation_cases",
+      "language": "ar",
+      "title": "إجابة عربية متزنة بلا مراجع",
+      "ground_truth_band": "Verify",
+      "path": "no_citation_cases/nc-003.json"
+    },
+    {
+      "id": "NC-004",
+      "category": "no_citation_cases",
+      "language": "en",
+      "title": "Systems-evaluation answer with no evidence layer",
+      "ground_truth_band": "Verify",
+      "path": "no_citation_cases/nc-004.json"
+    },
+    {
+      "id": "NC-005",
+      "category": "no_citation_cases",
+      "language": "en",
+      "title": "History answer with acceptable prose but no supporting references",
+      "ground_truth_band": "Verify",
+      "path": "no_citation_cases/nc-005.json"
+    },
+    {
+      "id": "HC-001",
+      "category": "hallucination_cases",
+      "language": "en",
+      "title": "Medical synthesis with fabricated journal references",
+      "ground_truth_band": "High Risk",
+      "path": "hallucination_cases/hc-001.json"
+    },
+    {
+      "id": "HC-002",
+      "category": "hallucination_cases",
+      "language": "en",
+      "title": "Policy answer with invented EU recommendation",
+      "ground_truth_band": "High Risk",
+      "path": "hallucination_cases/hc-002.json"
+    },
+    {
+      "id": "HC-003",
+      "category": "hallucination_cases",
+      "language": "ar",
+      "title": "إجابة عربية أكاديمية مع مراجع موهومة",
+      "ground_truth_band": "High Risk",
+      "path": "hallucination_cases/hc-003.json"
+    },
+    {
+      "id": "HC-004",
+      "category": "hallucination_cases",
+      "language": "en",
+      "title": "RAG evaluation answer with fabricated conference papers",
+      "ground_truth_band": "Critical",
+      "path": "hallucination_cases/hc-004.json"
+    },
+    {
+      "id": "HC-005",
+      "category": "hallucination_cases",
+      "language": "en",
+      "title": "Ancient history answer with nonexistent archival bulletin",
+      "ground_truth_band": "High Risk",
+      "path": "hallucination_cases/hc-005.json"
+    }
+  ]
+}

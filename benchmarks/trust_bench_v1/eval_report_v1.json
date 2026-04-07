@@ -1,0 +1,1442 @@
+{
+  "benchmark_name": "TRUST-BENCH v1 Foldered Dataset",
+  "repository": "trust-lab-tcri",
+  "version": "1.0",
+  "schemes": {
+    "prototype_current": {
+      "description": "Current frontend logic emits Safe, Verify, High Risk, or Critical using thresholds <0.30, <0.60, <0.85, and >=0.85."
+    },
+    "benchmark_target": {
+      "description": "Benchmark research taxonomy emits Verify, Review Required, High Risk, or Critical using thresholds <0.50, <0.70, <0.85, and >=0.85."
+    }
+  },
+  "summary": {
+    "case_count": 25,
+    "by_category": {
+      "hallucination_cases": 5,
+      "no_citation_cases": 5,
+      "overclaiming_cases": 5,
+      "valid_research_cases": 5,
+      "weak_citation_cases": 5
+    },
+    "ground_truth_bands": {
+      "Critical": 4,
+      "High Risk": 6,
+      "Review Required": 5,
+      "Verify": 10
+    },
+    "prototype_decisions": {
+      "High Risk": 8,
+      "Safe": 2,
+      "Verify": 15
+    },
+    "benchmark_target_decisions": {
+      "High Risk": 3,
+      "Review Required": 10,
+      "Verify": 12
+    },
+    "target_band_match_count": 10,
+    "target_band_match_rate": 0.4,
+    "prototype_band_match_count": 8,
+    "prototype_band_match_rate": 0.32
+  },
+  "results": [
+    {
+      "case_id": "VR-001",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Balanced explanation of normalization in machine learning",
+      "ground_truth_band": "Verify",
+      "prototype_decision": "High Risk",
+      "benchmark_target_decision": "High Risk",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": false,
+      "metrics": {
+        "reliability": 0.937,
+        "support": 0.328,
+        "hallucination_risk": 0.435,
+        "dsr": 0.04,
+        "cvi": 1.0,
+        "tcri_v3": 0.701
+      },
+      "citation_summary": {
+        "verified_citations": 2,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Bishop CM. Pattern Recognition and Machine Learning. Springer. 2006.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "Goodfellow I, Bengio Y, Courville A. Deep Learning. MIT Press. 2016.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.14,
+        0.17,
+        0.16,
+        0.15
+      ],
+      "design_intent": "A straightforward research-style answer with two well-structured references and moderate, non-absolute language.",
+      "expected_profile": {
+        "reliability": 0.86,
+        "support": 0.84,
+        "hallucination_risk": 0.12,
+        "dsr": 0.05,
+        "cvi": 0.86,
+        "tcri_v3": 0.18
+      },
+      "explanation": "It appears structurally coherent, while the answer is weakly supported relative to the question. In this profile, hallucination indicators remain noticeable, and the numeric context remains relatively stable. the citation layer looks comparatively strong (2/2 verified-like). The current prototype decision is High Risk."
+    },
+    {
+      "case_id": "VR-002",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Public-health answer with specific WHO framing",
+      "ground_truth_band": "Verify",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": true,
+      "prototype_band_match": true,
+      "ground_truth_problematic": false,
+      "metrics": {
+        "reliability": 0.851,
+        "support": 0.666,
+        "hallucination_risk": 0.08,
+        "dsr": 0.04,
+        "cvi": 0.0,
+        "tcri_v3": 0.444
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "World Health Organization. Antimicrobial resistance. Fact sheet. 2023.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "Centers for Disease Control and Prevention. Antibiotic resistance threats in the United States. 2019.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.18,
+        0.2,
+        0.19,
+        0.21
+      ],
+      "design_intent": "This case should remain low risk because the answer is cautious, aligned with mainstream sources, and structurally referenced.",
+      "expected_profile": {
+        "reliability": 0.88,
+        "support": 0.86,
+        "hallucination_risk": 0.11,
+        "dsr": 0.05,
+        "cvi": 0.84,
+        "tcri_v3": 0.2
+      },
+      "explanation": "It appears structurally coherent, while the answer is only partially grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer is weak (0/2 verified-like). The current prototype decision is Verify."
+    },
+    {
+      "case_id": "VR-003",
+      "category": "valid_research_cases",
+      "language": "ar",
+      "title": "إجابة عربية منضبطة حول مقاومة المضادات الحيوية",
+      "ground_truth_band": "Verify",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": true,
+      "prototype_band_match": true,
+      "ground_truth_problematic": false,
+      "metrics": {
+        "reliability": 0.996,
+        "support": 0.699,
+        "hallucination_risk": 0.08,
+        "dsr": 0.04,
+        "cvi": 0.0,
+        "tcri_v3": 0.477
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "World Health Organization. Antimicrobial resistance. Fact sheet. 2023.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "سنة ظاهرة",
+            "بنية مؤلف ظاهرة",
+            "وصف مرجعي كافٍ",
+            "تنسيق مرجعي منظم"
+          ]
+        },
+        {
+          "raw": "O’Neill J. Tackling drug-resistant infections globally: final report and recommendations. 2016.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "سنة ظاهرة",
+            "بنية مؤلف ظاهرة",
+            "وصف مرجعي كافٍ",
+            "تنسيق مرجعي منظم"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.16,
+        0.18,
+        0.17,
+        0.19
+      ],
+      "design_intent": "حالة مرجعية موثوقة نسبيًا لاختبار أن النظام لا يعاقب الإجابات السليمة ذات التوثيق المعقول.",
+      "expected_profile": {
+        "reliability": 0.87,
+        "support": 0.83,
+        "hallucination_risk": 0.13,
+        "dsr": 0.05,
+        "cvi": 0.82,
+        "tcri_v3": 0.22
+      },
+      "explanation": "تبدو الإجابة متماسكة من حيث البنية، لكن ترتبط الإجابة بالسؤال بشكل جزئي فقط. في حين يظل خطر الهلوسة محدودًا نسبيًا، وتبقى القيم الرقمية مستقرة نسبيًا. كما أن طبقة الاستشهادات ضعيفة (0/2 استشهادات قوية). والقرار الحالي في النموذج هو Verify."
+    },
+    {
+      "case_id": "VR-004",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Climate adaptation answer with moderate scope control",
+      "ground_truth_band": "Verify",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Review Required",
+      "target_band_match": false,
+      "prototype_band_match": true,
+      "ground_truth_problematic": false,
+      "metrics": {
+        "reliability": 0.879,
+        "support": 0.577,
+        "hallucination_risk": 0.08,
+        "dsr": 0.04,
+        "cvi": 0.0,
+        "tcri_v3": 0.503
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Intergovernmental Panel on Climate Change. Climate Change 2022: Impacts, Adaptation and Vulnerability. 2022.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "World Health Organization. Heat and health. Fact sheet. 2021.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.2,
+        0.18,
+        0.19,
+        0.17
+      ],
+      "design_intent": "A low-risk policy-style answer that stays measured and evidence-aware.",
+      "expected_profile": {
+        "reliability": 0.85,
+        "support": 0.82,
+        "hallucination_risk": 0.14,
+        "dsr": 0.06,
+        "cvi": 0.83,
+        "tcri_v3": 0.24
+      },
+      "explanation": "It appears structurally coherent, while the answer is only partially grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer is weak (0/2 verified-like). The current prototype decision is Verify."
+    },
+    {
+      "case_id": "VR-005",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Cybersecurity answer describing zero-trust architecture carefully",
+      "ground_truth_band": "Verify",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": true,
+      "prototype_band_match": true,
+      "ground_truth_problematic": false,
+      "metrics": {
+        "reliability": 0.986,
+        "support": 0.707,
+        "hallucination_risk": 0.08,
+        "dsr": 0.04,
+        "cvi": 0.5,
+        "tcri_v3": 0.44
+      },
+      "citation_summary": {
+        "verified_citations": 1,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Rose S, Borchert O, Mitchell S, Connelly S. Zero Trust Architecture. NIST Special Publication 800-207. 2020.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "Kindervag J. No More Chewy Centers: Introducing the Zero Trust Model of Information Security. Forrester Research. 2010.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.15,
+        0.16,
+        0.14,
+        0.18
+      ],
+      "design_intent": "The answer is concise, domain-aligned, and supported by two recognizable sources.",
+      "expected_profile": {
+        "reliability": 0.87,
+        "support": 0.85,
+        "hallucination_risk": 0.12,
+        "dsr": 0.05,
+        "cvi": 0.88,
+        "tcri_v3": 0.17
+      },
+      "explanation": "It appears structurally coherent, while the answer is only partially grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer is mixed (1/2 verified-like). The current prototype decision is Verify."
+    },
+    {
+      "case_id": "WC-001",
+      "category": "weak_citation_cases",
+      "language": "en",
+      "title": "Research answer with generic journal-like citation strings",
+      "ground_truth_band": "Review Required",
+      "prototype_decision": "High Risk",
+      "benchmark_target_decision": "High Risk",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.884,
+        "support": 0.328,
+        "hallucination_risk": 0.435,
+        "dsr": 0.1,
+        "cvi": 0.0,
+        "tcri_v3": 0.76
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Smith J. Deep Learning Optimization Study. 2023.",
+          "score": 0.5,
+          "status": "partially supported",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "AI Journal normalization review.",
+          "score": 0.32,
+          "status": "unverified",
+          "flags": [
+            "Author-like structure",
+            "Venue-like metadata"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.42,
+        0.81,
+        0.35,
+        0.77
+      ],
+      "design_intent": "A plausible answer with weakly structured citations that should feel reviewable rather than trustworthy.",
+      "expected_profile": {
+        "reliability": 0.74,
+        "support": 0.58,
+        "hallucination_risk": 0.29,
+        "dsr": 0.18,
+        "cvi": 0.32,
+        "tcri_v3": 0.63
+      },
+      "explanation": "It appears structurally coherent, while the answer is weakly supported relative to the question. In this profile, hallucination indicators remain noticeable, and the numeric context remains relatively stable. the citation layer is weak (0/2 verified-like). The current prototype decision is High Risk."
+    },
+    {
+      "case_id": "WC-002",
+      "category": "weak_citation_cases",
+      "language": "en",
+      "title": "Historical answer with one classic source and one vague mention",
+      "ground_truth_band": "Review Required",
+      "prototype_decision": "High Risk",
+      "benchmark_target_decision": "Review Required",
+      "target_band_match": true,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.808,
+        "support": 0.439,
+        "hallucination_risk": 0.358,
+        "dsr": 0.04,
+        "cvi": 0.5,
+        "tcri_v3": 0.61
+      },
+      "citation_summary": {
+        "verified_citations": 1,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Eisenstein EL. The Printing Press as an Agent of Change. Cambridge University Press. 1979.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "European history review article on print culture.",
+          "score": 0.32,
+          "status": "unverified",
+          "flags": [
+            "Author-like structure",
+            "Venue-like metadata"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.29,
+        0.31,
+        0.3,
+        0.32
+      ],
+      "design_intent": "The content is directionally right, but the evidence layer is thin and partly generic.",
+      "expected_profile": {
+        "reliability": 0.78,
+        "support": 0.64,
+        "hallucination_risk": 0.22,
+        "dsr": 0.07,
+        "cvi": 0.46,
+        "tcri_v3": 0.51
+      },
+      "explanation": "It appears structurally coherent, while the answer is weakly supported relative to the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer is mixed (1/2 verified-like). The current prototype decision is High Risk."
+    },
+    {
+      "case_id": "WC-003",
+      "category": "weak_citation_cases",
+      "language": "ar",
+      "title": "إجابة عربية صحيحة جزئيًا مع توثيق ناقص",
+      "ground_truth_band": "Review Required",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Review Required",
+      "target_band_match": true,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.956,
+        "support": 0.622,
+        "hallucination_risk": 0.08,
+        "dsr": 0.04,
+        "cvi": 0.0,
+        "tcri_v3": 0.508
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 1
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "World Health Organization. Antimicrobial resistance. Fact sheet. 2023.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "سنة ظاهرة",
+            "بنية مؤلف ظاهرة",
+            "وصف مرجعي كافٍ",
+            "تنسيق مرجعي منظم"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.31,
+        0.34,
+        0.32,
+        0.33
+      ],
+      "design_intent": "تمثل هذه الحالة إجابة نافعة لكنها غير مكتملة توثيقيًا بالنسبة للاستعمال البحثي.",
+      "expected_profile": {
+        "reliability": 0.79,
+        "support": 0.66,
+        "hallucination_risk": 0.23,
+        "dsr": 0.07,
+        "cvi": 0.49,
+        "tcri_v3": 0.48
+      },
+      "explanation": "تبدو الإجابة متماسكة من حيث البنية، لكن ترتبط الإجابة بالسؤال بشكل جزئي فقط. في حين يظل خطر الهلوسة محدودًا نسبيًا، وتبقى القيم الرقمية مستقرة نسبيًا. كما أن طبقة الاستشهادات ضعيفة (0/1 استشهادات قوية). والقرار الحالي في النموذج هو Verify."
+    },
+    {
+      "case_id": "WC-004",
+      "category": "weak_citation_cases",
+      "language": "en",
+      "title": "Health-policy answer with incomplete bibliographic structure",
+      "ground_truth_band": "Review Required",
+      "prototype_decision": "High Risk",
+      "benchmark_target_decision": "Review Required",
+      "target_band_match": true,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.966,
+        "support": 0.497,
+        "hallucination_risk": 0.35,
+        "dsr": 0.04,
+        "cvi": 0.0,
+        "tcri_v3": 0.678
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Larson H. Vaccine confidence and public trust. 2022.",
+          "score": 0.5,
+          "status": "partially supported",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "Global immunization behavior report.",
+          "score": 0.18,
+          "status": "missing metadata",
+          "flags": [
+            "Author-like structure"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.33,
+        0.35,
+        0.34,
+        0.36
+      ],
+      "design_intent": "The text is sensible, yet the citation layer remains too vague for stronger trust.",
+      "expected_profile": {
+        "reliability": 0.76,
+        "support": 0.61,
+        "hallucination_risk": 0.26,
+        "dsr": 0.08,
+        "cvi": 0.38,
+        "tcri_v3": 0.57
+      },
+      "explanation": "It appears structurally coherent, while the answer is weakly supported relative to the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer is weak (0/2 verified-like). The current prototype decision is High Risk."
+    },
+    {
+      "case_id": "WC-005",
+      "category": "weak_citation_cases",
+      "language": "en",
+      "title": "Machine-learning explanation with under-cited mitigation advice",
+      "ground_truth_band": "Review Required",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.806,
+        "support": 0.515,
+        "hallucination_risk": 0.2,
+        "dsr": 0.04,
+        "cvi": 1.0,
+        "tcri_v3": 0.486
+      },
+      "citation_summary": {
+        "verified_citations": 1,
+        "total_citations": 1
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Goodfellow I, Bengio Y, Courville A. Deep Learning. MIT Press. 2016.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.28,
+        0.3,
+        0.29,
+        0.31
+      ],
+      "design_intent": "This case should land in a middle band because it is not false, but the evidence layer is too sparse for research-grade reliance.",
+      "expected_profile": {
+        "reliability": 0.81,
+        "support": 0.7,
+        "hallucination_risk": 0.2,
+        "dsr": 0.07,
+        "cvi": 0.53,
+        "tcri_v3": 0.44
+      },
+      "explanation": "It appears structurally coherent, while the answer is only partially grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer looks comparatively strong (1/1 verified-like). The current prototype decision is Verify."
+    },
+    {
+      "case_id": "OC-001",
+      "category": "overclaiming_cases",
+      "language": "en",
+      "title": "Absolute accuracy claim for machine learning models",
+      "ground_truth_band": "Critical",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Review Required",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.814,
+        "support": 0.736,
+        "hallucination_risk": 0.6,
+        "dsr": 0.085,
+        "cvi": 0.0,
+        "tcri_v3": 0.562
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 1
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Unknown AI report.",
+          "score": 0.32,
+          "status": "unverified",
+          "flags": [
+            "Author-like structure",
+            "Venue-like metadata"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.39,
+        0.22,
+        0.18,
+        0.41
+      ],
+      "design_intent": "An intentionally extreme certainty claim with very weak evidence support.",
+      "expected_profile": {
+        "reliability": 0.62,
+        "support": 0.24,
+        "hallucination_risk": 0.95,
+        "dsr": 0.11,
+        "cvi": 0.08,
+        "tcri_v3": 0.92
+      },
+      "explanation": "It appears structurally coherent, while the answer is only partially grounded in the question. In this profile, hallucination indicators remain noticeable, and the numeric context remains relatively stable. the citation layer is weak (0/1 verified-like). The current prototype decision is Verify."
+    },
+    {
+      "case_id": "OC-002",
+      "category": "overclaiming_cases",
+      "language": "en",
+      "title": "Geopolitical ranking framed as final and undisputed",
+      "ground_truth_band": "High Risk",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Review Required",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.777,
+        "support": 0.711,
+        "hallucination_risk": 0.56,
+        "dsr": 0.064,
+        "cvi": 0.0,
+        "tcri_v3": 0.546
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 1
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Global education ranking digest.",
+          "score": 0.18,
+          "status": "missing metadata",
+          "flags": [
+            "Author-like structure"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.34,
+        0.26,
+        0.19,
+        0.37
+      ],
+      "design_intent": "Unsupported precision and certainty are more important here than citation formality alone.",
+      "expected_profile": {
+        "reliability": 0.67,
+        "support": 0.31,
+        "hallucination_risk": 0.82,
+        "dsr": 0.09,
+        "cvi": 0.15,
+        "tcri_v3": 0.81
+      },
+      "explanation": "It appears structurally coherent, while the answer is only partially grounded in the question. In this profile, hallucination indicators remain noticeable, and the numeric context remains relatively stable. the citation layer is weak (0/1 verified-like). The current prototype decision is Verify."
+    },
+    {
+      "case_id": "OC-003",
+      "category": "overclaiming_cases",
+      "language": "ar",
+      "title": "يقين مطلق في قضية علمية خلافية",
+      "ground_truth_band": "Critical",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Review Required",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.756,
+        "support": 0.745,
+        "hallucination_risk": 0.56,
+        "dsr": 0.07,
+        "cvi": 0.0,
+        "tcri_v3": 0.514
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 1
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Global nutrition bulletin.",
+          "score": 0.18,
+          "status": "missing metadata",
+          "flags": [
+            "بنية مؤلف ظاهرة"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.36,
+        0.25,
+        0.17,
+        0.35
+      ],
+      "design_intent": "المثال مصمم لالتقاط لغة الجزم المطلق مع ضعف الأدلة المرجعية.",
+      "expected_profile": {
+        "reliability": 0.64,
+        "support": 0.27,
+        "hallucination_risk": 0.91,
+        "dsr": 0.1,
+        "cvi": 0.12,
+        "tcri_v3": 0.9
+      },
+      "explanation": "تبدو الإجابة متماسكة من حيث البنية، لكن ترتبط الإجابة بالسؤال بشكل جزئي فقط. كما أن مؤشرات الهلوسة ما تزال ملحوظة، وتبقى القيم الرقمية مستقرة نسبيًا. كما أن طبقة الاستشهادات ضعيفة (0/1 استشهادات قوية). والقرار الحالي في النموذج هو Verify."
+    },
+    {
+      "case_id": "OC-004",
+      "category": "overclaiming_cases",
+      "language": "en",
+      "title": "Cybersecurity prediction presented as guaranteed future fact",
+      "ground_truth_band": "Critical",
+      "prototype_decision": "Safe",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.824,
+        "support": 0.953,
+        "hallucination_risk": 0.18,
+        "dsr": 0.09,
+        "cvi": 0.0,
+        "tcri_v3": 0.285
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 1
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Cyber future watch.",
+          "score": 0.18,
+          "status": "missing metadata",
+          "flags": [
+            "Author-like structure"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.41,
+        0.24,
+        0.16,
+        0.4
+      ],
+      "design_intent": "This case mixes absolute certainty with implausible hidden-authority rhetoric.",
+      "expected_profile": {
+        "reliability": 0.66,
+        "support": 0.28,
+        "hallucination_risk": 0.93,
+        "dsr": 0.1,
+        "cvi": 0.11,
+        "tcri_v3": 0.91
+      },
+      "explanation": "It appears structurally coherent, while the answer remains strongly grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer is weak (0/1 verified-like). The current prototype decision is Safe."
+    },
+    {
+      "case_id": "OC-005",
+      "category": "overclaiming_cases",
+      "language": "en",
+      "title": "Historical explanation reduced to a single unquestioned cause",
+      "ground_truth_band": "High Risk",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.746,
+        "support": 0.647,
+        "hallucination_risk": 0.24,
+        "dsr": 0.103,
+        "cvi": 0.0,
+        "tcri_v3": 0.484
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 1
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Roman history digest.",
+          "score": 0.18,
+          "status": "missing metadata",
+          "flags": [
+            "Author-like structure"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.32,
+        0.3,
+        0.2,
+        0.31
+      ],
+      "design_intent": "The case targets monocausal certainty and the removal of legitimate scholarly debate.",
+      "expected_profile": {
+        "reliability": 0.68,
+        "support": 0.38,
+        "hallucination_risk": 0.79,
+        "dsr": 0.08,
+        "cvi": 0.14,
+        "tcri_v3": 0.78
+      },
+      "explanation": "It appears structurally coherent, while the answer is only partially grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer is weak (0/1 verified-like). The current prototype decision is Verify."
+    },
+    {
+      "case_id": "NC-001",
+      "category": "no_citation_cases",
+      "language": "en",
+      "title": "Reasonable health explanation without any references",
+      "ground_truth_band": "Verify",
+      "prototype_decision": "Safe",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": true,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.794,
+        "support": 0.96,
+        "hallucination_risk": 0.02,
+        "dsr": 0.04,
+        "cvi": 0.3,
+        "tcri_v3": 0.213
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 0
+      },
+      "citation_diagnostics": [],
+      "feature_values": [
+        0.24,
+        0.28,
+        0.22,
+        0.26
+      ],
+      "design_intent": "A plausible no-citation case that should remain reviewable rather than collapse into the highest-risk band.",
+      "expected_profile": {
+        "reliability": 0.72,
+        "support": 0.61,
+        "hallucination_risk": 0.21,
+        "dsr": 0.07,
+        "cvi": 0.3,
+        "tcri_v3": 0.44
+      },
+      "explanation": "It appears structurally coherent, while the answer remains strongly grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. No citation set was supplied, so citation integrity remains only conservatively estimated. The current prototype decision is Safe."
+    },
+    {
+      "case_id": "NC-002",
+      "category": "no_citation_cases",
+      "language": "en",
+      "title": "Machine-learning answer with no references but cautious phrasing",
+      "ground_truth_band": "Verify",
+      "prototype_decision": "High Risk",
+      "benchmark_target_decision": "Review Required",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.96,
+        "support": 0.422,
+        "hallucination_risk": 0.32,
+        "dsr": 0.04,
+        "cvi": 0.3,
+        "tcri_v3": 0.681
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 0
+      },
+      "citation_diagnostics": [],
+      "feature_values": [
+        0.21,
+        0.23,
+        0.2,
+        0.22
+      ],
+      "design_intent": "The goal is to separate missing references from overt hallucination or extreme overclaiming.",
+      "expected_profile": {
+        "reliability": 0.74,
+        "support": 0.64,
+        "hallucination_risk": 0.18,
+        "dsr": 0.06,
+        "cvi": 0.3,
+        "tcri_v3": 0.41
+      },
+      "explanation": "It appears structurally coherent, while the answer is weakly supported relative to the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. No citation set was supplied, so citation integrity remains only conservatively estimated. The current prototype decision is High Risk."
+    },
+    {
+      "case_id": "NC-003",
+      "category": "no_citation_cases",
+      "language": "ar",
+      "title": "إجابة عربية متزنة بلا مراجع",
+      "ground_truth_band": "Verify",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": true,
+      "prototype_band_match": true,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.879,
+        "support": 0.843,
+        "hallucination_risk": 0.02,
+        "dsr": 0.04,
+        "cvi": 0.3,
+        "tcri_v3": 0.311
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 0
+      },
+      "citation_diagnostics": [],
+      "feature_values": [
+        0.25,
+        0.27,
+        0.23,
+        0.24
+      ],
+      "design_intent": "حالة لاختبار أن غياب المراجع لا يساوي تلقائيًا هلوسة كاملة أو خطرًا حرجًا.",
+      "expected_profile": {
+        "reliability": 0.73,
+        "support": 0.62,
+        "hallucination_risk": 0.2,
+        "dsr": 0.06,
+        "cvi": 0.3,
+        "tcri_v3": 0.43
+      },
+      "explanation": "تبدو الإجابة متماسكة من حيث البنية، لكن تبقى الإجابة مرتبطة بقوة بالسؤال. في حين يظل خطر الهلوسة محدودًا نسبيًا، وتبقى القيم الرقمية مستقرة نسبيًا. ولم تُزوَّد الحالة بمجموعة استشهادات، لذلك يبقى تقدير سلامة المراجع محافظًا ومحدودًا. والقرار الحالي في النموذج هو Verify."
+    },
+    {
+      "case_id": "NC-004",
+      "category": "no_citation_cases",
+      "language": "en",
+      "title": "Systems-evaluation answer with no evidence layer",
+      "ground_truth_band": "Verify",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": true,
+      "prototype_band_match": true,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.976,
+        "support": 0.869,
+        "hallucination_risk": 0.0,
+        "dsr": 0.04,
+        "cvi": 0.3,
+        "tcri_v3": 0.315
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 0
+      },
+      "citation_diagnostics": [],
+      "feature_values": [
+        0.27,
+        0.29,
+        0.24,
+        0.28
+      ],
+      "design_intent": "A no-citation engineering case that should remain interpretable and moderate rather than catastrophic.",
+      "expected_profile": {
+        "reliability": 0.71,
+        "support": 0.63,
+        "hallucination_risk": 0.19,
+        "dsr": 0.09,
+        "cvi": 0.3,
+        "tcri_v3": 0.46
+      },
+      "explanation": "It appears structurally coherent, while the answer remains strongly grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. No citation set was supplied, so citation integrity remains only conservatively estimated. The current prototype decision is Verify."
+    },
+    {
+      "case_id": "NC-005",
+      "category": "no_citation_cases",
+      "language": "en",
+      "title": "History answer with acceptable prose but no supporting references",
+      "ground_truth_band": "Verify",
+      "prototype_decision": "High Risk",
+      "benchmark_target_decision": "Review Required",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.855,
+        "support": 0.484,
+        "hallucination_risk": 0.3,
+        "dsr": 0.04,
+        "cvi": 0.3,
+        "tcri_v3": 0.604
+      },
+      "citation_summary": {
+        "verified_citations": 0,
+        "total_citations": 0
+      },
+      "citation_diagnostics": [],
+      "feature_values": [
+        0.23,
+        0.25,
+        0.21,
+        0.24
+      ],
+      "design_intent": "This case checks whether the system can treat uncited but plausible answers as limited rather than fabricated.",
+      "expected_profile": {
+        "reliability": 0.72,
+        "support": 0.6,
+        "hallucination_risk": 0.2,
+        "dsr": 0.06,
+        "cvi": 0.3,
+        "tcri_v3": 0.45
+      },
+      "explanation": "It appears structurally coherent, while the answer is weakly supported relative to the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. No citation set was supplied, so citation integrity remains only conservatively estimated. The current prototype decision is High Risk."
+    },
+    {
+      "case_id": "HC-001",
+      "category": "hallucination_cases",
+      "language": "en",
+      "title": "Medical synthesis with fabricated journal references",
+      "ground_truth_band": "High Risk",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.894,
+        "support": 0.586,
+        "hallucination_risk": 0.03,
+        "dsr": 0.04,
+        "cvi": 1.0,
+        "tcri_v3": 0.423
+      },
+      "citation_summary": {
+        "verified_citations": 2,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Harrison P, Lee M. Climate Anxiety in Adolescents: A Multinational Cohort Study. Lancet Youth Psychiatry. 2024;11(3):101-115.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "Nwosu T, Bernard A. School Function Decline under Climate Stress. Journal of Adolescent Climate Medicine. 2023;7(2):44-58.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.41,
+        0.43,
+        0.4,
+        0.42
+      ],
+      "design_intent": "The prose is coherent and question-aligned, but the cited evidence layer is intentionally fabricated.",
+      "expected_profile": {
+        "reliability": 0.84,
+        "support": 0.79,
+        "hallucination_risk": 0.58,
+        "dsr": 0.08,
+        "cvi": 0.12,
+        "tcri_v3": 0.82
+      },
+      "explanation": "It appears structurally coherent, while the answer is only partially grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer looks comparatively strong (2/2 verified-like). The current prototype decision is Verify."
+    },
+    {
+      "case_id": "HC-002",
+      "category": "hallucination_cases",
+      "language": "en",
+      "title": "Policy answer with invented EU recommendation",
+      "ground_truth_band": "High Risk",
+      "prototype_decision": "High Risk",
+      "benchmark_target_decision": "Review Required",
+      "target_band_match": false,
+      "prototype_band_match": true,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.896,
+        "support": 0.457,
+        "hallucination_risk": 0.35,
+        "dsr": 0.04,
+        "cvi": 0.5,
+        "tcri_v3": 0.637
+      },
+      "citation_summary": {
+        "verified_citations": 1,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "European Commission. Digital Authenticity Recommendation 2025/14/EU. Brussels: Publications Office of the European Union; 2025.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "Keller J, Sousa R. Transparency Duties for Synthetic Media under the New EU Directive. European Platform Law Review. 2025;9(1):1-19.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.35,
+        0.34,
+        0.36,
+        0.35
+      ],
+      "design_intent": "A fluent policy answer whose evidence layer is intentionally unverifiable or mismatched.",
+      "expected_profile": {
+        "reliability": 0.81,
+        "support": 0.74,
+        "hallucination_risk": 0.61,
+        "dsr": 0.07,
+        "cvi": 0.1,
+        "tcri_v3": 0.79
+      },
+      "explanation": "It appears structurally coherent, while the answer is weakly supported relative to the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer is mixed (1/2 verified-like). The current prototype decision is High Risk."
+    },
+    {
+      "case_id": "HC-003",
+      "category": "hallucination_cases",
+      "language": "ar",
+      "title": "إجابة عربية أكاديمية مع مراجع موهومة",
+      "ground_truth_band": "High Risk",
+      "prototype_decision": "High Risk",
+      "benchmark_target_decision": "High Risk",
+      "target_band_match": true,
+      "prototype_band_match": true,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.986,
+        "support": 0.428,
+        "hallucination_risk": 0.415,
+        "dsr": 0.04,
+        "cvi": 0.5,
+        "tcri_v3": 0.706
+      },
+      "citation_summary": {
+        "verified_citations": 1,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Al-Harbi N, Osman L. Intermittent Fasting Outcomes in Type 2 Diabetes. International Diabetes Review. 2024;18(2):55-71.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "سنة ظاهرة",
+            "بنية مؤلف ظاهرة",
+            "بيانات جهة النشر أو الوعاء",
+            "وصف مرجعي كافٍ",
+            "تنسيق مرجعي منظم"
+          ]
+        },
+        {
+          "raw": "Yousef A, Karim S. Regional Trial of Structured Fasting in Glycemic Control. Middle East Endocrine Reports. 2023;6(4):201-214.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "سنة ظاهرة",
+            "بنية مؤلف ظاهرة",
+            "وصف مرجعي كافٍ",
+            "تنسيق مرجعي منظم"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.39,
+        0.41,
+        0.38,
+        0.4
+      ],
+      "design_intent": "اللغة مقنعة نسبيًا لكن البنية المرجعية مصممة لتكون غير قابلة للتحقق.",
+      "expected_profile": {
+        "reliability": 0.82,
+        "support": 0.76,
+        "hallucination_risk": 0.57,
+        "dsr": 0.08,
+        "cvi": 0.11,
+        "tcri_v3": 0.8
+      },
+      "explanation": "تبدو الإجابة متماسكة من حيث البنية، لكن تعاني الإجابة من ضعف واضح في الدعم مقارنة بالسؤال. كما أن مؤشرات الهلوسة ما تزال ملحوظة، وتبقى القيم الرقمية مستقرة نسبيًا. كما أن طبقة الاستشهادات مختلطة (1/2 استشهادات قوية). والقرار الحالي في النموذج هو High Risk."
+    },
+    {
+      "case_id": "HC-004",
+      "category": "hallucination_cases",
+      "language": "en",
+      "title": "RAG evaluation answer with fabricated conference papers",
+      "ground_truth_band": "Critical",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.891,
+        "support": 0.794,
+        "hallucination_risk": 0.08,
+        "dsr": 0.04,
+        "cvi": 1.0,
+        "tcri_v3": 0.33
+      },
+      "citation_summary": {
+        "verified_citations": 2,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Sato H, Menon K. Faithful Retrieval Evaluation for Generative Systems. Proceedings of NeurIPS. 2024:11233-11251.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "Garcia P, Wu J. Attribution Stress Testing in RAG Pipelines. Proceedings of ACL Findings. 2025:440-459.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.37,
+        0.39,
+        0.38,
+        0.37
+      ],
+      "design_intent": "This case targets fabricated academic references in a domain where plausible paper titles can appear deceptively credible.",
+      "expected_profile": {
+        "reliability": 0.85,
+        "support": 0.73,
+        "hallucination_risk": 0.64,
+        "dsr": 0.08,
+        "cvi": 0.08,
+        "tcri_v3": 0.88
+      },
+      "explanation": "It appears structurally coherent, while the answer remains strongly grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer looks comparatively strong (2/2 verified-like). The current prototype decision is Verify."
+    },
+    {
+      "case_id": "HC-005",
+      "category": "hallucination_cases",
+      "language": "en",
+      "title": "Ancient history answer with nonexistent archival bulletin",
+      "ground_truth_band": "High Risk",
+      "prototype_decision": "Verify",
+      "benchmark_target_decision": "Verify",
+      "target_band_match": false,
+      "prototype_band_match": false,
+      "ground_truth_problematic": true,
+      "metrics": {
+        "reliability": 0.891,
+        "support": 0.812,
+        "hallucination_risk": 0.0,
+        "dsr": 0.04,
+        "cvi": 0.5,
+        "tcri_v3": 0.318
+      },
+      "citation_summary": {
+        "verified_citations": 1,
+        "total_citations": 2
+      },
+      "citation_diagnostics": [
+        {
+          "raw": "Feldman R. Administrative Overreach and Imperial Fragmentation in Akkad. Mesopotamian Archive Review. 2022;14(1):9-29.",
+          "score": 0.76,
+          "status": "verified-like",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Venue-like metadata",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        },
+        {
+          "raw": "British Museum. Excavation Bulletin on the Akkadian Collapse Horizon. London: British Museum Research Papers; 2021.",
+          "score": 0.62,
+          "status": "partially supported",
+          "flags": [
+            "Year present",
+            "Author-like structure",
+            "Adequate descriptive length",
+            "Structured citation formatting"
+          ]
+        }
+      ],
+      "feature_values": [
+        0.33,
+        0.31,
+        0.34,
+        0.32
+      ],
+      "design_intent": "The answer is plausible, but its documentary support is intentionally counterfeit or mismatched.",
+      "expected_profile": {
+        "reliability": 0.79,
+        "support": 0.71,
+        "hallucination_risk": 0.55,
+        "dsr": 0.07,
+        "cvi": 0.15,
+        "tcri_v3": 0.76
+      },
+      "explanation": "It appears structurally coherent, while the answer remains strongly grounded in the question. In this profile, hallucination risk stays comparatively limited, and the numeric context remains relatively stable. the citation layer is mixed (1/2 verified-like). The current prototype decision is Verify."
+    }
+  ]
+}

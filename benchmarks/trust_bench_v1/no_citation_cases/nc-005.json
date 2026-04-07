@@ -1,0 +1,30 @@
+{
+  "id": "NC-005",
+  "category": "no_citation_cases",
+  "language": "en",
+  "title": "History answer with acceptable prose but no supporting references",
+  "question": "Why did the printing press matter in Europe?",
+  "answer": "The printing press mattered because it enabled faster reproduction of texts, lowered copying costs, and widened the circulation of ideas. Even if the summary is broadly reasonable, it cannot be treated as research-grade without a reference layer.",
+  "citations": [],
+  "feature_values": [
+    0.23,
+    0.25,
+    0.21,
+    0.24
+  ],
+  "design_intent": "This case checks whether the system can treat uncited but plausible answers as limited rather than fabricated.",
+  "ground_truth_band": "Verify",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.72,
+    "support": 0.6,
+    "hallucination_risk": 0.2,
+    "dsr": 0.06,
+    "cvi": 0.3,
+    "tcri_v3": 0.45
+  },
+  "tags": [
+    "history",
+    "no_citations"
+  ]
+}

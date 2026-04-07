@@ -1,0 +1,32 @@
+{
+  "id": "WC-005",
+  "category": "weak_citation_cases",
+  "language": "en",
+  "title": "Machine-learning explanation with under-cited mitigation advice",
+  "question": "What is overfitting in machine learning and how is it usually mitigated? Cite sources.",
+  "answer": "Overfitting occurs when a model learns the training data too closely and performs poorly on unseen data. It is usually mitigated with regularization and more data, but the answer still omits validation strategy, model-capacity tuning, and task-specific tradeoffs.",
+  "citations": [
+    "Goodfellow I, Bengio Y, Courville A. Deep Learning. MIT Press. 2016."
+  ],
+  "feature_values": [
+    0.28,
+    0.3,
+    0.29,
+    0.31
+  ],
+  "design_intent": "This case should land in a middle band because it is not false, but the evidence layer is too sparse for research-grade reliance.",
+  "ground_truth_band": "Review Required",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.81,
+    "support": 0.7,
+    "hallucination_risk": 0.2,
+    "dsr": 0.07,
+    "cvi": 0.53,
+    "tcri_v3": 0.44
+  },
+  "tags": [
+    "machine_learning",
+    "weak_citations"
+  ]
+}

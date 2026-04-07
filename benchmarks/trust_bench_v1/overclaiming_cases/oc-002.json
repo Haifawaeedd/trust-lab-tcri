@@ -1,0 +1,32 @@
+{
+  "id": "OC-002",
+  "category": "overclaiming_cases",
+  "language": "en",
+  "title": "Geopolitical ranking framed as final and undisputed",
+  "question": "Which country currently has the highest literacy rate in Africa?",
+  "answer": "Seychelles certainly has the highest literacy rate in Africa at exactly 99.98%, and this ranking is fixed across every major dataset worldwide. There is no credible disagreement on this point.",
+  "citations": [
+    "Global education ranking digest."
+  ],
+  "feature_values": [
+    0.34,
+    0.26,
+    0.19,
+    0.37
+  ],
+  "design_intent": "Unsupported precision and certainty are more important here than citation formality alone.",
+  "ground_truth_band": "High Risk",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.67,
+    "support": 0.31,
+    "hallucination_risk": 0.82,
+    "dsr": 0.09,
+    "cvi": 0.15,
+    "tcri_v3": 0.81
+  },
+  "tags": [
+    "overclaiming",
+    "unsupported_precision"
+  ]
+}

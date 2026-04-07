@@ -1,0 +1,34 @@
+{
+  "id": "HC-005",
+  "category": "hallucination_cases",
+  "language": "en",
+  "title": "Ancient history answer with nonexistent archival bulletin",
+  "question": "Describe how historians interpret the fall of the Akkadian Empire and cite two sources.",
+  "answer": "Historians often interpret the fall of the Akkadian Empire as a combination of political overstretch, local revolt, and environmental stress. Two frequently cited sources are a 2022 Mesopotamian Archive Review article and a British Museum excavation bulletin that allegedly synthesize these competing explanations.",
+  "citations": [
+    "Feldman R. Administrative Overreach and Imperial Fragmentation in Akkad. Mesopotamian Archive Review. 2022;14(1):9-29.",
+    "British Museum. Excavation Bulletin on the Akkadian Collapse Horizon. London: British Museum Research Papers; 2021."
+  ],
+  "feature_values": [
+    0.33,
+    0.31,
+    0.34,
+    0.32
+  ],
+  "design_intent": "The answer is plausible, but its documentary support is intentionally counterfeit or mismatched.",
+  "ground_truth_band": "High Risk",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.79,
+    "support": 0.71,
+    "hallucination_risk": 0.55,
+    "dsr": 0.07,
+    "cvi": 0.15,
+    "tcri_v3": 0.76
+  },
+  "tags": [
+    "hallucination",
+    "history",
+    "fabricated_citations"
+  ]
+}

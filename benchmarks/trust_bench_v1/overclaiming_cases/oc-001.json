@@ -1,0 +1,33 @@
+{
+  "id": "OC-001",
+  "category": "overclaiming_cases",
+  "language": "en",
+  "title": "Absolute accuracy claim for machine learning models",
+  "question": "Can one method always guarantee perfect accuracy in all machine learning models?",
+  "answer": "Yes. This method always guarantees perfect accuracy in all machine learning models, regardless of data quality, domain, or architecture. It is the definitive solution and does not require further validation.",
+  "citations": [
+    "Unknown AI report."
+  ],
+  "feature_values": [
+    0.39,
+    0.22,
+    0.18,
+    0.41
+  ],
+  "design_intent": "An intentionally extreme certainty claim with very weak evidence support.",
+  "ground_truth_band": "Critical",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.62,
+    "support": 0.24,
+    "hallucination_risk": 0.95,
+    "dsr": 0.11,
+    "cvi": 0.08,
+    "tcri_v3": 0.92
+  },
+  "tags": [
+    "overclaiming",
+    "absolute_language",
+    "machine_learning"
+  ]
+}

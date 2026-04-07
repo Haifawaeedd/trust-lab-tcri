@@ -1,0 +1,33 @@
+{
+  "id": "WC-003",
+  "category": "weak_citation_cases",
+  "language": "ar",
+  "title": "إجابة عربية صحيحة جزئيًا مع توثيق ناقص",
+  "question": "اشرح بإيجاز لماذا تُعدّ مقاومة المضادات الحيوية مشكلة صحية عالمية مع ذكر مراجع.",
+  "answer": "تُعد مقاومة المضادات الحيوية مشكلة صحية عالمية لأنها تقلل فعالية العلاج وتزيد مخاطر العدوى الشديدة والوفيات. هذه الفكرة صحيحة في أصلها، لكن التوثيق المرفق لا يكفي وحده لدعم مدى الادعاء أو توضيح التفاوت بين السياقات الصحية المختلفة.",
+  "citations": [
+    "World Health Organization. Antimicrobial resistance. Fact sheet. 2023."
+  ],
+  "feature_values": [
+    0.31,
+    0.34,
+    0.32,
+    0.33
+  ],
+  "design_intent": "تمثل هذه الحالة إجابة نافعة لكنها غير مكتملة توثيقيًا بالنسبة للاستعمال البحثي.",
+  "ground_truth_band": "Review Required",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.79,
+    "support": 0.66,
+    "hallucination_risk": 0.23,
+    "dsr": 0.07,
+    "cvi": 0.49,
+    "tcri_v3": 0.48
+  },
+  "tags": [
+    "arabic",
+    "weak_citations",
+    "public_health"
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "id": "NC-001",
+  "category": "no_citation_cases",
+  "language": "en",
+  "title": "Reasonable health explanation without any references",
+  "question": "Why is sleep important for cognitive performance?",
+  "answer": "Sleep is important for cognitive performance because it supports memory consolidation, attention regulation, and emotional stability. The answer is broadly reasonable, but it provides no sources and does not specify the quality or limits of the evidence.",
+  "citations": [],
+  "feature_values": [
+    0.24,
+    0.28,
+    0.22,
+    0.26
+  ],
+  "design_intent": "A plausible no-citation case that should remain reviewable rather than collapse into the highest-risk band.",
+  "ground_truth_band": "Verify",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.72,
+    "support": 0.61,
+    "hallucination_risk": 0.21,
+    "dsr": 0.07,
+    "cvi": 0.3,
+    "tcri_v3": 0.44
+  },
+  "tags": [
+    "no_citations",
+    "health"
+  ]
+}

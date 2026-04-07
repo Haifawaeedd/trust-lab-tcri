@@ -1,0 +1,31 @@
+{
+  "id": "NC-003",
+  "category": "no_citation_cases",
+  "language": "ar",
+  "title": "إجابة عربية متزنة بلا مراجع",
+  "question": "لماذا تؤثر الحرارة الشديدة في المدن على الصحة العامة؟",
+  "answer": "تؤثر الحرارة الشديدة في المدن على الصحة العامة لأنها تزيد الإجهاد الحراري، وترفع أخطار بعض المضاعفات القلبية والتنفسية، وتؤثر بصورة غير متساوية في الفئات الأكثر هشاشة. الإجابة معقولة لكنها تظل غير موثقة لغياب المراجع بشكل كامل.",
+  "citations": [],
+  "feature_values": [
+    0.25,
+    0.27,
+    0.23,
+    0.24
+  ],
+  "design_intent": "حالة لاختبار أن غياب المراجع لا يساوي تلقائيًا هلوسة كاملة أو خطرًا حرجًا.",
+  "ground_truth_band": "Verify",
+  "ground_truth_problematic": true,
+  "expected_profile": {
+    "reliability": 0.73,
+    "support": 0.62,
+    "hallucination_risk": 0.2,
+    "dsr": 0.06,
+    "cvi": 0.3,
+    "tcri_v3": 0.43
+  },
+  "tags": [
+    "arabic",
+    "no_citations",
+    "public_health"
+  ]
+}
