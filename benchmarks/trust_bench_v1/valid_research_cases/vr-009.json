@@ -1,0 +1,34 @@
+{
+  "id": "VR-009",
+  "category": "valid_research_cases",
+  "language": "en",
+  "title": "Pollination answer with restrained food-systems framing",
+  "question": "Why do pollinators matter for food systems? Provide references.",
+  "answer": "Pollinators matter for food systems because they support the reproduction of many crops and wild plants, helping sustain both agricultural productivity and ecosystem resilience. Policy and assessment reports usually describe their importance in probabilistic terms, noting that dependence varies by crop, region, and management conditions rather than following a single uniform pattern.",
+  "citations": [
+    "Intergovernmental Science-Policy Platform on Biodiversity and Ecosystem Services. The Assessment Report on Pollinators, Pollination and Food Production. 2016.",
+    "Food and Agriculture Organization of the United Nations. Pollination services for sustainable agriculture. 2018."
+  ],
+  "feature_values": [
+    0.18,
+    0.19,
+    0.17,
+    0.16
+  ],
+  "design_intent": "A valid environmental case that stays cautious about scope and uses institutional references.",
+  "ground_truth_band": "Verify",
+  "ground_truth_problematic": false,
+  "expected_profile": {
+    "reliability": 0.85,
+    "support": 0.83,
+    "hallucination_risk": 0.13,
+    "dsr": 0.05,
+    "cvi": 0.8,
+    "tcri_v3": 0.21
+  },
+  "tags": [
+    "environment",
+    "pollination",
+    "food_systems"
+  ]
+}

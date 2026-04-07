@@ -1,0 +1,11 @@
+case_id,title,language,clean_score,weakened_score,fabricated_score,exaggerated_score,clean_band,weakened_band,fabricated_band,exaggerated_band,clean_cvi,weakened_cvi,fabricated_cvi,exaggerated_cvi,monotonic_chain_success,exaggeration_increase_success,full_success
+VR-001,Balanced explanation of normalization in machine learning,en,0.701,0.765,0.701,0.797,High Risk,High Risk,High Risk,High Risk,1.0,0.0,1.0,1.0,False,True,False
+VR-002,Public-health answer with specific WHO framing,en,0.444,0.444,0.387,0.563,Verify,Verify,Verify,Review Required,0.0,0.0,1.0,0.0,False,True,False
+VR-003,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,ar,0.477,0.477,0.417,0.576,Verify,Verify,Verify,Review Required,0.0,0.0,1.0,0.0,False,True,False
+VR-004,Climate adaptation answer with moderate scope control,en,0.503,0.503,0.441,0.623,Review Required,Review Required,Verify,Review Required,0.0,0.0,1.0,0.0,False,True,False
+VR-005,Cybersecurity answer describing zero-trust architecture carefully,en,0.44,0.469,0.41,0.549,Verify,Verify,Verify,Review Required,0.5,0.0,1.0,0.5,False,True,False
+VR-006,Systematic-review answer describing why evidence synthesis matters,en,0.396,0.423,0.368,0.523,Verify,Verify,Verify,Review Required,0.5,0.0,1.0,0.5,False,True,False
+VR-007,Careful explanation of differential privacy as a statistical safeguard,en,0.434,0.495,0.434,0.558,Verify,Verify,Verify,Review Required,1.0,0.0,1.0,1.0,False,True,False
+VR-008,Education answer on the role of formative assessment,en,0.441,0.469,0.41,0.544,Verify,Verify,Verify,Review Required,0.5,0.0,1.0,0.5,False,True,False
+VR-009,Pollination answer with restrained food-systems framing,en,0.434,0.462,0.404,0.544,Verify,Verify,Verify,Review Required,0.5,0.0,1.0,0.5,False,True,False
+VR-010,إجابة عربية منضبطة حول التقييم التكويني في التعليم,ar,0.696,0.728,0.662,0.785,Review Required,High Risk,Review Required,High Risk,0.5,0.0,1.0,0.5,False,True,False

@@ -3,7 +3,7 @@
   "repository": "trust-lab-tcri",
   "version": "1.0",
   "description": "A folder-structured benchmark set for evaluating citation-aware trust judgments in research-style AI outputs.",
-  "case_count": 25,
+  "case_count": 30,
   "categories": [
     {
       "slug": "valid_research_cases",
@@ -81,6 +81,46 @@
       "title": "Cybersecurity answer describing zero-trust architecture carefully",
       "ground_truth_band": "Verify",
       "path": "valid_research_cases/vr-005.json"
+    },
+    {
+      "id": "VR-006",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Systematic-review answer describing why evidence synthesis matters",
+      "ground_truth_band": "Verify",
+      "path": "valid_research_cases/vr-006.json"
+    },
+    {
+      "id": "VR-007",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Careful explanation of differential privacy as a statistical safeguard",
+      "ground_truth_band": "Verify",
+      "path": "valid_research_cases/vr-007.json"
+    },
+    {
+      "id": "VR-008",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Education answer on the role of formative assessment",
+      "ground_truth_band": "Verify",
+      "path": "valid_research_cases/vr-008.json"
+    },
+    {
+      "id": "VR-009",
+      "category": "valid_research_cases",
+      "language": "en",
+      "title": "Pollination answer with restrained food-systems framing",
+      "ground_truth_band": "Verify",
+      "path": "valid_research_cases/vr-009.json"
+    },
+    {
+      "id": "VR-010",
+      "category": "valid_research_cases",
+      "language": "ar",
+      "title": "إجابة عربية منضبطة حول التقييم التكويني في التعليم",
+      "ground_truth_band": "Verify",
+      "path": "valid_research_cases/vr-010.json"
     },
     {
       "id": "WC-001",

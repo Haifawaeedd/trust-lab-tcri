@@ -1,0 +1,16 @@
+{
+  "experiment": "evidence_corruption_v1",
+  "selection_rule": "first 10 cases from valid_research_cases after expanding the clean set to 10 cases",
+  "selected_case_ids": [
+    "VR-001",
+    "VR-002",
+    "VR-003",
+    "VR-004",
+    "VR-005",
+    "VR-006",
+    "VR-007",
+    "VR-008",
+    "VR-009",
+    "VR-010"
+  ]
+}

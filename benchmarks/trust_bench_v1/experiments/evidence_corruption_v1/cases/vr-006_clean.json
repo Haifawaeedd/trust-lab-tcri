@@ -1,0 +1,36 @@
+{
+  "id": "VR-006-CLEAN",
+  "category": "valid_research_cases",
+  "language": "en",
+  "title": "Systematic-review answer describing why evidence synthesis matters [clean]",
+  "question": "Why are systematic reviews often treated as strong forms of evidence in health research? Provide references.",
+  "answer": "Systematic reviews are often treated as strong forms of evidence because they synthesize findings across multiple studies using explicit inclusion criteria and transparent review methods. They can reduce selective reading of isolated results and help decision-makers compare the consistency, quality, and limits of an evidence base rather than relying on a single study.",
+  "citations": [
+    "Higgins JPT, Thomas J, Chandler J, Cumpston M, Li T, Page MJ, Welch VA. Cochrane Handbook for Systematic Reviews of Interventions. Wiley. 2022.",
+    "Murad MH, Asi N, Alsawas M, Alahdab F. New evidence pyramid. Evidence Based Medicine. 2016."
+  ],
+  "feature_values": [
+    0.16,
+    0.18,
+    0.17,
+    0.15
+  ],
+  "design_intent": "A low-risk evidence-synthesis case with cautious wording and two recognizable sources.",
+  "ground_truth_band": "Verify",
+  "ground_truth_problematic": false,
+  "expected_profile": {
+    "reliability": 0.85,
+    "support": 0.83,
+    "hallucination_risk": 0.12,
+    "dsr": 0.05,
+    "cvi": 0.85,
+    "tcri_v3": 0.19
+  },
+  "tags": [
+    "evidence_synthesis",
+    "systematic_review",
+    "citation_quality"
+  ],
+  "source_case_id": "VR-006",
+  "experiment_variant": "clean"
+}

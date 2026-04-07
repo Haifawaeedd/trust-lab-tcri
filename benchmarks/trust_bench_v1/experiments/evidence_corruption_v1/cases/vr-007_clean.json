@@ -1,0 +1,36 @@
+{
+  "id": "VR-007-CLEAN",
+  "category": "valid_research_cases",
+  "language": "en",
+  "title": "Careful explanation of differential privacy as a statistical safeguard [clean]",
+  "question": "Explain what differential privacy is and why it is used. Include references.",
+  "answer": "Differential privacy is a statistical privacy framework that limits how much a single person's data can change the output of an analysis. It is used to reduce disclosure risk when publishing aggregate statistics or training data-driven systems, while making the privacy-utility tradeoff explicit rather than assumed.",
+  "citations": [
+    "Dwork C, Roth A. The Algorithmic Foundations of Differential Privacy. Foundations and Trends in Theoretical Computer Science. 2014.",
+    "National Institute of Standards and Technology. Differential Privacy Engineering. NIST Cybersecurity White Paper. 2023."
+  ],
+  "feature_values": [
+    0.14,
+    0.16,
+    0.15,
+    0.17
+  ],
+  "design_intent": "A measured technical explanation with standard references and no absolute guarantees.",
+  "ground_truth_band": "Verify",
+  "ground_truth_problematic": false,
+  "expected_profile": {
+    "reliability": 0.86,
+    "support": 0.82,
+    "hallucination_risk": 0.11,
+    "dsr": 0.05,
+    "cvi": 0.86,
+    "tcri_v3": 0.18
+  },
+  "tags": [
+    "privacy",
+    "differential_privacy",
+    "technical_reference"
+  ],
+  "source_case_id": "VR-007",
+  "experiment_variant": "clean"
+}

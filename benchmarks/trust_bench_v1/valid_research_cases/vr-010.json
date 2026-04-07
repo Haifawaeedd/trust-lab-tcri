@@ -1,0 +1,34 @@
+{
+  "id": "VR-010",
+  "category": "valid_research_cases",
+  "language": "ar",
+  "title": "إجابة عربية منضبطة حول التقييم التكويني في التعليم",
+  "question": "ما المقصود بالتقييم التكويني في التعليم، ولماذا يُستخدم؟ اذكر مراجع.",
+  "answer": "يقصد بالتقييم التكويني مجموعة الممارسات الصفية التي تولد تغذية راجعة أثناء عملية التعلم بدل الاكتفاء بالحكم النهائي في نهايتها. ويُستخدم لأنه يساعد المعلم على تعديل التدريس مبكرًا، ويكشف مواطن الفهم الناقص، ويدعم الطالب في معرفة معايير الأداء الجيد قبل التقييم الختامي.",
+  "citations": [
+    "Black P, Wiliam D. Assessment and Classroom Learning. Assessment in Education. 1998.",
+    "Heritage M. Formative Assessment: Making It Happen in the Classroom. Corwin Press. 2010."
+  ],
+  "feature_values": [
+    0.16,
+    0.17,
+    0.18,
+    0.16
+  ],
+  "design_intent": "حالة عربية سليمة نسبيًا بصياغة تربوية متوازنة مع مراجع منظمة وواضحة.",
+  "ground_truth_band": "Verify",
+  "ground_truth_problematic": false,
+  "expected_profile": {
+    "reliability": 0.84,
+    "support": 0.8,
+    "hallucination_risk": 0.13,
+    "dsr": 0.05,
+    "cvi": 0.82,
+    "tcri_v3": 0.2
+  },
+  "tags": [
+    "education",
+    "arabic_case",
+    "formative_assessment"
+  ]
+}

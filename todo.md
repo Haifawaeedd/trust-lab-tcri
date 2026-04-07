@@ -170,3 +170,43 @@
 - [ ] Present TCRI, DSR, CVI, decision status, and explanation outputs clearly in the interface
 - [ ] Polish the Methodology and Project pages so they read as a complete research-facing public prototype
 - [ ] Validate the full interface, save a new checkpoint, and prepare the next GitHub-ready release state
+
+## GitHub Contributor Attribution Cleanup
+
+- [ ] Inspect the local git author and committer history to identify why `manus-agent / Manus` appears in the GitHub contributors panel
+- [ ] Check the current repository remotes, branch state, and recent commits before making any history changes
+- [ ] Determine whether the visible contributor can be removed by normal forward commits or whether history rewriting would be required
+- [ ] Rewrite all existing `Manus <dev-agent@manus.ai>` authored and committed history to `Haifaa Owayed <haifawaeed2015@gmail.com>` while preserving repository contents
+- [ ] Force-sync the rewritten repository history to GitHub and verify the expected result and any remaining limitations
+- [ ] Inspect GitHub-side contributor APIs, branch refs, and cached attribution signals after the rewrite
+- [ ] Remove any remaining repository-side references that could keep `manus-agent / Manus` visible as a contributor
+- [ ] Re-check the GitHub contributors panel behavior and report whether any remaining visibility is caused by GitHub-side caching
+
+## TrustNet Research Direction
+
+- [ ] Assess whether a learned trust-risk classifier would materially strengthen TRUST-LAB's originality compared with the current heuristic TCRI/CVI pipeline
+- [ ] Audit `TRUST-BENCH` for label consistency, class balance, and dataset sufficiency before using it for supervised learning
+- [ ] Convert the benchmark cases into training-ready JSONL classification format with question, answer, citations, and label fields
+- [ ] Define the first modeling baseline for `TrustNet`, including label mapping, train/validation/test splits, and evaluation metrics
+- [ ] Plan a direct comparison between the heuristic TRUST-LAB system and the learned classifier so the research contribution can be stated clearly
+
+## Original Research Redirection
+
+- [ ] Define the minimum originality bar for the next TRUST-LAB direction so it is not merely assembly or integration
+- [ ] Generate candidate project concepts that introduce a new core mechanism, formal model, optimization objective, or learning framework
+- [ ] Select the strongest originality-first concept and state its precise novelty claim in one sentence
+- [ ] Outline the smallest credible prototype and evaluation plan for the chosen original concept
+
+## GitHub Edit Clarification
+
+- [ ] Confirm which exact GitHub-side edits the user wants to start with before changing repository files or settings
+- [ ] Synchronize any future meaningful TRUST-LAB repository update to GitHub after the local change is completed
+- [ ] Explicitly report GitHub synchronization status to the user whenever an update is made
+
+## Experiment 1 — Evidence Corruption Perturbation Study
+
+- [ ] Select 10 strong cases from `benchmarks/trust_bench_v1/valid_research_cases` as the clean evaluation set
+- [ ] Create three perturbed variants for each selected case: weakened citation, fabricated citation, and claim exaggeration
+- [ ] Run the current TRUST-LAB evaluator on all clean and perturbed variants and collect the resulting scores and decision bands
+- [ ] Test whether the trust-risk ordering behaves rationally under evidence corruption for each case
+- [ ] Summarize the experiment in a research-style table and sync the results to GitHub

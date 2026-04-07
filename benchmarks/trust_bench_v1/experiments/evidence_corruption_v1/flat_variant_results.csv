@@ -1,0 +1,41 @@
+base_case_id,variant,title,language,risk_score,benchmark_band,prototype_decision,cvi,support,hallucination_risk
+VR-001,clean,Balanced explanation of normalization in machine learning,en,0.701,High Risk,High Risk,1.0,0.328,0.435
+VR-001,weakened,Balanced explanation of normalization in machine learning,en,0.765,High Risk,High Risk,0.0,0.328,0.435
+VR-001,fabricated,Balanced explanation of normalization in machine learning,en,0.701,High Risk,High Risk,1.0,0.328,0.435
+VR-001,exaggerated,Balanced explanation of normalization in machine learning,en,0.797,High Risk,High Risk,1.0,0.328,1.0
+VR-002,clean,Public-health answer with specific WHO framing,en,0.444,Verify,Verify,0.0,0.666,0.08
+VR-002,weakened,Public-health answer with specific WHO framing,en,0.444,Verify,Verify,0.0,0.666,0.08
+VR-002,fabricated,Public-health answer with specific WHO framing,en,0.387,Verify,Verify,1.0,0.666,0.08
+VR-002,exaggerated,Public-health answer with specific WHO framing,en,0.563,Review Required,Verify,0.0,0.666,0.6
+VR-003,clean,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,ar,0.477,Verify,Verify,0.0,0.699,0.08
+VR-003,weakened,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,ar,0.477,Verify,Verify,0.0,0.699,0.08
+VR-003,fabricated,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,ar,0.417,Verify,Verify,1.0,0.699,0.08
+VR-003,exaggerated,إجابة عربية منضبطة حول مقاومة المضادات الحيوية,ar,0.576,Review Required,Verify,0.0,0.699,0.35
+VR-004,clean,Climate adaptation answer with moderate scope control,en,0.503,Review Required,Verify,0.0,0.577,0.08
+VR-004,weakened,Climate adaptation answer with moderate scope control,en,0.503,Review Required,Verify,0.0,0.577,0.08
+VR-004,fabricated,Climate adaptation answer with moderate scope control,en,0.441,Verify,Verify,1.0,0.577,0.08
+VR-004,exaggerated,Climate adaptation answer with moderate scope control,en,0.623,Review Required,High Risk,0.0,0.577,0.6
+VR-005,clean,Cybersecurity answer describing zero-trust architecture carefully,en,0.44,Verify,Verify,0.5,0.707,0.08
+VR-005,weakened,Cybersecurity answer describing zero-trust architecture carefully,en,0.469,Verify,Verify,0.0,0.707,0.08
+VR-005,fabricated,Cybersecurity answer describing zero-trust architecture carefully,en,0.41,Verify,Verify,1.0,0.707,0.08
+VR-005,exaggerated,Cybersecurity answer describing zero-trust architecture carefully,en,0.549,Review Required,Verify,0.5,0.707,0.6
+VR-006,clean,Systematic-review answer describing why evidence synthesis matters,en,0.396,Verify,Verify,0.5,0.699,0.0
+VR-006,weakened,Systematic-review answer describing why evidence synthesis matters,en,0.423,Verify,Verify,0.0,0.699,0.0
+VR-006,fabricated,Systematic-review answer describing why evidence synthesis matters,en,0.368,Verify,Verify,1.0,0.699,0.0
+VR-006,exaggerated,Systematic-review answer describing why evidence synthesis matters,en,0.523,Review Required,Verify,0.5,0.699,0.5
+VR-007,clean,Careful explanation of differential privacy as a statistical safeguard,en,0.434,Verify,Verify,1.0,0.57,0.03
+VR-007,weakened,Careful explanation of differential privacy as a statistical safeguard,en,0.495,Verify,Verify,0.0,0.57,0.03
+VR-007,fabricated,Careful explanation of differential privacy as a statistical safeguard,en,0.434,Verify,Verify,1.0,0.57,0.03
+VR-007,exaggerated,Careful explanation of differential privacy as a statistical safeguard,en,0.558,Review Required,Verify,1.0,0.57,0.55
+VR-008,clean,Education answer on the role of formative assessment,en,0.441,Verify,Verify,0.5,0.707,0.08
+VR-008,weakened,Education answer on the role of formative assessment,en,0.469,Verify,Verify,0.0,0.707,0.08
+VR-008,fabricated,Education answer on the role of formative assessment,en,0.41,Verify,Verify,1.0,0.707,0.08
+VR-008,exaggerated,Education answer on the role of formative assessment,en,0.544,Review Required,Verify,0.5,0.707,0.6
+VR-009,clean,Pollination answer with restrained food-systems framing,en,0.434,Verify,Verify,0.5,0.707,0.08
+VR-009,weakened,Pollination answer with restrained food-systems framing,en,0.462,Verify,Verify,0.0,0.707,0.08
+VR-009,fabricated,Pollination answer with restrained food-systems framing,en,0.404,Verify,Verify,1.0,0.707,0.08
+VR-009,exaggerated,Pollination answer with restrained food-systems framing,en,0.544,Review Required,Verify,0.5,0.707,0.6
+VR-010,clean,إجابة عربية منضبطة حول التقييم التكويني في التعليم,ar,0.696,Review Required,High Risk,0.5,0.368,0.327
+VR-010,weakened,إجابة عربية منضبطة حول التقييم التكويني في التعليم,ar,0.728,High Risk,High Risk,0.0,0.368,0.327
+VR-010,fabricated,إجابة عربية منضبطة حول التقييم التكويني في التعليم,ar,0.662,Review Required,High Risk,1.0,0.368,0.327
+VR-010,exaggerated,إجابة عربية منضبطة حول التقييم التكويني في التعليم,ar,0.785,High Risk,High Risk,0.5,0.368,0.597
